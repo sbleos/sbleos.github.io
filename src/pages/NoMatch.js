@@ -1,10 +1,13 @@
 import React from 'react';
 
 
-function NoMatch() {
-  return (
-    <div>404</div>
-  );
+export default class NoMatch extends React.Component {
+  componentDidMount(){
+    document.title = "Page Not Found | SB Leo Club";
+  }
+  render(){
+    return (
+      <div>404</div>
+    )}
 }
 
-export default NoMatch;

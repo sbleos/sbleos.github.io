@@ -25,21 +25,26 @@ function Dashboard({match}) {
   );
 }
 */
-function Dashboard(props) {
-  return (
-    <Router>
-      <NavDash options={options}/>
-      <DashFrame>
-        {options.map((option) => (
-            <Route path={`dashboard/:option`} component={option}/>
-        ))}
-        
-      </DashFrame>
-    </Router>
-  );
+export default class Dashboard extends React.Component{
+
+  componentDidMount(){
+    document.title = "Dashboard | SB Leo Club";
+  }
+  render(){
+    return (
+      <Router>
+        <NavDash options={options}/>
+        <DashFrame>
+          {options.map((option) => (
+              <Route path={`dashboard/:option`} component={option}/>
+          ))}
+          
+        </DashFrame>
+      </Router>
+    )}
 }
 
-export default Dashboard;
+
 /*
 <DashFrame>
 <Route path="/dashboard" component={Dash} />
