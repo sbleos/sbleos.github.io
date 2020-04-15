@@ -1,6 +1,6 @@
 import React from 'react';
 import Events from '../components/Events';
-import PDF from "../assets/leo50a_en.pdf";
+import SignupForm from '../components/SignupForm';
 
 export default class Home extends React.Component {
   componentDidMount(){
@@ -16,23 +16,9 @@ export default class Home extends React.Component {
             <div className="row">
               <h1 className="display-1 col-8" style={{"fontSize":"6vw",color:"#F9C910","textShadow": "2px 2px 0px #000000"}} >South Brunswick Leo Club</h1>
               <div className="col-4" style={{"display":"relative"}}>
-                <form style={{"zIndex":20,"position":"absolute","borderRadius":"4px","boxShadow":"0 16px 40px rgba(0,0,0,0.12)"}} className="bg-white p-4">
-                  <h2>Join Now</h2>
-                  <p>Sign up to receive all club emails. If you are registered through MyLCI, you will be given access to a personal dashboard.</p>
-                  <div className="form-row">
-                    <div className="form-group col-md-6 col-sm-12">
-                      <input type="text" className="form-control" placeholder="First Name"></input>
-                    </div>
-                    <div className="form-group col-md-6 col-sm-12">
-                      <input type="text" className="form-control" placeholder="Last Name"></input>
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <input type="email" className="form-control" id="inputEmail" placeholder="Email"></input>
-                  </div>
-                  <a href={PDF} style={{"margin":"1rem 0","display":"block"}} target='_blank' rel="noopener">Registration form</a>
-                  <button type="submit" className="btn btn-primary">Get Started!</button>
-                </form>
+                <div style={{"zIndex":20,"position":"absolute","borderRadius":"4px","boxShadow":"0 16px 40px rgba(0,0,0,0.12)"}} className="bg-white p-4">
+                  <SignupForm />
+                </div>
               </div>
             </div>
             <div className="row">
