@@ -1,6 +1,8 @@
 import React from 'react';
 
 // Keep the Event Descriptions less than 20 words to look nice because all cards in row follow same dimensions as max width/height
+// Any events that do not have a date will be placed at the end when asked for all or upcoming events
+// WHICH MEANS YOU SHOULD ALWAYS SPECIFY A DATE SO IT IS PROPERLY SORTED
 var events = [
   {
     title: "Diabetes",
@@ -31,6 +33,7 @@ var events = [
   },
   {
     title: "Hunger",
+    date: "5/9/20 9:30 am",
     description: "Event Description",
     type: "hunger",
     imgsrc: require("../assets/home/home_1.jpg"),
@@ -40,6 +43,7 @@ var events = [
   },
   {
     title: "Environment",
+    date: "1/1/20 1:30 pm",
     description: "Event Description",
     type: "environment",
     imgsrc: require("../assets/home/home_1.jpg"),
@@ -49,6 +53,7 @@ var events = [
   },
   {
     title: "Childhood Cancer",
+    date: "7/25/20 5:30 pm",
     description: "Event Description",
     type: "childhood cancer",
     imgsrc: require("../assets/home/home_1.jpg"),
@@ -58,13 +63,26 @@ var events = [
   }
 ];
 
-function UpcomingEvents(){
-  const upcomingEvents = events.sort((a, b) => new Date(a.date) - new Date(b.date)).map((events,index) => {
+
+//Can get all events, upcoming events, or previous events (if not specified as either upcoming or previous, it defaults to all events)
+function Events(props){
+  let e = events.sort((a, b) => new Date(a.date) - new Date(b.date)); // all events
+
+  const today = new Date();
+  if(props.type.toLowerCase() === "upcoming")
+    e = e.filter(a => new Date(a.date) >= today || !a.date); //this will show events without a date as upcoming, BUT SPECIFY A DATE SO IT IS SORTED PROPERLY
+  else if(props.type.toLowerCase() === "previous")
+    e = e.filter(a => new Date(a.date) < today).reverse();
+
+  if(props.max && Number.isInteger(props.max)) //if you want to only show a few at a time, REMEMBER TO PASS A NUMBER IN BRACKETS
+    e = e.slice(0,props.max);
+
+  e = e.map((events,index) => {
     let border = "2px solid rgba(0,0,0,0.125)";
     if(events.type){
       let type = events.type.toLowerCase();
       if(type === "diabetes" || type === "d")
-        border = "2px solid rgb(102,177,224)"; 
+        border = "2px solid rgb(102,177,224)";
       else if(type === "vision" || type === "v")
         border = "2px solid rgb(92,38,104)";
       else if(type === "hunger" || type === "h")
@@ -75,7 +93,7 @@ function UpcomingEvents(){
         border = "2px solid rgb(241,196,48)";
     }
     const options = {year: "numeric", month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit"}; //to format event dates
-    return(<UpcomingEvent 
+    return(<Event
                           key = {index}
                           title = {events.title}
                           date = {new Date(events.date).toLocaleTimeString("en-us", options)}
@@ -87,11 +105,11 @@ function UpcomingEvents(){
                           border = {border} />
     )});
 
-  return(<div className="row">{upcomingEvents}</div>)
+  return(<div className="row">{e}</div>)
 }
 
 
-export const UpcomingEvent = props => (
+export const Event = props => (
   <div className="col-sm-6 col-md-4 col-lg-3 d-flex">
     <div className="card mb-4 flex-fill" style={{"border": props.border}}>
       {props.imgsrc && <img className="card-img-top" src={props.imgsrc} alt={props.imgDescription}></img>}
@@ -107,4 +125,6 @@ export const UpcomingEvent = props => (
   </div>
 )
 
-export default UpcomingEvents;
+
+
+export default Events;
