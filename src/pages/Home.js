@@ -1,5 +1,5 @@
 import React from 'react';
-import Events from '../components/Events';
+import UpcomingEvents from '../components/UpcomingEvents';
 import PDF from "../assets/leo50a_en.pdf";
 
 export default class Home extends React.Component {
@@ -19,19 +19,19 @@ export default class Home extends React.Component {
                 <form style={{"zIndex":20,"position":"absolute","borderRadius":"4px","boxShadow":"0 16px 40px rgba(0,0,0,0.12)"}} className="bg-white p-4">
                   <h2>Join Now</h2>
                   <p>Sign up to receive all club emails. If you are registered through MyLCI, you will be given access to a personal dashboard.</p>
-                  <div className="form-row">
-                    <div className="form-group col-md-6 col-sm-12">
-                      <input type="text" className="form-control" placeholder="First Name"></input>
+                  <div class="form-row">
+                    <div class="form-group col-md-6 col-sm-12">
+                      <input type="text" class="form-control" placeholder="First Name"></input>
                     </div>
-                    <div className="form-group col-md-6 col-sm-12">
-                      <input type="text" className="form-control" placeholder="Last Name"></input>
+                    <div class="form-group col-md-6 col-sm-12">
+                      <input type="text" class="form-control" placeholder="Last Name"></input>
                     </div>
                   </div>
-                  <div className="form-group">
-                    <input type="email" className="form-control" id="inputEmail" placeholder="Email"></input>
+                  <div class="form-group">
+                    <input type="email" class="form-control" id="inputEmail" placeholder="Email"></input>
                   </div>
                   <a href={PDF} style={{"margin":"1rem 0","display":"block"}} target='_blank' rel="noopener">Registration form</a>
-                  <button type="submit" className="btn btn-primary">Get Started!</button>
+                  <button type="submit" class="btn btn-primary">Get Started!</button>
                 </form>
               </div>
             </div>
@@ -53,14 +53,12 @@ export default class Home extends React.Component {
             </div>
           </div>
         </div>
-
+  
         <div className="container">
           <h1>Upcoming Events</h1>
-          <Events type="upcoming"/>
-
-          <h1>Previous Events</h1>
-          <Events type="previous" max={4}/>
+          <UpcomingEvents />
         </div>
+  
       </div>
     )}
 }
