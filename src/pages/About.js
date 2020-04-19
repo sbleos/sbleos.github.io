@@ -6,6 +6,7 @@ import { Breadcrumb } from '../components/Layout';
 export default class About extends React.Component {
   componentDidMount(){
     document.title = "About | SB Leo Club";
+    window.scrollTo(0, 0);
   }
 
   render(){

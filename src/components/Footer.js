@@ -17,7 +17,7 @@ const footer = {
 }
 
 const Footer = () => (
- 
+
   <footer>
     <div className="footer" id="footer" style={footer}>
         <div className="container" >
@@ -40,8 +40,8 @@ const Footer = () => (
         </div>
     </div>
 
-                          
-   
+
+
   </footer>
 
   );

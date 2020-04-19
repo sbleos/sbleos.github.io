@@ -24,6 +24,7 @@ export default class Projects extends React.Component{
 
   componentDidMount(){
     document.title = "Projects | SB Leo Club";
+    window.scrollTo(0, 0);
   }
 
   render(){
@@ -32,8 +33,8 @@ export default class Projects extends React.Component{
         <Breadcrumb directory={[{"path":"/projects","name":"Projects"}]} />
         <div className="container">
           <div className="text-center" dangerouslySetInnerHTML={ {__html:  iframe}} />
-    
-    
+
+
           <div className="card" style={{margin:"3rem 0","border":"2px solid rgb(102,177,224)"}}>
             <div className="card-header display-4">Diabetes</div>
             <div className="card-body">
@@ -48,7 +49,7 @@ export default class Projects extends React.Component{
               </div>
             </div>
           </div>
-    
+
           <div className="card" style={{margin:"3rem 0","border":"2px solid rgb(92,38,104)"}}>
             <div className="card-header display-4">Vision</div>
             <div className="card-body">
@@ -63,7 +64,7 @@ export default class Projects extends React.Component{
               </div>
             </div>
           </div>
-    
+
           <div className="card" style={{margin:"3rem 0","border":"2px solid rgb(246,130,61)"}}>
             <div className="card-header display-4">Hunger</div>
             <div className="card-body">
@@ -78,7 +79,7 @@ export default class Projects extends React.Component{
               </div>
             </div>
           </div>
-    
+
           <div className="card" style={{margin:"3rem 0","border":"2px solid rgb(115,189,77)"}}>
             <div className="card-header display-4">Environment</div>
             <div className="card-body">
@@ -93,7 +94,7 @@ export default class Projects extends React.Component{
               </div>
             </div>
           </div>
-    
+
           <div className="card" style={{margin:"3rem 0","border":"2px solid rgb(241,196,48)"}}>
             <div className="card-header display-4">Childhood Cancer</div>
             <div className="card-body">
@@ -108,7 +109,7 @@ export default class Projects extends React.Component{
               </div>
             </div>
           </div>
-    
+
           <div className="card" style={{margin:"3rem 0"}}>
             <div className="card-header display-4">More Events</div>
             <div className="card-body">
@@ -131,7 +132,7 @@ export default class Projects extends React.Component{
               </div>
             </div>
           </div>
-    
+
         </div>
       </div>
     )}

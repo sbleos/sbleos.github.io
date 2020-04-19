@@ -7,6 +7,7 @@ import { Breadcrumb } from '../components/Layout';
 export default class Mission extends React.Component {
   componentDidMount(){
     document.title = "Mission | SB Leo Club";
+    window.scrollTo(0, 0);
   }
 
   render(){

@@ -1,8 +1,11 @@
 import React from 'react';
 /*
+ * @deprecated
  * Use only with <div className="container">
  * So the text is not on the edge of the screen
  * Otherwise, uncomment the paddingLeft and change {margin: "4rem 0"} to {margin: "4rem"}
+ * Personally, this style is outdated and should probably not be used
+ * As of now, it only works for one paragraph per header
  */
 
 const hStyle = {
@@ -53,7 +56,7 @@ class Section extends React.Component{
         </div>
       );
     }
-  
+
   }
 }
 

@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 
 
-const NavItem = props => (
+const NavItem = props => ( //this is pretty much useless because Link does the same thing as well as provides support for child components
 	<Link to={props.to} style={props.style} className={props.className}>{props.value}</Link>
 )
 
-export const Brand = props => (
+export const ImageLink = props => (
 	<Link to={props.to}><img src={props.src} width={props.width} height={props.height} className={props.className} alt={props.alt}/></Link>
 )
 

@@ -8,7 +8,7 @@ function Layout(props){
     <div style={{position: "relative", minHeight: "100vh"}}>
       <Header />
         {props.children}
-      <Footer /> 
+      <Footer />
     </div>
   );
 }

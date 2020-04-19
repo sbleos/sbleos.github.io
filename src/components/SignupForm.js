@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import PDF from "../assets/leo50a_en.pdf";
-
+import { db } from '../firebase'; // add
 
 const EmailSchema = Yup.object().shape({
   email: Yup.string()
@@ -17,14 +17,27 @@ export default class SignupForm extends React.Component {
         <h2>Join Now</h2>
         <p>Sign up to receive all club emails. If you are registered through MyLCI, you will be given access to a personal dashboard.</p>
         <div className="alert alert-info" role="alert">
-          At the moment, you must add yourself to the mailing list <a href="https://groups.google.com/forum/#!forum/sbleoclub/join" className="alert-link" target='_blank' rel="noopener">using this link</a>. We will soon automate the process.
+          At the moment, you must add yourself to the mailing list <a href="https://groups.google.com/forum/#!forum/sbleoclub/join" className="alert-link" target='_blank' rel="noopener noreferrer">using this link</a>. We will soon automate the process.
         </div>
         <Formik
           initialValues={{ firstName: "", lastName: "", email: ""}}
           validationSchema={EmailSchema}
-          onSubmit={({ setSubmitting }) => {
-            alert("Form is validated! Submitting the form...");
-            setSubmitting(false);
+          onSubmit={(values, actions) => {
+            //
+            db.collection('members').where("email","==",values.email).get()
+            .then(function(querySnapshot) {
+              if(querySnapshot.empty){
+                setTimeout(()=>{
+                  db.collection('members').add(values);
+                  actions.setSubmitting(false);
+                },500)
+              }else
+                alert("Email already exists in database");
+            })
+            .catch(function(error){});
+
+
+
           }}
         >
           {({ touched, errors, isSubmitting }) => (
@@ -55,7 +68,7 @@ export default class SignupForm extends React.Component {
                 />
               </div>
 
-              <a href={PDF} style={{"margin":"1rem 0","display":"block"}} target='_blank' rel="noopener">Registration form</a>
+              <a href={PDF} style={{"margin":"1rem 0","display":"block"}} target='_blank' rel="noopener noreferrer">Registration form</a>
               <button
                 type="submit"
                 className="btn btn-primary btn-block"

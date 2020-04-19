@@ -29,6 +29,7 @@ export default class Dashboard extends React.Component{
 
   componentDidMount(){
     document.title = "Dashboard | SB Leo Club";
+    window.scrollTo(0, 0);
   }
   render(){
     return (
@@ -38,7 +39,7 @@ export default class Dashboard extends React.Component{
           {options.map((option) => (
               <Route path={`dashboard/:option`} component={option}/>
           ))}
-          
+
         </DashFrame>
       </Router>
     )}
@@ -54,6 +55,6 @@ export default class Dashboard extends React.Component{
         <Route path="/dashboard/events" component={Events} />
         <Route path="/dashboard/points" component={Points} />
         <Route path="/dashboard/profile" component={Profile} />
-             
+
         </DashFrame>
         */

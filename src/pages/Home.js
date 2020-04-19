@@ -5,6 +5,7 @@ import SignupForm from '../components/SignupForm';
 export default class Home extends React.Component {
   componentDidMount(){
     document.title = "SB Leo Club";
+    window.scrollTo(0, 0);
   }
 
   render(){
