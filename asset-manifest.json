@@ -1,0 +1,32 @@
+{
+  "files": {
+    "main.css": "/static/css/main.3aaf4a41.chunk.css",
+    "main.js": "/static/js/main.24b6bfa3.chunk.js",
+    "main.js.map": "/static/js/main.24b6bfa3.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.54622188.js",
+    "runtime-main.js.map": "/static/js/runtime-main.54622188.js.map",
+    "static/js/2.63b3f679.chunk.js": "/static/js/2.63b3f679.chunk.js",
+    "static/js/2.63b3f679.chunk.js.map": "/static/js/2.63b3f679.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.47932b9fc3ecf5f5e63778beefda6bf9.js": "/precache-manifest.47932b9fc3ecf5f5e63778beefda6bf9.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.3aaf4a41.chunk.css.map": "/static/css/main.3aaf4a41.chunk.css.map",
+    "static/js/2.63b3f679.chunk.js.LICENSE.txt": "/static/js/2.63b3f679.chunk.js.LICENSE.txt",
+    "static/media/adiv.jpg": "/static/media/adiv.73aa737d.jpg",
+    "static/media/archana.jpeg": "/static/media/archana.77b233b4.jpeg",
+    "static/media/home_1.jpg": "/static/media/home_1.7443655b.jpg",
+    "static/media/home_2.jpg": "/static/media/home_2.dc2afaa4.jpg",
+    "static/media/home_3.jpg": "/static/media/home_3.48df3253.jpg",
+    "static/media/leo.png": "/static/media/leo.33d1e4a6.png",
+    "static/media/leo50a_en.pdf": "/static/media/leo50a_en.27cd7e2a.pdf",
+    "static/media/madison.jpg": "/static/media/madison.3f122e0e.jpg",
+    "static/media/ronaq.jpg": "/static/media/ronaq.28d3191d.jpg",
+    "static/media/ronit.jpeg": "/static/media/ronit.d2847ccf.jpeg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.54622188.js",
+    "static/js/2.63b3f679.chunk.js",
+    "static/css/main.3aaf4a41.chunk.css",
+    "static/js/main.24b6bfa3.chunk.js"
+  ]
+}
