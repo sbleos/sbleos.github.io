@@ -27,15 +27,13 @@ function App() {
 
           <Route exact path="/projects" component={Projects} />
           {/*THIS IS HOW TO REDIRECT AN INTERNAL ROUTE TO AN EXTERNAL LINK*/}
-          <Route path='/projects/leo5krun' component={() =>
-            {
-              window.location.href = 'https://runsignup.com/Race/NJ/MonmouthJunction/Leo5KRun';
-              return {Home};
+          <Route path='/projects/leo5krun' component={() => {
+            window.location.href = 'https://runsignup.com/Race/NJ/MonmouthJunction/Leo5KRun';
+            return {Home};
           }}/>
-          <Route path='/projects/covid-19' component={() =>
-            {
-              window.location.href = 'https://charity.gofundme.com/';
-              return {Home};
+          <Route path='/projects/covid-19' component={() => {
+            window.location.href = 'https://charity.gofundme.com/';
+            return {Home};
           }}/>
           {/*THIS IS HOW TO REDIRECT AN INTERNAL ROUTE TO AN EXTERNAL LINK*/}
 
