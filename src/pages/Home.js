@@ -9,26 +9,20 @@ export default class Home extends React.Component {
   }
 
   render(){
-    const height = "40rem";
     return (
       <div>
-        <div className="jumbotron jumbotron-fluid " style={{"position":"relative","height":height,"background":"rgba(0,0,0,0.6)"}}>
+        <div className="jumbotron jumbotron-fluid " style={{background:`linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${require("../assets/home/home_2.jpg")})`,backgroundPosition:"center",backgroundSize:"cover"}}>
           <div className="container">
             <div className="row">
-              <h1 className="display-1 col-lg-8 col-sm-12" style={{"fontSize":"12vh",color:"#F9C910","textShadow": "2px 2px 0px #000000"}} >South Brunswick Leo Club</h1>
-              <div className="col-4" style={{"display":"relative"}}>
-                <div style={{"zIndex":20,"position":"absolute","borderRadius":"4px","boxShadow":"0 16px 40px rgba(0,0,0,0.12)"}} className="bg-white p-4">
+              <div className="col-md-7 text-lg-left text-sm-center" style={{color:"#F9C910","textShadow": "2px 2px 0px #000000"}}>
+                <h1 className="display-1" style={{"fontSize":"12vh"}} >South Brunswick Leo Club</h1>
+                <p className="display-3 lead" style={{"fontSize":"8vh"}}>Together We Serve</p>
+              </div>
+              <div className="col-md-4 col-sm-12">
+                <div style={{"zIndex":20,"borderRadius":"4px","boxShadow":"0 16px 40px rgba(0,0,0,0.12)"}} className="bg-white p-4">
                   <SignupForm />
                 </div>
               </div>
-            </div>
-            <div className="row">
-              <p className="display-3 lead col-lg-8 col-sm-12" style={{"fontSize":"8vh",color:"#F9C910","textShadow": "2px 2px 0px #000000"}}>Together We Serve</p>
-            </div>
-          </div>
-          <div style={{"backgroundColor":"rgba(0,0,0,0.1)","position":"absolute","zIndex":-50,"width":"100%","height": "100%","top":"0","left":"0"}}>
-            <div className="carousel-inner" style={{"height":height}}>
-              <img className="d-block w-100 img-fluid" style={{"height":height}} src={require("../assets/home/home_2.jpg")} alt="Second slide"></img>
             </div>
           </div>
         </div>

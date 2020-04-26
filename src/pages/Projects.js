@@ -33,8 +33,10 @@ export default class Projects extends React.Component{
         <Breadcrumb directory={[{"path":"/projects","name":"Projects"}]} />
         <div className="container">
           <h1 className="display-3 text-center pt-5 pb-5">Projects</h1>
-          <div className="text-center" dangerouslySetInnerHTML={ {__html:  iframe}} />
-
+          {/*<div className="text-center" dangerouslySetInnerHTML={ {__html:  iframe}} />*/}
+          <div className="text-center">
+            <iframe src="https://calendar.google.com/calendar/embed?src=gb0ph7kb3k9g37t2f0ckvobeak%40group.calendar.google.com&ctz=America%2FNew_York" style={{border: 0}} width="800" height="600" frameborder="0" scrolling="no"></iframe>
+          </div>
 
           <div className="card" style={{margin:"3rem 0","border":"2px solid rgb(102,177,224)"}}>
             <div className="card-header display-4">Diabetes</div>
