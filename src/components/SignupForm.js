@@ -16,9 +16,6 @@ export default class SignupForm extends React.Component {
       <div>
         <h2>Join Now</h2>
         <p>Sign up to receive all club emails. If you are registered through MyLCI, you will be given access to a personal dashboard.</p>
-        <div className="alert alert-info" role="alert">
-          At the moment, you must add yourself to the mailing list <a href="https://groups.google.com/forum/#!forum/sbleoclub/join" className="alert-link" target='_blank' rel="noopener noreferrer">using this link</a>. We will soon automate the process.
-        </div>
         <Formik
           initialValues={{ firstName: "", lastName: "", email: ""}}
           validationSchema={EmailSchema}
@@ -68,7 +65,10 @@ export default class SignupForm extends React.Component {
                 />
               </div>
 
-              <a href={PDF} style={{"margin":"1rem 0","display":"block"}} target='_blank' rel="noopener noreferrer">Registration form</a>
+              <a href={PDF} className="d-block m-2" target='_blank' rel="noopener noreferrer">Registration form</a>
+              <a href="https://groups.google.com/forum/#!forum/sbleoclub/join" className="d-block m-2" target='_blank' rel="noopener noreferrer">Mailing List</a>
+              <a href="https://www.remind.com/join/sbleo" className="d-block m-2" target='_blank' rel="noopener noreferrer">Remind SMS Notifications</a>
+
               <button
                 type="submit"
                 className="btn btn-primary btn-block"

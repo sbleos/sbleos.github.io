@@ -1,12 +1,10 @@
 import React from 'react';
-import Section from '../components/Section';
-import NavItem from '../components/NavItem';
 import { Breadcrumb } from '../components/Layout';
 
 
 export default class Mission extends React.Component {
   componentDidMount(){
-    document.title = "Mission | SB Leo Club";
+    document.title = "Our Mission | SB Leo Club";
     window.scrollTo(0, 0);
   }
 
@@ -15,74 +13,94 @@ export default class Mission extends React.Component {
       <div>
         <Breadcrumb directory={[{"path":"/mission","name":"Our Mission"}]} />
         <div className="container">
-          <Section pos="left" h="Our" p="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec velit erat, efficitur a molestie sit amet, ultrices eget dui. Duis non sagittis nunc. Nunc pretium ex quis tortor commodo imperdiet. Phasellus aliquet nisi finibus nisl fringilla, nec pulvinar sem lobortis. Phasellus eu enim nunc. Sed ac diam imperdiet, consequat urna et, hendrerit odio. Phasellus mollis dui a dui blandit pulvinar. Nullam malesuada sem finibus velit tempor facilisis. Donec sed viverra orci."/>
-          <Section pos="right" h="Mission" p="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec velit erat, efficitur a molestie sit amet, ultrices eget dui. Duis non sagittis nunc. Nunc pretium ex quis tortor commodo imperdiet. Phasellus aliquet nisi finibus nisl fringilla, nec pulvinar sem lobortis. Phasellus eu enim nunc. Sed ac diam imperdiet, consequat urna et, hendrerit odio. Phasellus mollis dui a dui blandit pulvinar. Nullam malesuada sem finibus velit tempor facilisis. Donec sed viverra orci."/>
+          <h1 className="display-3 text-center pt-5 pb-3">Our Mission</h1>
+          <blockquote className="blockquote">
+            <p className="mb-0">To empower volunteers to serve their communities, meet humanitarian needs, encourage peace and promote international understanding through Lions clubs.</p>
+          </blockquote>
+          <h4 className="display-4 pt-5 pb-3">Our Global Causes</h4>
+
+          <div className="row">
+            <div className="col-lg-2 col-sm-12 text-center mb-4 mt-4">
+              <img width="100px" height="100px"src={require("../assets/logos/diabetes.png")} alt="Diabetes"></img>
+              <h3 className="mt-2 mb-2">Diabetes</h3>
+            </div>
+            <div className="col-lg-10 col-sm-12">
+              <img className="img-fluid" src={require("../assets/mission/club_diabetes.jpeg")} alt="Diabetes"></img>
+              <div className="mt-4 mb-4">
+                <p className="lead">Our mission is to improve the lives of those suffering from diabetes as well as reduce the prevalence of it.</p>
+                <p className="lead">Our Leo Club does this by annually volunteering at the local temple’s health fair. While some served food, some took blood to detect early signs of diseases like Diabetes.</p>
+              </div>
+            </div>
+          </div>
+
+          <hr></hr>
+
+          <div className="row">
+            <div className="col-lg-2 col-sm-12 text-center mb-4 mt-4">
+              <img width="100px" height="100px"src={require("../assets/logos/vision.png")} alt="Vision"></img>
+              <h3 className="mt-2 mb-2">Vision</h3>
+            </div>
+            <div className="col-lg-10 col-sm-12">
+              <img className="img-fluid" src={require("../assets/mission/club_vision.jpg")} alt="Vision"></img>
+              <div className="mt-4 mb-4">
+                <p className="lead">Our mission is to improve the lives of those suffering from diabetes as well as reduce the prevalence of it.</p>
+                <p className="lead">Our Leo Club does this by annually volunteering at the local temple’s health fair. While some served food, some took blood to detect early signs of diseases like Diabetes.</p>
+              </div>
+            </div>
+          </div>
+
+          <hr></hr>
+
+          <div className="row">
+            <div className="col-lg-2 col-sm-12 text-center mb-4 mt-4">
+              <img width="100px" height="100px"src={require("../assets/logos/environment.png")} alt="Environment"></img>
+              <h3 className="mt-2 mb-2">Environment</h3>
+            </div>
+            <div className="col-lg-10 col-sm-12">
+              <img className="img-fluid" src={require("../assets/mission/club_environment.jpeg")} alt="Environment"></img>
+              <div className="mt-4 mb-4">
+                <p className="lead">Our mission is to improve the lives of those suffering from diabetes as well as reduce the prevalence of it.</p>
+                <p className="lead">Our Leo Club does this by annually volunteering at the local temple’s health fair. While some served food, some took blood to detect early signs of diseases like Diabetes.</p>
+              </div>
+            </div>
+          </div>
+
+          <hr></hr>
+
+          <div className="row">
+            <div className="col-lg-2 col-sm-12 text-center mb-4 mt-4">
+              <img width="100px" height="100px"src={require("../assets/logos/hunger.png")} alt="Hunger"></img>
+              <h3 className="mt-2 mb-2">Hunger</h3>
+            </div>
+            <div className="col-lg-10 col-sm-12">
+              <img className="img-fluid" src={require("../assets/mission/club_hunger.jpeg")} alt="Hunger"></img>
+              <div className="mt-4 mb-4">
+                <p className="lead">Our mission is to improve the lives of those suffering from diabetes as well as reduce the prevalence of it.</p>
+                <p className="lead">Our Leo Club does this by annually volunteering at the local temple’s health fair. While some served food, some took blood to detect early signs of diseases like Diabetes.</p>
+              </div>
+            </div>
+          </div>
+
+          <hr></hr>
+
+          <div className="row">
+            <div className="col-lg-2 col-sm-12 text-center mb-4 mt-4">
+              <img width="100px" height="100px"src={require("../assets/logos/childhood_cancer.png")} alt="Childhood Cancer"></img>
+              <h3 className="mt-2 mb-2">Childhood Cancer</h3>
+            </div>
+            <div className="col-lg-10 col-sm-12">
+              <img className="img-fluid" src={require("../assets/mission/club_childhood_cancer.jpeg")} alt="Childhood Cancer"></img>
+              <div className="mt-4 mb-4">
+                <p className="lead">Our mission is to improve the lives of those suffering from diabetes as well as reduce the prevalence of it.</p>
+                <p className="lead">Our Leo Club does this by annually volunteering at the local temple’s health fair. While some served food, some took blood to detect early signs of diseases like Diabetes.</p>
+              </div>
+            </div>
+          </div>
+
+
         </div>
       </div>
     )}
 }
 
-export function Diabetes(props){
-  return(
-    <div className="container">
-      <nav aria-label="breadcrumb">
-        <ol className="breadcrumb">
-          <li className="breadcrumb-item"><NavItem to="/" value="Home"/></li>
-          <li className="breadcrumb-item"><NavItem to="/mission" value="Our Mission"/></li>
-          <li className="breadcrumb-item active" aria-current="page">Diabetes</li>
-        </ol>
-      </nav>
-    </div>)
-}
 
-export function Vision(props){
-  return(
-    <div className="container">
-      <nav aria-label="breadcrumb">
-        <ol className="breadcrumb">
-          <li className="breadcrumb-item"><NavItem to="/" value="Home"/></li>
-          <li className="breadcrumb-item"><NavItem to="/mission" value="Our Mission"/></li>
-          <li className="breadcrumb-item active" aria-current="page">Vision</li>
-        </ol>
-      </nav>
-    </div>)
-}
-
-export function Hunger(props){
-  return(
-    <div className="container">
-      <nav aria-label="breadcrumb">
-        <ol className="breadcrumb">
-          <li className="breadcrumb-item"><NavItem to="/" value="Home"/></li>
-          <li className="breadcrumb-item"><NavItem to="/mission" value="Our Mission"/></li>
-          <li className="breadcrumb-item active" aria-current="page">Hunger</li>
-        </ol>
-      </nav>
-    </div>)
-}
-
-export function Environment(props){
-  return(
-    <div className="container">
-      <nav aria-label="breadcrumb">
-        <ol className="breadcrumb">
-          <li className="breadcrumb-item"><NavItem to="/" value="Home"/></li>
-          <li className="breadcrumb-item"><NavItem to="/mission" value="Our Mission"/></li>
-          <li className="breadcrumb-item active" aria-current="page">Environment</li>
-        </ol>
-      </nav>
-    </div>)
-}
-
-export function ChildhoodCancer(props){
-  return(
-    <div className="container">
-      <nav aria-label="breadcrumb">
-        <ol className="breadcrumb">
-          <li className="breadcrumb-item"><NavItem to="/" value="Home"/></li>
-          <li className="breadcrumb-item"><NavItem to="/mission" value="Our Mission"/></li>
-          <li className="breadcrumb-item active" aria-current="page">Childhood Cancer</li>
-        </ol>
-      </nav>
-    </div>)
-}

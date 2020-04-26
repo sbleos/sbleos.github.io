@@ -3,6 +3,7 @@ import React from 'react';
 // Keep the Event Descriptions less than 20 words to look nice because all cards in row follow same dimensions as max width/height
 // Any events that do not have a date will be placed at the end when asked for all or upcoming events
 // WHICH MEANS YOU SHOULD ALWAYS SPECIFY A DATE SO IT IS PROPERLY SORTED
+/*
 var events = [
   {
     title: "Diabetes",
@@ -62,7 +63,27 @@ var events = [
     formDescription:"Sign up"
   }
 ];
-
+*/
+var events = [
+  {
+    title: "Covid-19 Appreciation",
+    date: "4/28/20 11:00 am",
+    description: "Our Leos are writing a message to South Brunswick First responders and hanging it up on the Municipal Building!",
+    type: "community",
+    imgsrc: require("../assets/logos/humanitarian.png"),
+    imgDescription: "Humanitarian"
+  },
+  {
+    title: "Covid-19 Relief",
+    date: "4/30/20 12:00 pm",
+    description: "We are raising money on a GoFundMe for those in need during this situation. We are hoping for everyone to show their thanks to their local hospitals, food banks, etc for getting us through these difficult times.",
+    type: "community",
+    imgsrc: require("../assets/logos/humanitarian.png"),
+    imgDescription: "Humanitarian",
+    formLink: "https://charity.gofundme.com/",
+    formDescription:"GoFundMe (Not Set up Yet)"
+  }
+];
 
 //Can get all events, upcoming events, or previous events (if not specified as either upcoming or previous, it defaults to all events)
 function Events(props){
@@ -112,7 +133,7 @@ function Events(props){
 export const Event = props => (
   <div className="col-sm-6 col-md-4 col-lg-3 d-flex">
     <div className="card mb-4 flex-fill" style={{"border": props.border}}>
-      {props.imgsrc && <img className="card-img-top" src={props.imgsrc} alt={props.imgDescription}></img>}
+      {props.imgsrc && <img className="card-img-top text-center align-self-center p-1" src={props.imgsrc} alt={props.imgDescription} style={{maxHeight:"300px",maxWidth:"300px"}}></img>}
       <div className="card-body">
         <h5 className="card-title">{props.title}</h5>
         {props.date !== "Invalid Date" && <h6 className="card-subtitle mb-2 text-muted">{props.date}</h6>}

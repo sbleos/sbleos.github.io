@@ -32,6 +32,7 @@ export default class Projects extends React.Component{
       <div>
         <Breadcrumb directory={[{"path":"/projects","name":"Projects"}]} />
         <div className="container">
+          <h1 className="display-3 text-center pt-5 pb-5">Projects</h1>
           <div className="text-center" dangerouslySetInnerHTML={ {__html:  iframe}} />
 
 
