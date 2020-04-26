@@ -43,8 +43,8 @@ export default class Mission extends React.Component {
             <div className="col-lg-10 col-sm-12">
               <img className="img-fluid" src={require("../assets/mission/club_vision.jpg")} alt="Vision"></img>
               <div className="mt-4 mb-4">
-                <p className="lead">Our mission is to improve the lives of those suffering from diabetes as well as reduce the prevalence of it.</p>
-                <p className="lead">Our Leo Club does this by annually volunteering at the local temple’s health fair. While some served food, some took blood to detect early signs of diseases like Diabetes.</p>
+                <p className="lead">Our mission is to prevent avoidable blindness and improve the quality of life for people who are blind and visually impaired.</p>
+                <p className="lead">Our Leo Club does this by having an eyeglass recycling center. The Leos were able to test patients for prescriptions and fit them for a new set of glasses.</p>
               </div>
             </div>
           </div>
@@ -59,8 +59,8 @@ export default class Mission extends React.Component {
             <div className="col-lg-10 col-sm-12">
               <img className="img-fluid" src={require("../assets/mission/club_environment.jpeg")} alt="Environment"></img>
               <div className="mt-4 mb-4">
-                <p className="lead">Our mission is to improve the lives of those suffering from diabetes as well as reduce the prevalence of it.</p>
-                <p className="lead">Our Leo Club does this by annually volunteering at the local temple’s health fair. While some served food, some took blood to detect early signs of diseases like Diabetes.</p>
+                <p className="lead">Our missions is to keep our community clean and put an emphasis on recycling and being more environmentally conscious</p>
+                <p className="lead">South Brunswick Leos even gave out trees for local people to plant while some Leos even took trees home to plant in their own neighborhoods. The Leos also had a park cleanup!</p>
               </div>
             </div>
           </div>
@@ -75,8 +75,8 @@ export default class Mission extends React.Component {
             <div className="col-lg-10 col-sm-12">
               <img className="img-fluid" src={require("../assets/mission/club_hunger.jpeg")} alt="Hunger"></img>
               <div className="mt-4 mb-4">
-                <p className="lead">Our mission is to improve the lives of those suffering from diabetes as well as reduce the prevalence of it.</p>
-                <p className="lead">Our Leo Club does this by annually volunteering at the local temple’s health fair. While some served food, some took blood to detect early signs of diseases like Diabetes.</p>
+                <p className="lead">Our mission is to ensure all community members have access to nutritious foods. Our Leo club does this by having a Thanksgiving food drive.</p>
+                <p className="lead">The Leos went to Edison on Thanksgiving to serve food to the less fortunate. The SB Leos not only served food, but provided entertainment based on musical talent as well.</p>
               </div>
             </div>
           </div>
@@ -91,8 +91,8 @@ export default class Mission extends React.Component {
             <div className="col-lg-10 col-sm-12">
               <img className="img-fluid" src={require("../assets/mission/club_childhood_cancer.jpeg")} alt="Childhood Cancer"></img>
               <div className="mt-4 mb-4">
-                <p className="lead">Our mission is to improve the lives of those suffering from diabetes as well as reduce the prevalence of it.</p>
-                <p className="lead">Our Leo Club does this by annually volunteering at the local temple’s health fair. While some served food, some took blood to detect early signs of diseases like Diabetes.</p>
+                <p className="lead">Our mission is to provide support for these children and families affected by childhood cancer through various events.</p>
+                <p className="lead">One of our biggest annual events is the Leo 5k which is a race which allows us to raise funds and help contribute towards cancer research and awareness.</p>
               </div>
             </div>
           </div>
