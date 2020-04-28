@@ -1,9 +1,8 @@
 import React from 'react';
 import NavDash from '../components/dashboard/NavDash';
 import Overview from '../components/dashboard/Overview';
-import Profile from '../components/dashboard/Profile';
+// import Profile from '../components/dashboard/Profile';
 import SignIn from '../components/SignIn.js';
-import { auth } from '../firebase';
 import { connect } from 'react-redux';
 
 class Dashboard extends React.Component{
@@ -21,11 +20,6 @@ class Dashboard extends React.Component{
   componentDidMount(){
     document.title = "Dashboard | SB Leo Club";
     window.scrollTo(0, 0);
-
-    auth.onAuthStateChanged((user) => {
-      if (user)
-        this.setState({user:user});
-    }).bind(this);
   }
 
   render(){
@@ -40,6 +34,12 @@ class Dashboard extends React.Component{
             {this.state.component}
           </div>
         </div>
+
+
+
+
+
+
         : <div style={{height:"91vh",background:"radial-gradient(circle, gainsboro, lightsteelblue)"}}>
             <div className=" mx-auto pt-5" style={{maxWidth:"330px"}}>
               <SignIn />
@@ -51,7 +51,6 @@ class Dashboard extends React.Component{
 }
 
 const mapStateToProps = (state) => {
-  console.log(state)
   return {
     auth: state.firebase.auth
   }

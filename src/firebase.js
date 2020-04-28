@@ -16,6 +16,6 @@ export const firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-export const auth = firebase.auth();
-export const db = firebase.firestore(); //remove later because redux handles firebase
+firebase.auth();
+firebase.firestore();
 export default firebase;
