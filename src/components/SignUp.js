@@ -4,7 +4,11 @@ import * as Yup from "yup";
 import PDF from "../assets/leo50a_en.pdf";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { db, auth } from '../firebase';
+import { Link, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux';
+import { signUp } from '../store/actions/authActions';
+import { withRouter } from 'react-router';
+
 
 const EmailSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -21,7 +25,7 @@ const EmailSchema = Yup.object().shape({
     .required("Required")
 });
 
-export default class SignupForm extends React.Component {
+class SignUp extends React.Component { //the actual form
   constructor(props){
     super(props);
 
@@ -31,10 +35,8 @@ export default class SignupForm extends React.Component {
     this.togglePassword = this.togglePassword.bind(this);
   }
 
-  togglePassword =() => {
-    this.setState({ passwordHidden: !this.state.passwordHidden });
-    console.log(this.state);
-  };
+  togglePassword = () => this.setState({ passwordHidden: !this.state.passwordHidden });
+
 
   render() {
     return (
@@ -45,23 +47,11 @@ export default class SignupForm extends React.Component {
           initialValues={{ firstName: "", lastName: "", email: "", password:""}}
           validationSchema={EmailSchema}
           onSubmit={(values, actions) => {
-            auth.createUserWithEmailAndPassword(values.email,values.password).then(credentials => {
-              return db.collection('users').doc(credentials.user.uid).set({
-                firstName: values.firstName,
-                lastName: values.lastName,
-                ID: 0,
-                role: "Member"
-              });
-            }).then(() => {
-              setTimeout(()=>{
-                actions.setSubmitting(false);
-              },500);
-            }).catch((error) => {
-              if(error.code === "auth/email-already-in-use")
-                alert(error.message);
-                actions.setSubmitting(false);
-            })
-
+          this.props.signUp(values);
+          setTimeout(()=>{
+            actions.setSubmitting(false);
+            this.props.history.push('/dashboard');
+          },250);
 
           }}
         >
@@ -69,10 +59,10 @@ export default class SignupForm extends React.Component {
             <Form>
               <div className="form-row">
                 <div className="form-group col-md-6 col-sm-12">
+                <label htmlFor="firstName">First Name</label>
                   <Field
                     type="text"
                     name="firstName"
-                    placeholder="First Name"
                     className={`form-control ${
                       touched.firstName && errors.firstName ? "is-invalid" : ""
                     }`}
@@ -85,10 +75,10 @@ export default class SignupForm extends React.Component {
                 </div>
 
                 <div className="form-group col-md-6 col-sm-12">
+                  <label htmlFor="lastName">Last Name</label>
                   <Field
                   type="text"
                   name="lastName"
-                  placeholder="Last Name"
                   className={`form-control ${
                       touched.lastName && errors.lastName ? "is-invalid" : ""
                     }`}
@@ -103,10 +93,10 @@ export default class SignupForm extends React.Component {
 
 
               <div className="form-group">
+                <label htmlFor="email">Email</label>
                 <Field
                   type="email"
                   name="email"
-                  placeholder="Email"
                   className={`form-control ${
                     touched.email && errors.email ? "is-invalid" : ""
                   }`}
@@ -118,23 +108,25 @@ export default class SignupForm extends React.Component {
                 />
               </div>
 
-              <div className="form-group input-group">
-                <Field
-                  type={this.state.passwordHidden ? "password" : "text"}
-                  name="password"
-                  placeholder="Password"
-                  className={`form-control ${
-                    touched.password && errors.password ? "is-invalid" : ""
-                  }`}
-                />
-                <div className="input-group-append text-center align-self-center">
-                  <a type="button" className="btn btn-sm" onClick={this.togglePassword}><FontAwesomeIcon icon={this.state.passwordHidden ? faEye : faEyeSlash} style={{ color: 'rgb(89,89,98)' }} size="lg" /></a>
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <div className="input-group">
+                  <Field
+                    type={this.state.passwordHidden ? "password" : "text"}
+                    name="password"
+                    className={`form-control ${
+                      touched.password && errors.password ? "is-invalid" : ""
+                    }`}
+                  />
+                  <div className="input-group-append text-center align-self-center">
+                    <button type="button" className="btn btn-sm" onClick={this.togglePassword}><FontAwesomeIcon icon={this.state.passwordHidden ? faEye : faEyeSlash} style={{ color: 'rgb(89,89,98)' }} size="lg" /></button>
+                  </div>
+                  <ErrorMessage
+                    component="div"
+                    name="password"
+                    className="invalid-feedback"
+                  />
                 </div>
-                <ErrorMessage
-                  component="div"
-                  name="password"
-                  className="invalid-feedback"
-                />
               </div>
 
               <a href={PDF} className="d-block m-1" target='_blank' rel="noopener noreferrer">Registration form</a>
@@ -148,6 +140,10 @@ export default class SignupForm extends React.Component {
               >
                 {isSubmitting ? "Submitting..." : "Get Started!"}
               </button>
+
+              <div className="text-right mr-2 mt-2">
+                <Link to="/dashboard"><small className="text-muted">Already have an account?</small></Link>
+              </div>
             </Form>
           )}
         </Formik>
@@ -156,3 +152,17 @@ export default class SignupForm extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth,
+    authError: state.auth.authError
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signUp: (newUser) => dispatch(signUp(newUser)),
+  }
+}
+
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(SignUp));

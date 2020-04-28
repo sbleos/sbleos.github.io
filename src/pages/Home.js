@@ -1,8 +1,9 @@
 import React from 'react';
 import Events from '../components/Events';
-import SignupForm from '../components/SignupForm';
+import SignUp from '../components/SignUp';
+import { connect } from 'react-redux';
 
-export default class Home extends React.Component {
+class Home extends React.Component {
   componentDidMount(){
     document.title = "SB Leo Club";
     window.scrollTo(0, 0);
@@ -18,9 +19,10 @@ export default class Home extends React.Component {
                 <h1 className="display-1" style={{"fontSize":"12vh"}} >South Brunswick Leo Club</h1>
                 <p className="display-3 lead" style={{"fontSize":"8vh"}}>Together We Serve</p>
               </div>
-              <div className="col-md-4 col-sm-12">
+
+              <div className={`col-md-4 col-sm-12 ${this.props.auth.isEmpty ? "visible" : "invisible"}`}>
                 <div style={{"zIndex":20,"borderRadius":"4px","boxShadow":"0 16px 40px rgba(0,0,0,0.12)"}} className="bg-white p-4">
-                  <SignupForm />
+                  <SignUp/>
                 </div>
               </div>
             </div>
@@ -29,7 +31,7 @@ export default class Home extends React.Component {
 
         <div className="container">
           <h1>Upcoming Events</h1>
-          <Events type="upcoming"/>
+          <Events type="upcoming" max={8}/>
 
           {/*}
           <h1>Previous Events</h1>
@@ -38,3 +40,11 @@ export default class Home extends React.Component {
       </div>
     )}
 }
+
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth
+  }
+}
+
+export default connect(mapStateToProps)(Home);

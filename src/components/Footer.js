@@ -4,22 +4,10 @@ import { faInstagram, faFacebook } from '@fortawesome/free-brands-svg-icons'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 
 
-const footer = {
-  backgroundColor: "#00338D",
-  textAlign: "center",
-  padding: 30,
-  // height: 60,
-  height: "auto",
-  color: "white",
-  width: "100%",
-  position: "relative",
-  // bottom: 0
-}
-
 const Footer = () => (
 
   <footer>
-    <div className="footer" id="footer" style={footer}>
+    <div className="footer fixed-bottom p-4 text-center mt-auto position-absolute" id="footer" style={{backgroundColor: "#00338D",color: "white",height:"10"}}>
         <div className="container" >
             <a href="https://www.instagram.com/sbleos/" >
               <button type="button" className="btn btn-lg">

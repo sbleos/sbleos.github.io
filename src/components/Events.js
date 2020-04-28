@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { firestoreConnect } from 'react-redux-firebase'
+import { compose } from 'redux';
 
 // Keep the Event Descriptions less than 20 words to look nice because all cards in row follow same dimensions as max width/height
 // Any events that do not have a date will be placed at the end when asked for all or upcoming events
@@ -64,6 +67,7 @@ var events = [
   }
 ];
 */
+/*
 var events = [
   {
     title: "Covid-19 Appreciation",
@@ -84,49 +88,55 @@ var events = [
     formDescription:"GoFundMe (Not Set up Yet)"
   }
 ];
-
+*/
 //Can get all events, upcoming events, or previous events (if not specified as either upcoming or previous, it defaults to all events)
-function Events(props){
-  let e = events.sort((a, b) => new Date(a.date) - new Date(b.date)); // all events
+class Events extends React.Component{
+  render(){
+    const { events } = this.props;
+    if(!events)
+      return(<p className="lead">There are no events at this time</p>)
 
-  const today = new Date();
-  if(props.type.toLowerCase() === "upcoming")
-    e = e.filter(a => new Date(a.date) >= today || !a.date); //this will show events without a date as upcoming, BUT SPECIFY A DATE SO IT IS SORTED PROPERLY
-  else if(props.type.toLowerCase() === "previous")
-    e = e.filter(a => new Date(a.date) < today).reverse();
+    let e = events.slice().sort((a, b) => new Date(a.date) - new Date(b.date)); // all events
 
-  if(props.max && Number.isInteger(props.max)) //if you want to only show a few at a time, REMEMBER TO PASS A NUMBER IN BRACKETS
-    e = e.slice(0,props.max);
+    const today = new Date();
+    if(this.props.type.toLowerCase() === "upcoming")
+      e = e.filter(a => new Date(a.date) >= today || !a.date); //this will show events without a date as upcoming, BUT SPECIFY A DATE SO IT IS SORTED PROPERLY
+    else if(this.props.type.toLowerCase() === "previous")
+      e = e.filter(a => new Date(a.date) < today).reverse();
 
-  e = e.map((events,index) => {
-    let border = "2px solid rgba(0,0,0,0.125)";
-    if(events.type){
-      let type = events.type.toLowerCase();
-      if(type === "diabetes" || type === "d")
-        border = "2px solid rgb(102,177,224)";
-      else if(type === "vision" || type === "v")
-        border = "2px solid rgb(92,38,104)";
-      else if(type === "hunger" || type === "h")
-        border = "2px solid rgb(246,130,61)";
-      else if(type === "environment" || type === "e")
-        border = "2px solid rgb(115,189,77)";
-      else if(type === "childhood cancer" || type === "cc" || type === "c")
-        border = "2px solid rgb(241,196,48)";
-    }
-    const options = {year: "numeric", month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit"}; //to format event dates
-    return(<Event
-                          key = {index}
-                          title = {events.title}
-                          date = {new Date(events.date).toLocaleTimeString("en-us", options)}
-                          description = {events.description}
-                          imgsrc = {events.imgsrc}
-                          imgDescription = {events.imgDescription}
-                          formLink = {events.formLink}
-                          formDescription = {events.formDescription}
-                          border = {border} />
-    )});
+    if(this.props.max && Number.isInteger(this.props.max)) //if you want to only show a few at a time, REMEMBER TO PASS A NUMBER IN BRACKETS
+      e = e.slice(0,this.props.max);
 
-  return(<div className="row">{e}</div>)
+    e = e.map((events,index) => {
+      let border = "2px solid rgba(0,0,0,0.125)";
+      if(events.type){
+        let type = events.type.toLowerCase();
+        if(type === "diabetes" || type === "d")
+          border = "2px solid rgb(102,177,224)";
+        else if(type === "vision" || type === "v")
+          border = "2px solid rgb(92,38,104)";
+        else if(type === "hunger" || type === "h")
+          border = "2px solid rgb(246,130,61)";
+        else if(type === "environment" || type === "e")
+          border = "2px solid rgb(115,189,77)";
+        else if(type === "childhood cancer" || type === "cc" || type === "c")
+          border = "2px solid rgb(241,196,48)";
+      }
+      const options = {year: "numeric", month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit"}; //to format event dates
+      return(<Event
+                            key = {index}
+                            title = {events.title}
+                            date = {new Date(events.date).toLocaleTimeString("en-us", options)}
+                            description = {events.description}
+                            imgsrc = {events.imgsrc}
+                            imgDescription = {events.imgDescription}
+                            formLink = {events.formLink}
+                            formDescription = {events.formDescription}
+                            border = {border} />
+      )});
+
+    return(<div className="row">{e}</div>)
+  }
 }
 
 
@@ -135,17 +145,26 @@ export const Event = props => (
     <div className="card mb-4 flex-fill" style={{"border": props.border}}>
       {props.imgsrc && <img className="card-img-top text-center align-self-center p-1" src={props.imgsrc} alt={props.imgDescription} style={{maxHeight:"300px",maxWidth:"300px"}}></img>}
       <div className="card-body">
-        <h5 className="card-title">{props.title}</h5>
+        {props.title && <h5 className="card-title">{props.title}</h5>}
         {props.date !== "Invalid Date" && <h6 className="card-subtitle mb-2 text-muted">{props.date}</h6>}
-        <p className="card-text">{props.description}</p>
+        {props.description && <p className="card-text">{props.description}</p>}
       </div>
       <div className="card-body d-flex flex-column">
-        <a href={props.formLink} className="card-link mt-auto">{props.formDescription}</a>
+        {props.formLink && <a href={props.formLink} className="card-link mt-auto">{props.formDescription}</a>}
       </div>
     </div>
   </div>
 )
 
+const mapStateToProps = (state) => {
+  // console.log(state)
+  //state.firestore.data.events
+  return {
+    events: state.firestore.ordered.events
+  }
+}
 
-
-export default Events;
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect(['events'])
+)(Events);

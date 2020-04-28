@@ -2,7 +2,8 @@ import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 
-const firebaseConfig = {
+//the apiKey is only to identify the project, it does not need to be hidden
+export const firebaseConfig = {
   apiKey: "AIzaSyB4QKxS21T2sfo2nDGtdrrWkuVCZUJqoCs",
   authDomain: "sbleos.firebaseapp.com",
   databaseURL: "https://sbleos.firebaseio.com",
@@ -16,4 +17,5 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 export const auth = firebase.auth();
-export const db = firebase.firestore();
+export const db = firebase.firestore(); //remove later because redux handles firebase
+export default firebase;

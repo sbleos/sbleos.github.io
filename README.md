@@ -100,9 +100,9 @@ Breadcrumb displays the directory path (first is always Home, next are directori
 ```
 which renders `Home / Path / To / Directory`
 
-#### NavItem (Link)
+#### Link
 
-NavItem is this is pretty much useless because Link (from 'react-router-dom') does the same thing as well as provides support for child components, so I will show an overview of link. Look at the documentation for Link if you need more features.
+This is from 'react-router-dom'. Look at the documentation for Link if you need more features.
 
 **Link only works for internal routes! Use `<a>` for external links.**
 ```html

@@ -1,24 +1,9 @@
 import React from 'react';
 // import Calendar from '../components/Calendar';
-import NavItem from '../components/NavItem';
 import { Breadcrumb } from '../components/Layout';
 
 
 const iframe = '<iframe src="https://calendar.google.com/calendar/embed?src=gb0ph7kb3k9g37t2f0ckvobeak%40group.calendar.google.com&ctz=America%2FNew_York" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>'
-
-const projects = {
-  diabetes: [
-    {
-      title: "Title",
-      description: "Description"
-    },
-    {
-      title: "Title",
-      description: "Description"
-    }
-  ]
-}
-
 
 export default class Projects extends React.Component{
 
@@ -35,7 +20,7 @@ export default class Projects extends React.Component{
           <h1 className="display-3 text-center pt-5 pb-5">Projects</h1>
           {/*<div className="text-center" dangerouslySetInnerHTML={ {__html:  iframe}} />*/}
           <div className="text-center">
-            <iframe src="https://calendar.google.com/calendar/embed?src=gb0ph7kb3k9g37t2f0ckvobeak%40group.calendar.google.com&ctz=America%2FNew_York" style={{border: 0}} width="800" height="600" frameborder="0" scrolling="no"></iframe>
+            <iframe title="calendar" src="https://calendar.google.com/calendar/embed?src=gb0ph7kb3k9g37t2f0ckvobeak%40group.calendar.google.com&ctz=America%2FNew_York" style={{border: 0}} width="800" height="600" frameborder="0" scrolling="no"></iframe>
           </div>
 
           <div className="card" style={{margin:"3rem 0","border":"2px solid rgb(102,177,224)"}}>
@@ -117,7 +102,7 @@ export default class Projects extends React.Component{
             <div className="card-header display-4">More Events</div>
             <div className="card-body">
               <div>
-                <h2 className="card-title text-left"><NavItem to="/projects/leo5krun" value="Leo 5k Run" /></h2>
+                <h2 className="card-title text-left"><a href="https://runsignup.com/Race/NJ/MonmouthJunction/Leo5KRun">Leo 5k Run</a></h2>
                 <p className="card-text mb-3 text-right" style={{fontSize:"1.2rem",paddingLeft: "20rem"}}>Ever since 2019, the South Brunswick Leo Club has hosted its own 5k, dedicated to raising funds for different topics, related to the Lion’s general goals. 2019, leos raised funds for diabetes, and in 2020, leos worked to raise funds for childhood cancer. The Leo club splits into different committees, dedicated to one specific goal such as designing the logo and fliers, searching for sponsors, advertising the event, ect. These committees come together to build the 5k.</p>
               </div>
               <br />

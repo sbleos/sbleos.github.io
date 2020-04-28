@@ -1,8 +1,10 @@
 import React from 'react';
 
-const Hours = props => (
-  <div >Hours
-  </div>
-);
+class Hours extends React.Component {
+
+  render() {
+    return (<div>Hours</div>)
+  }
+}
 
 export default Hours;
