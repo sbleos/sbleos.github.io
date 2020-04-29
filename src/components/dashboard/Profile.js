@@ -19,7 +19,19 @@ const ProfileSchema = Yup.object().shape({
 class Profile extends React.Component {
   render() {
     const { profile, email } = this.props; //this is passed down as a prop, so there is no need to connect to redux
-    console.log(profile.id);
+    var initialValues = {
+      firstName: profile.firstName,
+      lastName: profile.lastName,
+      id: profile.id,
+      email: email,
+      dateOfBirth: profile.dateOfBirth,
+      address: profile.address,
+      city: profile.city,
+      zipCode: profile.zipCode,
+      phoneNumber: profile.phoneNumber,
+      joinDate: profile.joinDate,
+      active: profile.active
+    }
     return (
       <div>
         <Notifications location="topRight"/>
@@ -32,22 +44,15 @@ class Profile extends React.Component {
             </div>
           }
           <Formik
-            initialValues={{
-              firstName: profile.firstName,
-              lastName: profile.lastName,
-              id: profile.id,
-              email: email,
-              dateOfBirth: profile.dateOfBirth,
-              address: profile.address,
-              city: profile.city,
-              zipCode: profile.zipCode,
-              phoneNumber: profile.phoneNumber,
-              joinDate: profile.joinDate,
-              active: profile.active
-            }}
+            initialValues={initialValues}
             validationSchema={ProfileSchema}
             onSubmit={(values, actions) => {
-              this.props.updateProfile(values);
+              //only save changes if there are changes
+              if(values !== initialValues){
+                this.props.updateProfile(values);
+                initialValues = values;
+              }
+
               setTimeout(()=>{
                 actions.setSubmitting(false);
               },250);
@@ -189,7 +194,6 @@ class Profile extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     email: state.firebase.auth.email
   }

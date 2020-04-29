@@ -3,6 +3,7 @@ import { createNotification } from './notificationActions';
 export const updateProfile = (updatedProfile) => {
   return (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
+
     firebase.updateProfile(updatedProfile)
     .then(() => {
       dispatch({type: 'UPDATE_PROFILE'})
