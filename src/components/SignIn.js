@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { signIn } from '../store/actions/authActions';
 
-
 const EmailSchema = Yup.object().shape({
   email: Yup.string()
     .email("Invalid email address")

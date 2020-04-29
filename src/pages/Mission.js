@@ -1,16 +1,20 @@
 import React from 'react';
 import { Breadcrumb } from '../components/Layout';
-
+import {Helmet } from 'react-helmet';
 
 export default class Mission extends React.Component {
   componentDidMount(){
     document.title = "Our Mission | SB Leo Club";
-    window.scrollTo(0, 0);
   }
 
   render(){
     return (
       <div>
+        <Helmet>
+          <title>Our Mission</title>
+          <meta name="description" content="Leos strive for the goals set by Lions Clubs International." />
+          <meta name="keywords" content="" />
+        </Helmet>
         <Breadcrumb directory={[{"path":"/mission","name":"Our Mission"}]} />
         <div className="container">
           <h1 className="display-3 text-center pt-5 pb-3">Our Mission</h1>

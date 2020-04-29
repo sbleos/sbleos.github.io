@@ -17,10 +17,9 @@ class Notifications extends React.Component{
     else if(location === "bottom-left" || location === "bottomLeft")
       s = {position: "absolute", bottom: 0, left: 0}
 
-    console.log(location,s);
     return(
-      <div className="position-absolute">
-        <div aria-live="polite" aria-atomic="true"  className={`${c}`} style={{position: "relative",height:"100vh",width:"100vw"}}>
+      <div style={{position:"absolute",height:"100%",width:"100%",zIndex:300,pointerEvents: "none"}}>
+        <div aria-live="polite" aria-atomic="true"  className={`${c}`} style={{position: "relative",pointerEvents: "auto"}}>
           <div style={s}>
             {notifications && notifications.map(notification => {
               return(<Notification notification={notification} key={notification.id} />)
@@ -34,7 +33,7 @@ class Notifications extends React.Component{
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.notification.notifications)
+  // console.log(state.notification.notifications);
   return {
     notifications: state.notification.notifications
   }

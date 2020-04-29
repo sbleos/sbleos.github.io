@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import PDF from "../assets/leo50a_en.pdf";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { signUp } from '../store/actions/authActions';
 import { withRouter } from 'react-router';
@@ -25,7 +25,7 @@ const EmailSchema = Yup.object().shape({
     .required("Required")
 });
 
-class SignUp extends React.Component { //the actual form
+class SignUp extends React.Component {
   constructor(props){
     super(props);
 

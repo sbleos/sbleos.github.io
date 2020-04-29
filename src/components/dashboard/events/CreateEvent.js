@@ -2,7 +2,6 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { createEvent } from '../../../store/actions/eventActions';
-import { createNotification } from '../../../store/actions/notificationActions';
 import { connect } from 'react-redux';
 import Notifications from '../../Notifications';
 
@@ -37,12 +36,12 @@ class CreateEvent extends React.Component {
                 validationSchema={EventSchema}
                 onSubmit={(values, actions) => {
                   this.props.createEvent(values);
-                  this.props.createNotification({
-                    title: "Created New Event",
-                    message: `Created Event "${values.title}"`,
-                    type: "success",
-                    delay: 10000
-                  })
+                  // this.props.createNotification({
+                  //   title: "Created New Event",
+                  //   message: `Created Event "${values.title}"`,
+                  //   type: "success",
+                  //   delay: 5000
+                  // })
                   setTimeout(()=>{
                       actions.setSubmitting(false);
                       actions.resetForm();
@@ -146,8 +145,7 @@ class CreateEvent extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createEvent: (event) => dispatch(createEvent(event)),
-    createNotification: (notification) => dispatch(createNotification(notification))
+    createEvent: (event) => dispatch(createEvent(event))
   }
 }
 

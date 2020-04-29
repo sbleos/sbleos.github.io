@@ -1,16 +1,21 @@
 import React from 'react';
 import { Breadcrumb } from '../components/Layout';
-
+import { Helmet } from 'react-helmet';
 
 export default class About extends React.Component {
   componentDidMount(){
-    document.title = "About | SB Leo Club";
     window.scrollTo(0, 0);
   }
 
   render(){
     return (
       <div>
+        <Helmet>
+          <title>About</title>
+          <meta name="description" content="About the South Brunswick Leo Club" />
+          <meta name="keywords" content="" />
+        </Helmet>
+
         <Breadcrumb directory={[{"path":"/about","name":"About"}]} />
 
         <div className="container">

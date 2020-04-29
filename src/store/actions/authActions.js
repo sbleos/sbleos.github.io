@@ -1,3 +1,5 @@
+import { createNotification } from './notificationActions';
+
 export const signIn = (credentials) => {
   return (dispatch, getState, { getFirebase }) => {
     const auth = getFirebase().auth();
@@ -8,6 +10,7 @@ export const signIn = (credentials) => {
     })
     .catch(error => {
       dispatch({type: "LOGIN_ERROR", error: error})
+      dispatch(createNotification({error}))
     });
   }
 }
@@ -35,7 +38,8 @@ export const signUp = (newUser) => {
         dispatch({type: "EMAIL_VERIFICATION_SUCCESS"})
       })
       .catch((error) => {
-        dispatch({type: "EMAIL_VERIFICATION_SUCCESS"})
+        dispatch({type: "EMAIL_VERIFICATION_ERROR"})
+        dispatch(createNotification({error}))
       });
       return db.collection('users').doc(res.user.uid).set({
         firstName: newUser.firstName,
@@ -46,8 +50,15 @@ export const signUp = (newUser) => {
       });
     }).then(() => {
       dispatch({type: "SIGNUP_SUCCESS"})
+      dispatch(createNotification({
+          title: `SUCK`,
+          message: "CESS",
+          type: "success",
+          delay: 5000
+        }))
     }).catch(error => {
       dispatch({type: "SIGNUP_ERROR", error: error})
+      dispatch(createNotification({error}))
     });;
 
   }

@@ -1,20 +1,24 @@
 import React from 'react';
 // import Calendar from '../components/Calendar';
 import { Breadcrumb } from '../components/Layout';
-
+import { Helmet } from 'react-helmet';
 
 const iframe = '<iframe src="https://calendar.google.com/calendar/embed?src=gb0ph7kb3k9g37t2f0ckvobeak%40group.calendar.google.com&ctz=America%2FNew_York" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>'
 
 export default class Projects extends React.Component{
 
   componentDidMount(){
-    document.title = "Projects | SB Leo Club";
     window.scrollTo(0, 0);
   }
 
   render(){
     return (
       <div>
+        <Helmet>
+          <title>Projects</title>
+          <meta name="description" content="These are some of the projects we do each year to serve our community" />
+          <meta name="keywords" content="" />
+        </Helmet>
         <Breadcrumb directory={[{"path":"/projects","name":"Projects"}]} />
         <div className="container">
           <h1 className="display-3 text-center pt-5 pb-5">Projects</h1>

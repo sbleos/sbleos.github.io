@@ -2,16 +2,20 @@ import React from 'react';
 import Events from '../components/Events';
 import SignUp from '../components/SignUp';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet'
 
 class Home extends React.Component {
   componentDidMount(){
-    document.title = "SB Leo Club";
     window.scrollTo(0, 0);
   }
 
   render(){
     return (
       <div>
+        <Helmet>
+          <meta name="description" content="Website for the South Brunwick Leo Club" />
+          <meta name="keywords" content="" />
+        </Helmet>
         <div className="jumbotron jumbotron-fluid " style={{background:`linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${require("../assets/home/home_2.jpg")})`,backgroundPosition:"center",backgroundSize:"cover"}}>
           <div className="container">
             <div className="row">

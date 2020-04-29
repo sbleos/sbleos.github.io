@@ -1,17 +1,21 @@
 import React from 'react';
 import BoardMember from '../components/BoardMember';
 import { Breadcrumb } from '../components/Layout';
-
+import { Helmet } from 'react-helmet';
 
 export default class Board extends React.Component{
   componentDidMount(){
-    document.title = "Board | SB Leo Club";
     window.scrollTo(0, 0);
   }
 
   render(){
     return (
       <>
+        <Helmet>
+          <title>Board</title>
+          <meta name="description" content="These are the leaders of the club. They work together to enhance the meaning of service and project it on the rest of the club." />
+          <meta name="keywords" content="" />
+        </Helmet>
 
         <Breadcrumb directory={[{"path":"/board","name":"Board"}]} />
 

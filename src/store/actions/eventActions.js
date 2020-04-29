@@ -1,3 +1,5 @@
+import { createNotification } from './notificationActions';
+
 export const createEvent = (event) => {
   return (dispatch, getState, { getFirebase }) => {
     const db = getFirebase().firestore();
@@ -6,8 +8,20 @@ export const createEvent = (event) => {
       ...event
     }).then(() => {
       dispatch({type: 'CREATE_EVENT', event})
+       dispatch(createNotification({
+        title: "Created New Event",
+        message: `Created Event "${event.title}"`,
+        type: "success",
+        delay: 5000
+      }))
     }).catch((error) => {
       dispatch({type: 'CREATE_EVENT_ERROR', error})
+      dispatch(createNotification({
+        title: `Error code: ${error.code}`,
+        message: error.message,
+        type: "error",
+        delay: 5000
+      }))
     });
 
   }
