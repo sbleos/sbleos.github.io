@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/static/css/main.9559e866.chunk.css",
-    "main.js": "/static/js/main.e55724cc.chunk.js",
-    "main.js.map": "/static/js/main.e55724cc.chunk.js.map",
+    "main.js": "/static/js/main.62cced87.chunk.js",
+    "main.js.map": "/static/js/main.62cced87.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.54622188.js",
     "runtime-main.js.map": "/static/js/runtime-main.54622188.js.map",
-    "static/js/2.0e54648b.chunk.js": "/static/js/2.0e54648b.chunk.js",
-    "static/js/2.0e54648b.chunk.js.map": "/static/js/2.0e54648b.chunk.js.map",
+    "static/js/2.53c256c1.chunk.js": "/static/js/2.53c256c1.chunk.js",
+    "static/js/2.53c256c1.chunk.js.map": "/static/js/2.53c256c1.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.5aabd2ad8f81d34d7107823b80525b3a.js": "/precache-manifest.5aabd2ad8f81d34d7107823b80525b3a.js",
+    "precache-manifest.f4f104194eafd447e8fba74d0dcafd8a.js": "/precache-manifest.f4f104194eafd447e8fba74d0dcafd8a.js",
     "service-worker.js": "/service-worker.js",
     "static/css/main.9559e866.chunk.css.map": "/static/css/main.9559e866.chunk.css.map",
-    "static/js/2.0e54648b.chunk.js.LICENSE.txt": "/static/js/2.0e54648b.chunk.js.LICENSE.txt",
+    "static/js/2.53c256c1.chunk.js.LICENSE.txt": "/static/js/2.53c256c1.chunk.js.LICENSE.txt",
     "static/media/adiv.jpg": "/static/media/adiv.73aa737d.jpg",
     "static/media/archana.jpeg": "/static/media/archana.77b233b4.jpeg",
     "static/media/childhood_cancer.png": "/static/media/childhood_cancer.ee086cfb.png",
@@ -37,8 +37,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.54622188.js",
-    "static/js/2.0e54648b.chunk.js",
+    "static/js/2.53c256c1.chunk.js",
     "static/css/main.9559e866.chunk.css",
-    "static/js/main.e55724cc.chunk.js"
+    "static/js/main.62cced87.chunk.js"
   ]
 }
