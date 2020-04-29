@@ -24,11 +24,11 @@ export default class Mission extends React.Component {
           <h4 className="display-4 pt-5 pb-3">Our Global Causes</h4>
 
           <div className="row">
-            <div className="col-lg-2 col-sm-12 text-center mb-4 mt-4">
+            <div className="col-md-2 col-xs-12 text-center mb-4 mt-4">
               <img width="100px" height="100px"src={require("../assets/logos/diabetes.png")} alt="Diabetes"></img>
               <h3 className="mt-2 mb-2">Diabetes</h3>
             </div>
-            <div className="col-lg-10 col-sm-12">
+            <div className="col-md-10 col-xs-12">
               <img className="img-fluid" src={require("../assets/mission/club_diabetes.jpeg")} alt="Diabetes"></img>
               <div className="mt-4 mb-4">
                 <p className="lead">Our mission is to improve the lives of those suffering from diabetes as well as reduce the prevalence of it.</p>
@@ -40,11 +40,11 @@ export default class Mission extends React.Component {
           <hr></hr>
 
           <div className="row">
-            <div className="col-lg-2 col-sm-12 text-center mb-4 mt-4">
+            <div className="col-md-2 col-xs-12 text-center mb-4 mt-4">
               <img width="100px" height="100px"src={require("../assets/logos/vision.png")} alt="Vision"></img>
               <h3 className="mt-2 mb-2">Vision</h3>
             </div>
-            <div className="col-lg-10 col-sm-12">
+            <div className="col-md-10 col-xs-12">
               <img className="img-fluid" src={require("../assets/mission/club_vision.jpg")} alt="Vision"></img>
               <div className="mt-4 mb-4">
                 <p className="lead">Our mission is to prevent avoidable blindness and improve the quality of life for people who are blind and visually impaired.</p>
@@ -56,11 +56,11 @@ export default class Mission extends React.Component {
           <hr></hr>
 
           <div className="row">
-            <div className="col-lg-2 col-sm-12 text-center mb-4 mt-4">
+            <div className="col-md-2 col-xs-12 text-center mb-4 mt-4">
               <img width="100px" height="100px"src={require("../assets/logos/environment.png")} alt="Environment"></img>
               <h3 className="mt-2 mb-2">Environment</h3>
             </div>
-            <div className="col-lg-10 col-sm-12">
+            <div className="col-md-10 col-xs-12">
               <img className="img-fluid" src={require("../assets/mission/club_environment.jpeg")} alt="Environment"></img>
               <div className="mt-4 mb-4">
                 <p className="lead">Our missions is to keep our community clean and put an emphasis on recycling and being more environmentally conscious</p>
@@ -72,11 +72,11 @@ export default class Mission extends React.Component {
           <hr></hr>
 
           <div className="row">
-            <div className="col-lg-2 col-sm-12 text-center mb-4 mt-4">
+            <div className="col-md-2 col-xs-12 text-center mb-4 mt-4">
               <img width="100px" height="100px"src={require("../assets/logos/hunger.png")} alt="Hunger"></img>
               <h3 className="mt-2 mb-2">Hunger</h3>
             </div>
-            <div className="col-lg-10 col-sm-12">
+            <div className="col-md-10 col-xs-12">
               <img className="img-fluid" src={require("../assets/mission/club_hunger.jpeg")} alt="Hunger"></img>
               <div className="mt-4 mb-4">
                 <p className="lead">Our mission is to ensure all community members have access to nutritious foods. Our Leo club does this by having a Thanksgiving food drive.</p>
@@ -88,11 +88,11 @@ export default class Mission extends React.Component {
           <hr></hr>
 
           <div className="row">
-            <div className="col-lg-2 col-sm-12 text-center mb-4 mt-4">
+            <div className="col-md-2 col-xs-12 text-center mb-4 mt-4">
               <img width="100px" height="100px"src={require("../assets/logos/childhood_cancer.png")} alt="Childhood Cancer"></img>
               <h3 className="mt-2 mb-2">Childhood Cancer</h3>
             </div>
-            <div className="col-lg-10 col-sm-12">
+            <div className="col-md-10 col-xs-12">
               <img className="img-fluid" src={require("../assets/mission/club_childhood_cancer.jpeg")} alt="Childhood Cancer"></img>
               <div className="mt-4 mb-4">
                 <p className="lead">Our mission is to provide support for these children and families affected by childhood cancer through various events.</p>

@@ -44,10 +44,16 @@ export const signUp = (newUser) => {
       return db.collection('users').doc(res.user.uid).set({
         firstName: newUser.firstName,
         lastName: newUser.lastName,
-        ID: 0,
+        id: 0,
         role: "Member",
         developer: false,
-        active: false
+        active: false,
+        dateOfBirth: "",
+        address: "",
+        city: "",
+        zipCode: "",
+        phoneNumber: "",
+        joinDate: new Date().toLocaleDateString()
       });
     }).then(() => {
       dispatch({type: "SIGNUP_SUCCESS"})

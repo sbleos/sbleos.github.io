@@ -16,12 +16,7 @@ export const createEvent = (event) => {
       }))
     }).catch((error) => {
       dispatch({type: 'CREATE_EVENT_ERROR', error})
-      dispatch(createNotification({
-        title: `Error code: ${error.code}`,
-        message: error.message,
-        type: "error",
-        delay: 5000
-      }))
+      dispatch(createNotification({error}))
     });
 
   }

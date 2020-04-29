@@ -12,9 +12,9 @@ class Dashboard extends React.Component{
   constructor(props){
     super(props);
 
-
+    const { profile } = this.props;
     this.state = {
-      component: <Profile />
+      component: <Profile profile={profile}/>
     }
   }
 
@@ -48,38 +48,39 @@ class Dashboard extends React.Component{
           <meta name="keywords" content="" />
         </Helmet>
 
-        {!profile.isEmpty ?
-        <div className="row m-0" >
-          <div className="col-2 p-0" style={{minHeight:"91vh"}}>
-            <NavDash changeView={this.changeView.bind(this)} profile={profile}/>
-          </div>
-          <div className="col-10 p-0">
-            {this.state.component}
-          </div>
-        </div>
+        {profile.isLoaded ?
+          !profile.isEmpty ?
+            <div className="row m-0" > {/* Render Dashboard if user is signed in */}
+              <div className="col-2 p-0" style={{minHeight:"91vh"}}>
+                <NavDash changeView={this.changeView.bind(this)} profile={profile}/>
+              </div>
+              <div className="col-10 p-0">
+                {this.state.component}
+              </div>
+            </div>
 
-
-
-
-
+          :
+            <div> {/* Render SignIn if user is not signed in */}
+              <Notifications location="topRight"/>
+              <div style={{height:"91vh",background:"radial-gradient(circle, gainsboro, lightsteelblue)"}}>
+                <div className=" mx-auto pt-5" style={{maxWidth:"330px"}}>
+                  <SignIn />
+                </div>
+              </div>
+            </div>
 
         :
-        <div>
-          <Notifications location="topRight"/>
-          <div style={{height:"91vh",background:"radial-gradient(circle, gainsboro, lightsteelblue)"}}>
-
-            <div className=" mx-auto pt-5" style={{maxWidth:"330px"}}>
-              <SignIn />
+          <div className="row m-0" > {/* Render before profile is loaded for smoothness */}
+            <div className="col-2 p-0" style={{minHeight:"91vh"}}>
+              <NavDash />
             </div>
           </div>
-        </div>
-      }
+        }
       </div>
     )}
 }
 
 const mapStateToProps = (state) => {
-  console.log(state)
   return {
     profile: state.firebase.profile
   }
