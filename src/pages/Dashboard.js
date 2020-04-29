@@ -1,19 +1,20 @@
 import React from 'react';
 import NavDash from '../components/dashboard/NavDash';
 import Overview from '../components/dashboard/Overview';
-// import Profile from '../components/dashboard/Profile';
+import Profile from '../components/dashboard/Profile';
+import Hours from '../components/dashboard/Hours';
 import SignIn from '../components/SignIn.js';
 import { connect } from 'react-redux';
 import Notifications from '../components/Notifications.js';
-import Notification from '../components/Notification.js';
 import { Helmet } from 'react-helmet';
 
 class Dashboard extends React.Component{
   constructor(props){
     super(props);
 
+
     this.state = {
-      component: <Overview />
+      component: <Profile />
     }
   }
 
@@ -24,7 +25,21 @@ class Dashboard extends React.Component{
     window.scrollTo(0, 0);
   }
 
+  componentDidUpdate(prevProps) {
+    const { profile } = this.props;
+
+    if(profile.isEmpty !== prevProps.profile.isEmpty){
+      const hasAccess = true;//profile.role !== "Member" || profile.developer;
+
+      this.setState({
+        component: hasAccess ? <Overview profile={profile} /> : (profile.id !== 0 ? <Hours profile={profile} /> : <Profile profile={profile} />)
+      })
+    }
+  }
+
   render(){
+    const { profile } = this.props;
+
     return (
       <div>
         <Helmet>
@@ -33,10 +48,10 @@ class Dashboard extends React.Component{
           <meta name="keywords" content="" />
         </Helmet>
 
-        {!this.props.auth.isEmpty ?
+        {!profile.isEmpty ?
         <div className="row m-0" >
           <div className="col-2 p-0" style={{minHeight:"91vh"}}>
-            <NavDash changeView={this.changeView.bind(this)} />
+            <NavDash changeView={this.changeView.bind(this)} profile={profile}/>
           </div>
           <div className="col-10 p-0">
             {this.state.component}
@@ -64,8 +79,9 @@ class Dashboard extends React.Component{
 }
 
 const mapStateToProps = (state) => {
+  console.log(state)
   return {
-    auth: state.firebase.auth
+    profile: state.firebase.profile
   }
 }
 

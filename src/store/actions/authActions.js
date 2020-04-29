@@ -46,7 +46,8 @@ export const signUp = (newUser) => {
         lastName: newUser.lastName,
         ID: 0,
         role: "Member",
-        developer: false
+        developer: false,
+        active: false
       });
     }).then(() => {
       dispatch({type: "SIGNUP_SUCCESS"})
