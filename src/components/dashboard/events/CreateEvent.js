@@ -9,7 +9,7 @@ import Notifications from '../../Notifications';
 const EventSchema = Yup.object().shape({
   title: Yup.string()
     .required("Required"),
-  date: Yup.date("")
+  date: Yup.date()
    .min(new Date(2015,0,1),"Please include a recent date"),
   formLink: Yup.string()
     .url("Please enter a valid URL (Add https://)")
