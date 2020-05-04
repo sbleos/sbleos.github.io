@@ -1,4 +1,23 @@
-const initState = {
+const initState = {}
+
+const eventReducer = (state = initState, action) => {
+  switch(action.type){
+    case 'CREATE_EVENT': return state;
+
+    case 'CREATE_PROJECT_ERROR': return state;
+
+    case 'UPLOAD_EVENT_IMAGE_SUCCESS': return state;
+
+    case 'UPLOAD_EVENT_IMAGE_ERROR': return state;
+
+    default: return state;
+  }
+}
+
+export default eventReducer;
+
+/*
+{
   events: [
     {
       title: "Covid-19 Appreciation",
@@ -20,15 +39,4 @@ const initState = {
     }
   ]
 }
-
-const eventReducer = (state = initState, action) => {
-  switch(action.type){
-    case 'CREATE_EVENT': return state;
-
-    case 'CREATE_PROJECT_ERROR': return state;
-
-    default: return state;
-  }
-}
-
-export default eventReducer;
+*/

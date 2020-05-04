@@ -1,6 +1,7 @@
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
+import 'firebase/storage';
 
 //the apiKey is only to identify the project, it does not need to be hidden
 export const firebaseConfig = {
@@ -18,4 +19,5 @@ export const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.auth();
 firebase.firestore();
+firebase.storage();
 export default firebase;
