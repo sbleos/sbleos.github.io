@@ -1,44 +1,35 @@
 import React from 'react';
 import NavDash from '../components/dashboard/NavDash';
 import Overview from '../components/dashboard/Overview';
-import Profile from '../components/dashboard/Profile';
+import Members from '../components/dashboard/Members';
 import Hours from '../components/dashboard/Hours';
-import SignIn from '../components/SignIn.js';
+import Attendance from '../components/dashboard/Attendance';
+import Events from '../components/dashboard/Events';
+// import Points from '../components/dashboard/Points';
+import Profile from '../components/dashboard/Profile';
 import { connect } from 'react-redux';
-import Notifications from '../components/Notifications.js';
+// import Notifications from '../components/Notifications.js';
 import { Helmet } from 'react-helmet';
+import { Route, withRouter, Redirect, Switch } from 'react-router-dom'
 
 class Dashboard extends React.Component{
-  constructor(props){
-    super(props);
-
-    const { profile } = this.props;
-    this.state = {
-      component: <Profile profile={profile}/>
-    }
-  }
-
-  changeView = (c) => this.setState({component:c})
-
 
   componentDidMount(){
     window.scrollTo(0, 0);
-  }
 
-  componentDidUpdate(prevProps) {
-    const { profile } = this.props;
-
-    if(profile.isEmpty !== prevProps.profile.isEmpty){
-      const hasAccess = true;//profile.role !== "Member" || profile.developer;
-
-      this.setState({
-        component: hasAccess ? <Overview profile={profile} /> : (profile.id !== 0 ? <Hours profile={profile} /> : <Profile profile={profile} />)
-      })
-    }
+    //component: hasAccess ? <Overview profile={profile} /> : (profile.id !== 0 ? <Hours profile={profile} /> : <Profile profile={profile} />)
   }
 
   render(){
-    const { profile } = this.props;
+    const { profile, match } = this.props;
+    const { path } = match;
+
+    if(!profile.isLoaded)
+      return null
+    if(profile.isEmpty)
+      return <Redirect to="/login" />
+
+    const hasAccess = true; //profile.role !== "Member" || profile.developer;
 
     return (
       <div>
@@ -48,34 +39,30 @@ class Dashboard extends React.Component{
           <meta name="keywords" content="" />
         </Helmet>
 
-        {profile.isLoaded ?
-          !profile.isEmpty ?
-            <div className="row m-0" > {/* Render Dashboard if user is signed in */}
-              <div className="col-2 p-0" style={{minHeight:"91vh"}}>
-                <NavDash changeView={this.changeView.bind(this)} profile={profile}/>
-              </div>
-              <div className="col-10 p-0">
-                {this.state.component}
-              </div>
-            </div>
-
-          :
-            <div> {/* Render SignIn if user is not signed in */}
-              <Notifications location="topRight"/>
-              <div style={{height:"91vh",background:"radial-gradient(circle, gainsboro, lightsteelblue)"}}>
-                <div className=" mx-auto pt-5" style={{maxWidth:"330px"}}>
-                  <SignIn />
-                </div>
-              </div>
-            </div>
-
-        :
-          <div className="row m-0" > {/* Render before profile is loaded for smoothness */}
-            <div className="col-2 p-0" style={{minHeight:"91vh"}}>
-              <NavDash />
-            </div>
+        <div className="row m-0" style={{minHeight:"91vh"}}> {/* Render Dashboard if user is signed in */}
+          <div className="col-2 p-0">
+            <NavDash profile={profile}/>
           </div>
-        }
+          <div className="col-10 p-0">
+            <Switch>
+              <Route exact path={path} render={props => hasAccess ? <Overview {...props} profile={profile} /> : (profile.id !== 0 ? <Hours {...props} profile={profile} /> : <Profile {...props} profile={profile} />)} />
+              <Route
+                path={`${path}/:id`}
+                render={ ({match}) => {
+                  switch(match.params.id){ //none of these components need to connect with Redux state for profile because it is passed as a prop
+                    case "profile": return <Profile profile={profile} />;
+                    case "members": return <Members profile={profile} />;
+                    case "hours": return <Hours profile={profile} />;
+                    case "attendance": return <Attendance profile={profile} />;
+                    case "events": return <Events profile={profile} />;
+                    default : return null;
+                  }
+                }}
+              />
+            </Switch>
+          </div>
+        </div>
+
       </div>
     )}
 }
@@ -86,5 +73,5 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(Dashboard);
+export default withRouter(connect(mapStateToProps)(Dashboard));
 

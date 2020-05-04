@@ -1,11 +1,10 @@
 import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useRouteMatch } from 'react-router-dom'
 
 function Layout(props){
-  let location = useLocation();
-  let isDashboard = location.pathname === "/dashboard";
+  let isDashboard = useRouteMatch("/dashboard");
   return(
     <div style={{position: "relative", minHeight: "100vh",margin:0,paddingBottom:!isDashboard ? "10rem": 0}}>
 

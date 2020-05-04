@@ -6,6 +6,7 @@ import Mission from './pages/Mission';
 import Projects from './pages/Projects';
 import Board from './pages/Board';
 import Dashboard from './pages/Dashboard';
+import SignIn from './components/SignIn';
 import NoMatch from './pages/NoMatch';
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom'
 import { useSelector } from 'react-redux';
@@ -50,6 +51,7 @@ function App() {
 
               <Route path="/board" component={Board} />
               <Route path="/dashboard" component={Dashboard} />
+              <Route path="/login" component={SignIn} />
         	    <Route component={NoMatch}/>
             </Switch>
           </Layout>
