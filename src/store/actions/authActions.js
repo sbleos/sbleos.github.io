@@ -33,12 +33,15 @@ export const signUp = (newUser) => {
 
     auth.createUserWithEmailAndPassword(newUser.email,newUser.password)
     .then((res) => {
-      res.user.sendEmailVerification()
+      var actionCodeSettings = {
+        url: 'https://sbleos.org'
+      };
+      res.user.sendEmailVerification(actionCodeSettings)
       .then(() => { //.then() is nested and not added on to the main level to maintain seperation of errors
         dispatch({type: "EMAIL_VERIFICATION_SUCCESS"})
       })
       .catch((error) => {
-        dispatch({type: "EMAIL_VERIFICATION_ERROR"})
+        dispatch({type: "EMAIL_VERIFICATION_ERROR", error: error})
         dispatch(createNotification({error}))
       });
       return db.collection('users').doc(res.user.uid).set({
