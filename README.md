@@ -15,7 +15,7 @@ If you plan on doing more than that to change the website, you may need to know 
 
 ### Available Scripts
 
-Before you run any of the scripts, make sure you have node_modules/ in your project. If it is your first time running the project, then it may not be there because it is blocked by the gitignore. If you do not have the directory, run `npm install`. By the way, if you are not sure how to code, this is done in the command line. It may seem complicated, but a simple tutorial can show you how to use it.
+Before you run any of the scripts, make sure you have node_modules/ in your project. If it is your first time running the project, then it may not be there because it is blocked by the gitignore. If you do not have the directory, run `npm install`. By the way, if you are not sure how to code, this is done in the command line. It may seem complicated, but a simple tutorial can show you how to use it. [https://www.npmjs.com/get-npm](Get npm here if you do not have it).
 
 ### `npm start`
 
