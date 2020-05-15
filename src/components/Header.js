@@ -26,8 +26,8 @@ class Header extends React.Component {
               <NavLink className="nav-link" to="/mission">Our Mission</NavLink>
             </li>
             <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" to="/projects" value="Projects" id="mission" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projects</a>
-              <div className="dropdown-menu dropdown-menu-right" aria-labelledby="mission">
+              <a className="nav-link dropdown-toggle" id="project_dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projects</a>
+              <div className="dropdown-menu dropdown-menu-right" aria-labelledby="project_dropdown">
                 <NavLink className="dropdown-item" to="/projects">Projects</NavLink>
                 <a className="dropdown-item" href="https://runsignup.com/Race/NJ/MonmouthJunction/Leo5KRun">Leo 5k Run</a>
                 <a className="dropdown-item" href="https://charity.gofundme.com/">COVID-19 Relief</a>
@@ -37,7 +37,6 @@ class Header extends React.Component {
               <NavLink className="nav-link" to="/board">Board</NavLink>
             </li>
              <li className="nav-item">
-
               <NavLink to={!profile.isEmpty ? "/dashboard" : "/login"} >
                   <FontAwesomeIcon icon={faUser} size="lg" style={{height:"100%",margin:"0 .5rem",color:"rgb(89,89,98)"}}/>
               </NavLink>

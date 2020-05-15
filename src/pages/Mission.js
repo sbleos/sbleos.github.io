@@ -18,7 +18,7 @@ export default class Mission extends React.Component {
         <Breadcrumb directory={[{"path":"/mission","name":"Our Mission"}]} />
         <div className="container">
           <h1 className="display-3 text-center pt-5 pb-3">Our Mission</h1>
-          <blockquote className="blockquote">
+          <blockquote className="blockquote text-center">
             <p className="mb-0">To empower volunteers to serve their communities, meet humanitarian needs, encourage peace and promote international understanding through Lions clubs.</p>
           </blockquote>
           <h4 className="display-4 pt-5 pb-3">Our Global Causes</h4>

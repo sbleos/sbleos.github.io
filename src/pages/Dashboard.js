@@ -29,7 +29,7 @@ class Dashboard extends React.Component{
     if(profile.isEmpty)
       return <Redirect to="/login" />
 
-    const hasAccess = true; //profile.role !== "Member" || profile.developer;
+    const hasAccess = profile.role !== "Member" || profile.developer; //true
 
     return (
       <div>

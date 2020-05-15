@@ -5,7 +5,7 @@ class Events extends React.Component{
   render(){
     const { profile } = this.props;
 
-    const hasAccess = true; //profile.role !== "Member" || profile.developer;
+    const hasAccess = profile.role !== "Member" || profile.developer;
     if(!hasAccess)
       return <div>Events</div>
 
