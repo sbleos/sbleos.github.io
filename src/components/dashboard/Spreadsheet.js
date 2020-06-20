@@ -5,17 +5,21 @@ import {
   IntegratedSorting,
   DataTypeProvider,
   FilteringState,
+  SearchState,
   IntegratedFiltering,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   VirtualTable,
   TableHeaderRow,
+  TableEditColumn,
+  TableFilterRow,
   TableInlineCellEditing,
   TableColumnResizing,
   ColumnChooser,
   TableColumnVisibility,
   Toolbar,
+  SearchPanel,
 } from '@devexpress/dx-react-grid-bootstrap4';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -35,8 +39,19 @@ const StyleTypeProvider = props => (
 class Spreadsheet extends React.Component {
 
   render() {
-    const { rows, headers, commitChanges, disableColumns, styles, defaultHiddenColumnNames } = this.props;
-
+    const {
+      rows,
+      headers,
+      commitChanges,
+      defaultSorting,
+      disableColumns,
+      multilineColumnNames,
+      styles,
+      defaultHiddenColumnNames,
+      customFormats,
+      plugins,
+      canDelete,
+    } = this.props;
 
     const defaultColumnWidths = headers.map(header => ( {columnName: header['name'], width: 'auto'} ));
 
@@ -44,22 +59,29 @@ class Spreadsheet extends React.Component {
     <div className="card">
       {rows &&
         <Grid rows={rows} columns={headers} getRowId={row=>row.id}>
-          {styles.map((format, idx) => (
+          {styles && styles.map((format, idx) => (
             <StyleTypeProvider for={format['for']} style={format['style']} key={idx}/>
           ))}
 
+          {customFormats && customFormats.map((format, idx) => (
+            <DataTypeProvider for={format['for']} formatterComponent={format['component']} key={idx}/>
+          ))}
 
-          <SortingState defaultSorting={[{ columnName: 'firstName', direction: 'asc' }]} />
+
+          <SortingState defaultSorting={defaultSorting} />
           <FilteringState />
-          <EditingState
-            onCommitChanges={commitChanges}
-            columnExtensions={disableColumns}
-          />
+          <SearchState />
+          <EditingState onCommitChanges={commitChanges} columnExtensions={disableColumns} />
 
           <IntegratedSorting />
           <IntegratedFiltering />
 
-          <VirtualTable cellComponent={FocusableCell} />
+          <VirtualTable
+            cellComponent={FocusableCell}
+            columnExtensions={multilineColumnNames && multilineColumnNames.map((columnName => (
+              { columnName, wordWrapEnabled: true }
+            )))}
+          />
           <TableColumnResizing defaultColumnWidths={defaultColumnWidths} resizingMode="nextColumn"/>
           <TableHeaderRow
             showSortingControls
@@ -71,14 +93,30 @@ class Spreadsheet extends React.Component {
               </button>
             )}
           />
+          {canDelete &&
+            <TableEditColumn
+              showDeleteCommand
+              commandComponent={({ onExecute, ...restProps }) => (
+                <TableEditColumn.Command
+                  onExecute={() => { if (window.confirm('Are you sure you wish to delete this event?')) onExecute() } }
+                  {...restProps}
+                />
+              )}
+            />
+          }
+          <TableFilterRow />
           <TableInlineCellEditing startEditAction="doubleClick" />
 
           <TableColumnVisibility defaultHiddenColumnNames={defaultHiddenColumnNames} />
 
           <Toolbar />
+          {plugins && plugins.map((plugin, idx) => (
+            <span key={idx}>{plugin}</span>
+          ))}
+          <SearchPanel />
           <ColumnChooser
             toggleButtonComponent={({ onToggle, buttonRef }) => (
-              <button type="button" className="btn btn-light btn-sm" onClick={onToggle} ref={buttonRef}>
+              <button type="button" className="btn btn-light btn-sm m-3" onClick={onToggle} ref={buttonRef}>
                 <FontAwesomeIcon icon="eye" onClick={onToggle}/>
               </button>
             )}

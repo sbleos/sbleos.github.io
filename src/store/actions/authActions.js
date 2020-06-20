@@ -48,7 +48,7 @@ export const signUp = (newUser) => {
         firstName: newUser.firstName,
         lastName: newUser.lastName,
         email: newUser.email,
-        id: 0,
+        memberID: 0,
         role: "Member",
         developer: false,
         active: false,

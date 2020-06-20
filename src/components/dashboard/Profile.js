@@ -22,7 +22,7 @@ class Profile extends React.Component {
     var initialValues = {
       firstName: profile.firstName,
       lastName: profile.lastName,
-      id: profile.id,
+      memberID: profile.memberID,
       email: email,
       dateOfBirth: profile.dateOfBirth,
       address: profile.address,
@@ -32,12 +32,13 @@ class Profile extends React.Component {
       joinDate: profile.joinDate,
       active: profile.active
     }
+
     return (
       <div>
         <Notifications location="topRight"/>
         <div className="container p-3">
           <h2>Profile</h2>
-          { profile.id === 0 &&
+          { profile.memberID == 0 &&
             <div className="alert alert-info" role="alert">
               <h4 className="alert-heading">Looks like the board has not verified your account yet.</h4>
               <p>You can get access to the rest of the dashboard once your account has been accepted by the board. Please fill up your profile to speed up the process.</p>
@@ -48,7 +49,7 @@ class Profile extends React.Component {
             validationSchema={ProfileSchema}
             onSubmit={(values, actions) => {
               //only save changes if there are changes
-              if(values !== initialValues){
+              if(JSON.stringify(values) !== JSON.stringify(initialValues)){
                 this.props.updateProfile(values);
                 initialValues = values;
               }
@@ -85,10 +86,10 @@ class Profile extends React.Component {
 
                 <div className="form-row">
                   <div className="form-group col-sm-6 col-md-2">
-                    <label htmlFor="id">Membership ID</label>
+                    <label htmlFor="memberID">Membership ID</label>
                     <Field
                       type="text"
-                      name="id"
+                      name="memberID"
                       className="form-control"
                       disabled={true}
                     />

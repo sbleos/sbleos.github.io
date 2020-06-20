@@ -8,22 +8,22 @@ import { compose } from 'redux';
 //Can get all events, upcoming events, or previous events (if not specified as either upcoming or previous, it defaults to all events)
 class Events extends React.Component{
   render(){
-    const { events } = this.props;
-    if(!events)
+    const { events:e } = this.props;
+    if(!e)
       return(<p className="lead">There are no events at this time</p>)
 
-    let e = events.slice().sort((a, b) => new Date(a.date) - new Date(b.date)); // all events
+    let events = e.slice().sort((a, b) => new Date(a.date) - new Date(b.date)); // all events
 
     const today = new Date();
     if(this.props.type.toLowerCase() === "upcoming")
-      e = e.filter(a => new Date(a.date) >= today || !a.date); //this will show events without a date as upcoming, BUT SPECIFY A DATE SO IT IS SORTED PROPERLY
+      events = events.filter(a => new Date(a.date) >= today || !a.date); //this will show events without a date as upcoming, BUT SPECIFY A DATE SO IT IS SORTED PROPERLY
     else if(this.props.type.toLowerCase() === "previous")
-      e = e.filter(a => new Date(a.date) < today).reverse();
+      events = events.filter(a => new Date(a.date) < today).reverse();
 
     if(this.props.max && Number.isInteger(this.props.max)) //if you want to only show a few at a time, REMEMBER TO PASS A NUMBER IN BRACKETS
-      e = e.slice(0,this.props.max);
+      events = events.slice(0,this.props.max);
 
-    e = e.map((event,index) => {
+    events = events.map((event,index) => {
       let border = "2px solid rgba(0,0,0,0.125)";
 
       let type = event.type.toLowerCase();
@@ -82,7 +82,7 @@ class Events extends React.Component{
               border = {border} />
       )});
 
-    return(<div className="row">{e}</div>)
+    return(<div className="row">{events}</div>)
   }
 }
 

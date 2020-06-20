@@ -68,11 +68,34 @@ export const getImage = (imgsrc) => {
         }})
     }).catch(error => {
       dispatch({type: 'GET_EVENT_IMAGE_ERROR', error})
-      console.log(error)
     })
+  }
+};
 
+export const updateEvent = (updatedEvent) => {
+  return (dispatch, getState, { getFirebase }) => {
+    const firebase = getFirebase();
+    const firestore = firebase.firestore();
 
+    firestore.collection('events').doc(updatedEvent.id).update(updatedEvent)
+    .then(() => {
+      dispatch({type: 'UPDATE_EVENT', updatedEvent})
+    }).catch(error => {
+      dispatch({type: 'UPDATE_EVENT_ERROR', error})
+    });
+  }
+};
 
+export const deleteEvent = (deletedEventID) => {
+  return (dispatch, getState, { getFirebase }) => {
+    const firebase = getFirebase();
+    const firestore = firebase.firestore();
 
+    firestore.collection('events').doc(deletedEventID).delete()
+    .then(() => {
+      dispatch({type: 'DELETE_EVENT', deletedEventID})
+    }).catch(error => {
+      dispatch({type: 'DELETE_EVENT_ERROR', error})
+    });
   }
 };

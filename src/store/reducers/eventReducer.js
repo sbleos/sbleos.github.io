@@ -8,6 +8,14 @@ const eventReducer = (state = {}, action) => {
 
     case 'UPLOAD_EVENT_IMAGE_ERROR': return state;
 
+    case 'UPDATE_EVENT': return state;
+
+    case 'UPDATE_EVENT_ERROR': return state;
+
+    case 'DELETE_EVENT': return state;
+
+    case 'DELETE_EVENT_ERROR': return state;
+
     default: return state;
   }
 }

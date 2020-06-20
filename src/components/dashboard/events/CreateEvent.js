@@ -109,6 +109,7 @@ class CreateEvent extends React.Component {
                         name="type"
                         className="custom-select"
                       >
+                        <option value="Meeting">Meeting</option>
                         <option value="Community">Community</option>
                         <option value="Diabetes">Diabetes</option>
                         <option value="Vision">Vision</option>
@@ -119,16 +120,18 @@ class CreateEvent extends React.Component {
                         <option value="Humanitarian">Humanitarian</option>
                         <option value="Disaster Relief">Disaster Relief</option>
                       </Field>
-                      <div >
-                        <label >
-                          <Field type="checkbox" name="defaultImage" className="mr-1"/>
-                          Use event type logo as image
-                        </label>
-                      </div>
+                      {values.type !== "Community" && values.type !== "Meeting" &&
+                        <div>
+                          <label>
+                            <Field type="checkbox" name="defaultImage" className="mr-1"/>
+                            Use default event type logo as image
+                          </label>
+                        </div>
+                      }
                     </div>
                   </div>
 
-                  {!values.defaultImage &&
+                  {!values.defaultImage && values.type !== "Meeting" &&
                   <div className="form-group">
                     <label htmlFor="file">Image</label>
                     <div className="input-group ">

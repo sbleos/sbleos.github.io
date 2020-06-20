@@ -16,8 +16,6 @@ class Dashboard extends React.Component{
 
   componentDidMount(){
     window.scrollTo(0, 0);
-
-    //component: hasAccess ? <Overview profile={profile} /> : (profile.id !== 0 ? <Hours profile={profile} /> : <Profile profile={profile} />)
   }
 
   render(){
@@ -29,7 +27,7 @@ class Dashboard extends React.Component{
     if(profile.isEmpty)
       return <Redirect to="/login" />
 
-    const hasAccess = profile.role !== "Member" || profile.developer; //true
+    const hasAccess = profile.role !== "Member" || profile.developer;
 
     return (
       <div>
@@ -45,11 +43,11 @@ class Dashboard extends React.Component{
           </div>
           <div className="col-10 p-0">
             <Switch>
-              <Route exact path={path} render={props => hasAccess ? <Overview {...props} profile={profile} /> : (profile.id !== 0 ? <Hours {...props} profile={profile} /> : <Profile {...props} profile={profile} />)} />
+              <Route exact path={path} render={props => hasAccess ? <Overview {...props} profile={profile} /> : (profile.memberID != 0 ? <Hours {...props} profile={profile} /> : <Profile {...props} profile={profile} />)} />
               <Route
                 path={`${path}/:id`}
                 render={ ({match}) => {
-                  switch(match.params.id){ //none of these components need to connect with Redux state for profile because it is passed as a prop
+                  switch(match.params.id){ //none of these components need to connect with Redux state for PROFILE because it is passed as a prop
                     case "profile": return <Profile profile={profile} />;
                     case "members": return <Members profile={profile} />;
                     case "hours": return <Hours profile={profile} />;
