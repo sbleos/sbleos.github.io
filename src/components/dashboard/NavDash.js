@@ -19,7 +19,8 @@ class NavDash extends React.Component {
             <li className="nav-item">
               <NavLink exact className="nav-link" to={url}>
                 <FontAwesomeIcon icon={faTachometerAlt}  />
-                <span className="ml-md-1 ml-0 d-md-inline d-none">Overview</span>
+                &nbsp;&nbsp;
+                <span className="d-md-inline d-none">Overview</span>
               </NavLink>
             </li>
           }
@@ -27,39 +28,47 @@ class NavDash extends React.Component {
             <li className="nav-item">
               <NavLink className="nav-link" to={`${url}/members`}>
                 <FontAwesomeIcon icon={faUsers} />
-                <span className="ml-md-1 ml-0 d-md-inline d-none">Members</span>
+                &nbsp;&nbsp;
+                <span className="d-md-inline d-none">Members</span>
               </NavLink>
             </li>
           }
           <li className="nav-item">
             <NavLink className="nav-link" to={`${url}/hours`}>
               <FontAwesomeIcon icon={faClock} />
-              <span className="ml-md-1 ml-0 d-md-inline d-none">Hours</span>
+              &nbsp;&nbsp;
+              <span className="d-md-inline d-none">Hours</span>
             </NavLink>
           </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to={`${url}/attendance`}>
-              <FontAwesomeIcon icon={faClipboardList} />
-              <span className="ml-md-1 ml-0 d-md-inline d-none">Attendance</span>
-            </NavLink>
-          </li>
+          { hasAccess &&
+            <li className="nav-item">
+              <NavLink className="nav-link" to={`${url}/attendance`}>
+                <FontAwesomeIcon icon={faClipboardList} />
+                &nbsp;&nbsp;
+                <span className="d-md-inline d-none">Attendance</span>
+              </NavLink>
+            </li>
+          }
           <li className="nav-item">
             <NavLink className="nav-link" to={`${url}/events`}>
               <FontAwesomeIcon icon={faCalendarAlt} />
-              <span className="ml-md-1 ml-0 d-md-inline d-none">Events</span>
+              &nbsp;&nbsp;
+              <span className="d-md-inline d-none">Events</span>
             </NavLink>
           </li>
           <li style={{margin:"1rem 0",borderTop:"1px solid rgba(255,255,255,.5)"}}></li>
           <li className="nav-item">
             <NavLink className="nav-link" to={`${url}/profile`}>
               <FontAwesomeIcon icon={faUserCircle} />
-              <span className="ml-md-1 ml-0 d-md-inline d-none">Profile</span>
+              &nbsp;&nbsp;
+              <span className="d-md-inline d-none">Profile</span>
             </NavLink>
           </li>
           <li className="nav-item">
             <NavLink className="nav-link text-danger" to="/login" onClick={this.props.signOut}>
               <FontAwesomeIcon icon={faSignOutAlt} />
-              <span className="ml-md-1 ml-0 d-md-inline d-none">Sign Out</span></NavLink>
+              &nbsp;&nbsp;
+              <span className="d-md-inline d-none">Sign Out</span></NavLink>
           </li>
         </ul>
       </nav>

@@ -47,6 +47,7 @@ export const signUp = (newUser) => {
       return db.collection('users').doc(res.user.uid).set({
         firstName: newUser.firstName,
         lastName: newUser.lastName,
+        email: newUser.email,
         id: 0,
         role: "Member",
         developer: false,

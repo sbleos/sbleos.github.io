@@ -35,7 +35,7 @@ class Profile extends React.Component {
     return (
       <div>
         <Notifications location="topRight"/>
-        <div className="container m-3">
+        <div className="container p-3">
           <h2>Profile</h2>
           { profile.id === 0 &&
             <div className="alert alert-info" role="alert">

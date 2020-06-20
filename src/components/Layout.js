@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import { Link, useRouteMatch } from 'react-router-dom'
+import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';
 
 function Layout(props){
   let isDashboard = useRouteMatch("/dashboard");
@@ -34,6 +35,4 @@ export function Breadcrumb(props){ // displays directory path (first is always h
 
 
 export default Layout;
-//background-color: #EBB700;
-//style={{backgroundColor:"#EBB700"}}
 
