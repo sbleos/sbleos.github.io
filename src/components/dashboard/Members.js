@@ -1,39 +1,12 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux';
 import { updateUser } from '../../store/actions/userActions';
-import {
-  EditingState,
-  SortingState,
-  IntegratedSorting,
-  DataTypeProvider,
-  FilteringState,
-  IntegratedFiltering
-} from '@devexpress/dx-react-grid';
-import {
-  Grid,
-  Table,
-  TableHeaderRow,
-  TableInlineCellEditing,
-  TableColumnResizing
-} from '@devexpress/dx-react-grid-bootstrap4';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons'
+import Spreadsheet from './Spreadsheet';
 
-const FocusableCell = ({ onClick, ...restProps }) => (
-  <Table.Cell {...restProps} tabIndex={0} onFocus={onClick} />
-);
-
-const StyleTypeProvider = props => (
-  <DataTypeProvider
-    formatterComponent={({ value }) => (
-      <div style={props.style}>{value}</div>
-    )}
-    {...props}
-  />
-)
 
 class Members extends React.Component {
 
@@ -44,7 +17,6 @@ class Members extends React.Component {
 
     if(!hasAccess)
       return <Redirect to="/dashboard" />
-
 
     const headers = [
       { name: 'id', title: 'ID' },
@@ -62,7 +34,21 @@ class Members extends React.Component {
       // { name: 'joinDate', title: 'Join Date' },
     ]
 
-    const columnWidths = headers.map(header => ( {columnName: header['name'], width: 200} ));
+    const disableColumns = [
+      {columnName: 'email', editingEnabled: false},
+      {columnName: 'role', editingEnabled: profile.role === "President" || profile.role === "Vice President"},
+    ]
+
+    const styles=[
+      {
+        style: {
+          color: 'blue'
+        },
+        for: ['role']
+      },
+    ]
+
+    const defaultHiddenColumnNames = []
 
     this.commitChanges = ({ added, changed, deleted }) => {
       /*
@@ -71,50 +57,25 @@ class Members extends React.Component {
        */
       if(changed)
         users.map(user => changed[user.id] ? updateUser({...user, ...changed[user.id]}) : user)
-
     }
 
-    return (
-    <div>
-      {users &&
-        <Grid rows={users} columns={headers} getRowId={user=>user.id}>
-          <StyleTypeProvider for={["role"]} style={{color:"blue"}}/>
-
-          <SortingState
-            sorting={[{ columnName: 'firstName', direction: 'asc' }]}
-            onSortingChange= {() => [{ columnName: 'firstName', direction: 'asc' }]}
-          />
-          <FilteringState />
-          <EditingState
-            onCommitChanges={this.commitChanges}
-            columnExtensions={
-              [
-                {columnName: 'email', editingEnabled: false}
-              ]
-            }
-          />
-
-          <IntegratedSorting />
-          <IntegratedFiltering />
-
-          <Table cellComponent={FocusableCell} />
-          <TableColumnResizing columnWidths={columnWidths} />
-          <TableHeaderRow
-            showSortingControls
-            sortLabelComponent={({ onSort, children, direction }) => (
-              <button type="button" className="btn btn-light btn-sm" onClick={onSort} >
-                {children}
-                &nbsp;
-                {(direction && <FontAwesomeIcon icon={direction === "asc" ? faArrowUp : faArrowDown} /> )}
-              </button>
-            )}
-          />
-          <TableInlineCellEditing startEditAction="doubleClick" />
-        </Grid>
-      }
-    </div>
+    return(
+      <div>
+        <Helmet>
+          <title>Members</title>
+        </Helmet>
+        <Spreadsheet
+          rows={users}
+          headers={headers}
+          commitChanges={this.commitChanges}
+          disableColumns={disableColumns}
+          styles={styles}
+          defaultHiddenColumnNames={defaultHiddenColumnNames}
+        />
+      </div>
     )
   }
+
 }
 
 const mapStateToProps = (state) => {

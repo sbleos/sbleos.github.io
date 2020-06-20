@@ -5,7 +5,6 @@ import { createEvent } from '../../../store/actions/eventActions';
 import { connect } from 'react-redux';
 import Notifications from '../../Notifications';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faTrash } from '@fortawesome/free-solid-svg-icons';
 
 
 const EventSchema = Yup.object().shape({
@@ -154,7 +153,7 @@ class CreateEvent extends React.Component {
                           setFieldValue("image", null);
                         }}
                         >
-                          <FontAwesomeIcon icon={faTrash} style={{ color: 'rgb(89,89,98)' }} size="lg" />
+                          <FontAwesomeIcon icon="trash" style={{ color: 'rgb(89,89,98)' }} size="lg" />
                         </button>
                       </div>
                     </div>

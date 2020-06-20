@@ -2,7 +2,6 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { signIn } from '../store/actions/authActions';
@@ -78,7 +77,7 @@ class SignIn extends React.Component {
                         }`}
                       />
                       <div className="input-group-append text-center align-self-center">
-                        <button type="button" className="btn btn-sm" onClick={this.togglePassword}><FontAwesomeIcon icon={this.state.passwordHidden ? faEyeSlash : faEye} style={{ color: 'rgb(89,89,98)' }} size="lg" /></button>
+                        <button type="button" className="btn btn-sm" onClick={this.togglePassword}><FontAwesomeIcon icon={this.state.passwordHidden ? "eye-slash" : "eye"} style={{ color: 'rgb(89,89,98)' }} size="lg" /></button>
                       </div>
                       <ErrorMessage
                         component="div"

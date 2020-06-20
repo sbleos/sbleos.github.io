@@ -1,6 +1,6 @@
 import React from 'react';
 import { Breadcrumb } from '../components/Layout';
-import {Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet';
 
 export default class Mission extends React.Component {
   componentDidMount(){

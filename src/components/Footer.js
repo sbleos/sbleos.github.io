@@ -1,8 +1,5 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faInstagram, faFacebook } from '@fortawesome/free-brands-svg-icons'
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
-
 
 const Footer = () => (
 
@@ -11,17 +8,17 @@ const Footer = () => (
         <div className="container" >
             <a href="https://www.instagram.com/sbleos/" >
               <button type="button" className="btn btn-lg">
-                <FontAwesomeIcon icon={faInstagram} style={{ color: 'white' }} size="lg" />
+                <FontAwesomeIcon icon="instagram" style={{ color: 'white' }} size="lg" />
               </button>
             </a>
             <a href="https://www.facebook.com/sbleos/" >
               <button type="button" className="btn btn-lg">
-                <FontAwesomeIcon icon={faFacebook}  style={{ color: 'white' }} size="lg" />
+                <FontAwesomeIcon icon="facebook"  style={{ color: 'white' }} size="lg" />
               </button>
             </a>
             <a href="mailto:southbrunswickleoclub@gmail.com" >
               <button type="button" className="btn btn-lg">
-                <FontAwesomeIcon icon={faEnvelope}  style={{ color: 'white' }} size="lg" />
+                <FontAwesomeIcon icon="envelope"  style={{ color: 'white' }} size="lg" />
               </button>
             </a>
             <p>© Copyright 2020 South Brunswick Leo Club</p>
@@ -32,6 +29,6 @@ const Footer = () => (
 
   </footer>
 
-  );
+);
 
 export default Footer;

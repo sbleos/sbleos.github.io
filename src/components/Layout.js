@@ -3,6 +3,7 @@ import Header from './Header';
 import Footer from './Footer';
 import { Link, useRouteMatch } from 'react-router-dom'
 import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';
+import "../library"
 
 function Layout(props){
   let isDashboard = useRouteMatch("/dashboard");

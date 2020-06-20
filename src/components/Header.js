@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
 
 class Header extends React.Component {
@@ -38,7 +37,7 @@ class Header extends React.Component {
             </li>
              <li className="nav-item">
               <NavLink to={!profile.isEmpty ? "/dashboard" : "/login"} >
-                  <FontAwesomeIcon icon={faUser} size="lg" style={{height:"100%",margin:"0 .5rem",color:"rgb(89,89,98)"}}/>
+                  <FontAwesomeIcon icon="user" size="lg" style={{height:"100%",margin:"0 .5rem",color:"rgb(89,89,98)"}}/>
               </NavLink>
             </li>
           </ul>

@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signOut } from '../../store/actions/authActions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTachometerAlt, faUserCircle, faUsers, faClipboardList, faCalendarAlt, faClock, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import { withRouter } from 'react-router-dom'
 
 class NavDash extends React.Component {
@@ -18,7 +17,7 @@ class NavDash extends React.Component {
           { hasAccess &&
             <li className="nav-item">
               <NavLink exact className="nav-link" to={url}>
-                <FontAwesomeIcon icon={faTachometerAlt}  />
+                <FontAwesomeIcon icon="tachometer-alt"  />
                 &nbsp;&nbsp;
                 <span className="d-md-inline d-none">Overview</span>
               </NavLink>
@@ -27,7 +26,7 @@ class NavDash extends React.Component {
           { hasAccess &&
             <li className="nav-item">
               <NavLink className="nav-link" to={`${url}/members`}>
-                <FontAwesomeIcon icon={faUsers} />
+                <FontAwesomeIcon icon="users" />
                 &nbsp;&nbsp;
                 <span className="d-md-inline d-none">Members</span>
               </NavLink>
@@ -35,7 +34,7 @@ class NavDash extends React.Component {
           }
           <li className="nav-item">
             <NavLink className="nav-link" to={`${url}/hours`}>
-              <FontAwesomeIcon icon={faClock} />
+              <FontAwesomeIcon icon="clock" />
               &nbsp;&nbsp;
               <span className="d-md-inline d-none">Hours</span>
             </NavLink>
@@ -43,7 +42,7 @@ class NavDash extends React.Component {
           { hasAccess &&
             <li className="nav-item">
               <NavLink className="nav-link" to={`${url}/attendance`}>
-                <FontAwesomeIcon icon={faClipboardList} />
+                <FontAwesomeIcon icon="clipboard-list" />
                 &nbsp;&nbsp;
                 <span className="d-md-inline d-none">Attendance</span>
               </NavLink>
@@ -51,7 +50,7 @@ class NavDash extends React.Component {
           }
           <li className="nav-item">
             <NavLink className="nav-link" to={`${url}/events`}>
-              <FontAwesomeIcon icon={faCalendarAlt} />
+              <FontAwesomeIcon icon="calendar-alt" />
               &nbsp;&nbsp;
               <span className="d-md-inline d-none">Events</span>
             </NavLink>
@@ -59,14 +58,14 @@ class NavDash extends React.Component {
           <li style={{margin:"1rem 0",borderTop:"1px solid rgba(255,255,255,.5)"}}></li>
           <li className="nav-item">
             <NavLink className="nav-link" to={`${url}/profile`}>
-              <FontAwesomeIcon icon={faUserCircle} />
+              <FontAwesomeIcon icon="user-circle" />
               &nbsp;&nbsp;
               <span className="d-md-inline d-none">Profile</span>
             </NavLink>
           </li>
           <li className="nav-item">
             <NavLink className="nav-link text-danger" to="/login" onClick={this.props.signOut}>
-              <FontAwesomeIcon icon={faSignOutAlt} />
+              <FontAwesomeIcon icon="sign-out-alt" />
               &nbsp;&nbsp;
               <span className="d-md-inline d-none">Sign Out</span></NavLink>
           </li>
