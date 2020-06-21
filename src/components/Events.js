@@ -8,11 +8,13 @@ import { compose } from 'redux';
 //Can get all events, upcoming events, or previous events (if not specified as either upcoming or previous, it defaults to all events)
 class Events extends React.Component{
   render(){
-    const { events:e } = this.props;
-    if(!e)
+    const { events:years } = this.props;
+    if(!years)
       return(<p className="lead">There are no events at this time</p>)
 
-    let events = e.slice().sort((a, b) => new Date(a.date) - new Date(b.date)); // all events
+    let events = years.map(year => year.events).flat().sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    // let events = e.slice().sort((a, b) => new Date(a.date) - new Date(b.date)); // all events
 
     const today = new Date();
     if(this.props.type.toLowerCase() === "upcoming")

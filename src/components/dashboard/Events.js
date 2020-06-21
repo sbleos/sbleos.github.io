@@ -11,18 +11,29 @@ import { ToolbarButton, ToolbarDropdown } from './plugins/plugins';
 
 
 class Events extends React.Component{
+  constructor(props){
+    super(props)
+    this.state = {filter: null}
+  }
   render(){
-    const { profile, events:e, updateEvent, deleteEvent } = this.props;
+    const { profile, events:years, updateEvent, deleteEvent } = this.props;
 
 
     const hasAccess = profile.role !== "Member" || profile.developer;
 
     if(!hasAccess)
       return <Redirect to="/dashboard" />
-    else if(!e)
+    else if(!years)
       return <div></div>
 
-    const events = e.filter(event => event.type !== "Meeting")
+    // error catching since Firestore is not that great with nested arrays
+    let events = []
+    if(years.some(year => year.events)){
+      const filteredYears = this.state.filter ? years.filter(year => year.id === this.state.filter) : years;
+      const combined = filteredYears.map(year => year.events).flat();
+      if(combined.some(event => event.type))
+        events = combined.filter(event => event.type !== "Meeting").map(event => ({...event}));
+    }
 
 
     const headers = [
@@ -30,59 +41,38 @@ class Events extends React.Component{
       { name: 'date', title: 'Date' },
       { name: 'description', title: 'Description' },
       { name: 'type', title: 'Type' },
-      { name: 'imgPath', title: 'Image Path' },
+      { name: 'imgURL', title: 'Image URL' },
       { name: 'imgDescription', title: 'Image Description' },
       { name: 'formLink', title: 'Form Link' },
       { name: 'formDescription', title: 'Form Description' },
     ]
 
     const disableColumns = [
-      { columnName: 'imgPath', editingEnabled: false },
+      { columnName: 'imgURL', editingEnabled: false },
     ]
 
-    const defaultHiddenColumnNames = ['imgPath','imgDescription','formLink','formDescription']
+    const defaultHiddenColumnNames = ['imgURL','imgDescription','formLink','formDescription']
 
     const multilineColumnNames = ['description']
 
     const DateTimeFormatter = ({ value }) => new Date(value).toLocaleString();
 
+    const LinkFormatter = ({ value }) => <a href={value}>{value}</a>;
+
     const defaultSorting = [{ columnName: 'date', direction: 'asc' }];
 
     const commitChanges = ({ changed, deleted }) => {
+      // instead of passing 'events' to the action creator, we get it from Firestore since this copy may be modified
       if(changed)
         events.forEach(event => changed[event.id] ? updateEvent({...event, ...changed[event.id]}) : event)
-      else if(deleted)
-         deleted.forEach(id => deleteEvent(id))
+      else if(deleted){
+        new Set(deleted).forEach(id => {
+          let idx = events.findIndex(event => {return event.id === id});
+          deleteEvent(events[idx])
+        })
+      }
     }
-    /* Preferable event structure
-    const events = {
-      "2019-2020": [
-        {
-          title: "Event",
-          date: "6/20/20",
-          ...event
-        },
-        {
-          title: "Event2",
-          date: "6/20/20",
-          ...event
-        }
-      ]
-    }
-    */
 
-    const years = {
-      "2019-2020": [
-        {
-          title: "Event",
-          date: "6/20/20",
-        },
-        {
-          title: "Event2",
-          date: "6/20/20",
-        }
-      ]
-    }
     return(
       <div>
         <Helmet>
@@ -100,6 +90,7 @@ class Events extends React.Component{
           customFormats={
             [
               { component: DateTimeFormatter, for: ['date'] },
+              { component: LinkFormatter, for: ['imgURL'] },
             ]
           }
           plugins={
@@ -112,10 +103,10 @@ class Events extends React.Component{
                       Years
                     </button>
                     <div className="dropdown-menu" aria-labelledby="years">
-                    <button className="dropdown-item" type="button">All</button>
-                    {years && Object.keys(years).map((year, idx) => (
-                      <button className="dropdown-item" type="button" key={idx}>{year}</button>
-                    ))}
+                    <button className="dropdown-item" type="button" onClick={()=>this.setState({filter:null})}>All</button>
+                    {years && years.map((year, idx) => (
+                      <button className="dropdown-item" type="button" key={idx} onClick={()=>this.setState({filter:year.id})}>{year.id}</button>
+                    )).reverse()}
                     </div>
                 </div>
                 }

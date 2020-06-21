@@ -8,12 +8,12 @@ const Footer = () => (
         <div className="container" >
             <a href="https://www.instagram.com/sbleos/" >
               <button type="button" className="btn btn-lg">
-                <FontAwesomeIcon icon="instagram" style={{ color: 'white' }} size="lg" />
+                <FontAwesomeIcon icon={["fab","instagram"]} style={{ color: 'white' }} size="lg" />
               </button>
             </a>
             <a href="https://www.facebook.com/sbleos/" >
               <button type="button" className="btn btn-lg">
-                <FontAwesomeIcon icon="facebook"  style={{ color: 'white' }} size="lg" />
+                <FontAwesomeIcon icon={["fab","facebook"]} style={{ color: 'white' }} size="lg" />
               </button>
             </a>
             <a href="mailto:southbrunswickleoclub@gmail.com" >

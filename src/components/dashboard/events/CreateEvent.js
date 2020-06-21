@@ -34,7 +34,7 @@ class CreateEvent extends React.Component {
                 </button>
               </div>
               <Formik
-                initialValues={{ title: "", date: "", description: "", type:"Community",defaultImage:false, imgDescription:"", formLink:"", formDescription: "" }}
+                initialValues={{ title: "", date: "", description: "", type:"Meeting",defaultImage:false, imgDescription:"", formLink:"", formDescription: "" }}
                 validationSchema={EventSchema}
                 onSubmit={(values, actions) => {
                   if(values.defaultImage){

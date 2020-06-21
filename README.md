@@ -64,7 +64,7 @@ This is if you want to use FullCalendar from Google Calendar because it looks ni
 
 #### DashFrame
 
-This is the container for the different applicationsi in the Dashboard.
+This is the container for the different applications in the Dashboard.
 
 #### Events
 
