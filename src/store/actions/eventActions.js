@@ -89,18 +89,27 @@ export const updateEvent = (updatedEvent) => {
     const firebase = getFirebase();
     const firestore = firebase.firestore();
 
+    var attendees = Object.keys(updatedEvent).filter(event => event.indexOf("user-") === 0 && !isNaN(parseFloat(updatedEvent[event])) )
+                          .reduce( (obj, event) =>{
+                            obj[event.replace("user-","")] = parseFloat(updatedEvent[event]);
+                            delete updatedEvent[event]
+                            return obj;
+                            }, {})
+
+    updatedEvent = {...updatedEvent,attendees}
+
     const docRef = firestore.collection('events').doc(getFiscalYear(updatedEvent.date));
 
     firestore.runTransaction(transaction => (
       transaction.get(docRef).then(doc => {
         const events = doc.data().events;
-        let updatedEvents = events;
         let idx = events.findIndex(event => {return event.id === updatedEvent.id});
-        updatedEvents[idx] = updatedEvent;
+        if(idx > -1)
+          events[idx] = updatedEvent;
 
-        return updatedEvents;
-      }).then(updatedEvents => {
-        transaction.update(docRef,{ events: updatedEvents })
+        return events;
+      }).then(events => {
+        transaction.update(docRef,{ events })
       })
     )).then(() => {
       dispatch({type: 'UPDATE_EVENT', updatedEvent})
@@ -123,11 +132,11 @@ export const deleteEvent = (deletedEvent) => {
         const events = doc.data().events;
         let idx = events.findIndex(event => {return event.id === deletedEvent.id}); //call this again the order of 'events' may not be the same
         if(idx > -1)
-          events.splice(idx,1)
+          events.splice(idx,1) // TODO: Be sure to delete the image if imagePath is given
 
         return events;
       }).then(events => {
-        transaction.update(docRef,{events})
+        events.length !== 0 ? transaction.update(docRef,{events}) : transaction.delete(docRef) // update event if there are other events in the year, or else delete the year (because it holds no data)
       })
     )).then(() => {
       dispatch({type: 'DELETE_EVENT', deletedEvent})

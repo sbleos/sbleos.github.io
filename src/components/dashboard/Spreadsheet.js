@@ -15,7 +15,6 @@ import {
   TableEditColumn,
   TableFilterRow,
   TableInlineCellEditing,
-  TableColumnResizing,
   ColumnChooser,
   TableColumnVisibility,
   Toolbar,
@@ -57,8 +56,6 @@ class Spreadsheet extends React.Component {
       canDelete,
     } = this.props;
 
-    const defaultColumnWidths = headers.map(header => ( {columnName: header['name'], width: 'auto'} ));
-
     return (
     <div className="card">
       {rows &&
@@ -86,7 +83,6 @@ class Spreadsheet extends React.Component {
               { columnName, wordWrapEnabled: true }
             )))}
           />
-          <TableColumnResizing defaultColumnWidths={defaultColumnWidths} resizingMode="nextColumn"/>
           <TableHeaderRow
             showSortingControls
             sortLabelComponent={({ onSort, children, direction }) => (

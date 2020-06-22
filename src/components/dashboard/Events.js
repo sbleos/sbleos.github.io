@@ -44,19 +44,9 @@ class Events extends React.Component{
         events = combined.filter(event => event.type !== "Meeting").map(event => ({...event}));
     }
 
-    /* Events should look somewhat like this
-    events = {
-      ...events,
-      attendees : [
-        reference1,
-        reference2
-      ]
-    }
-    */
-
     const userHeaders = users
-                              ? users.map(user => ({name: user.id, title: `${user.firstName} ${user.lastName}`}))
-                                      .sort((a, b) => a.title.localeCompare(b.title))
+                              ? users.map(user => ({name: `user-${user.id}`, title: `${user.firstName} ${user.lastName}`}))
+                                     .sort((a, b) => a.title.localeCompare(b.title))
                               : []
 
     const headers = [
@@ -71,10 +61,22 @@ class Events extends React.Component{
       ...userHeaders
     ]
 
-
-    // console.dir(users)
-
-
+    const hours = events.map(event => {
+      if(event.attendees && event.attendees.length !== 0)
+        // console.log(event.attendees)
+        return Object.keys(event.attendees)
+                     .reduce( (obj, id) => {
+                       obj[`user-${id}`] = event.attendees[id]
+                       return obj;
+                     }, {})
+      })
+    events = events.map((event, idx) => {
+      if(event.attendees)
+        delete event.attendees;
+      if(hours[idx])
+        event = {...event,...hours[idx]};
+      return event;
+    })
     const disableColumns = [
       { columnName: 'imgURL', editingEnabled: false },
     ]
@@ -89,15 +91,17 @@ class Events extends React.Component{
 
     const defaultSorting = [{ columnName: 'date', direction: 'asc' }];
 
-    const disableSorting = users ? users.map(user => ({columnName: user.id, sortingEnabled: false})) : []
-    const disableFiltering = users ? users.map(user => ({columnName: user.id, filteringEnabled: false})) : []
+    // const disableSorting = users ? users.map(user => ({columnName: `user-${user.id}`, sortingEnabled: false})) : []
+    // const disableFiltering = users ? users.map(user => ({columnName: `user-${user.id}`, filteringEnabled: false})) : []
 
     const columnBands = [
       {
         title: "Member Hours",
-        children : users ? users.map(user => ({columnName: user.id})) : []
+        children : users ? users.map(user => ({columnName: `user-${user.id}`})) : []
       }
     ]
+
+    // console.log(userHeaders)
 
 
     const commitChanges = ({ changed, deleted }) => {
@@ -123,9 +127,9 @@ class Events extends React.Component{
           headers={headers}
           commitChanges={commitChanges}
           defaultSorting={defaultSorting}
-          disableSorting={disableSorting}
+
           disableColumns={disableColumns}
-          disableFiltering={disableFiltering}
+
           multilineColumnNames={multilineColumnNames}
           defaultHiddenColumnNames={defaultHiddenColumnNames}
           columnBands={columnBands}
