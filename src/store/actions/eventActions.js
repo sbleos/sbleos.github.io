@@ -1,5 +1,5 @@
 import { createNotification } from './notificationActions';
-
+import { getFiscalYear, generateID } from '../../utils/utils'
 
 export const createEvent = (event) => {
   return (dispatch, getState, { getFirebase }) => {
@@ -7,7 +7,7 @@ export const createEvent = (event) => {
     const firestore = firebase.firestore();
     const storageRef = firebase.storage().ref();
 
-    const uuid = [...Array(20)].map(_=>(Math.random()*36|0).toString(36)).join``;
+    const uuid = generateID(20);
 
     if(event.image){
       const imgPath = `images/events/${uuid}-${event.image.name}`;
@@ -17,7 +17,7 @@ export const createEvent = (event) => {
           dispatch({type: 'UPLOAD_EVENT_IMAGE_SUCCESS'})
 
           delete event.image;
-          firestore.collection('events').doc(getFiscalYear(event)).set(
+          firestore.collection('events').doc(getFiscalYear(event.date)).set(
             {
               events: firebase.firestore.FieldValue.arrayUnion({
                 ...event,
@@ -45,7 +45,7 @@ export const createEvent = (event) => {
       });
     }
     else {
-      firestore.collection('events').doc(getFiscalYear(event)).set(
+      firestore.collection('events').doc(getFiscalYear(event.date)).set(
         {
           events: firebase.firestore.FieldValue.arrayUnion({...event,id: uuid})
         },
@@ -66,20 +66,6 @@ export const createEvent = (event) => {
 
   }
 };
-
-const getFiscalYear = (event) => {
-  const eventDate = new Date(event.date);
-  const benchmark = new Date(`July 1, ${eventDate.getFullYear()}`); // start of new fiscal year in year of the event
-
-  const numMonths = eventDate.getMonth() - benchmark.getMonth() + (12 * (eventDate.getFullYear() - benchmark.getFullYear()));
-
-  const fiscalYear =  numMonths < 0
-                      ? `${eventDate.getFullYear()-1}-${eventDate.getFullYear()}`   // event is before benchmark
-                      : `${eventDate.getFullYear()}-${eventDate.getFullYear()+1}`   // event is after benchmark
-
-  return fiscalYear;
-}
-
 
 export const getImage = (imgsrc) => {
   return (dispatch, getState, { getFirebase }) => {
@@ -103,29 +89,25 @@ export const updateEvent = (updatedEvent) => {
     const firebase = getFirebase();
     const firestore = firebase.firestore();
 
-    const docRef = firestore.collection('events').doc(getFiscalYear(updatedEvent));
+    const docRef = firestore.collection('events').doc(getFiscalYear(updatedEvent.date));
 
-    docRef.get()
-    .then(doc => {
-      const events = doc.data().events;
-      let updatedEvents = events;
-      let idx = events.findIndex(event => {return event.id === updatedEvent.id});
-      updatedEvents[idx] = updatedEvent;
+    firestore.runTransaction(transaction => (
+      transaction.get(docRef).then(doc => {
+        const events = doc.data().events;
+        let updatedEvents = events;
+        let idx = events.findIndex(event => {return event.id === updatedEvent.id});
+        updatedEvents[idx] = updatedEvent;
 
-      return updatedEvents;
-    })
-    .then(updatedEvents => {
-      docRef.update({
-        events: updatedEvents
+        return updatedEvents;
+      }).then(updatedEvents => {
+        transaction.update(docRef,{ events: updatedEvents })
       })
-    })
-    .then(() => {
+    )).then(() => {
       dispatch({type: 'UPDATE_EVENT', updatedEvent})
-    })
-    .catch(error => {
+    }).catch(error => {
       dispatch({type: 'UPDATE_EVENT_ERROR', error})
-      console.log(error)
-    });
+    })
+
   }
 };
 
@@ -134,25 +116,57 @@ export const deleteEvent = (deletedEvent) => {
     const firebase = getFirebase();
     const firestore = firebase.firestore();
 
-    const docRef = firestore.collection('events').doc(getFiscalYear(deletedEvent));
+    const docRef = firestore.collection('events').doc(getFiscalYear(deletedEvent.date));
 
-    docRef.get()
-    .then(doc => {
-      const events = doc.data().events;
-      let idx = events.findIndex(event => {return event.id === deletedEvent.id}); //call this again the order of 'events' may not be the same
-      if(idx > -1)
-        events.splice(idx,1)
+    firestore.runTransaction(transaction => (
+      transaction.get(docRef).then(doc => {
+        const events = doc.data().events;
+        let idx = events.findIndex(event => {return event.id === deletedEvent.id}); //call this again the order of 'events' may not be the same
+        if(idx > -1)
+          events.splice(idx,1)
 
-      return events;
-    })
-    .then(events => {
-      docRef.update({events})
-    })
-    .then(() => {
+        return events;
+      }).then(events => {
+        transaction.update(docRef,{events})
+      })
+    )).then(() => {
       dispatch({type: 'DELETE_EVENT', deletedEvent})
-    })
-    .catch(error => {
+    }).catch(error => {
       dispatch({type: 'DELETE_EVENT_ERROR', error})
     });
+
+  }
+};
+
+export const getUsers = (fiscalYear) => {
+  return (dispatch, getState, { getFirebase }) => {
+    const firebase = getFirebase();
+    const firestore = firebase.firestore();
+
+    dispatch({type: 'RESET_USER_IN_FISCAL_YEAR'})
+
+    firestore.collection("users").get().then(querySnapshot => {
+      querySnapshot.forEach(userDoc => {
+        var user = userDoc.data()
+
+        if(!fiscalYear){ //All Users
+          dispatch({type: 'GET_USER_IN_FISCAL_YEAR', user})
+        }
+        else{ // Users in Fiscal Year
+          var yearArr = [user["start"]],
+          start = parseInt(user["start"].split("-")[0]),
+          end = user["end"] !== "" ? parseInt(user["end"].split("-")[1]) : parseInt(getFiscalYear(new Date()).split("-")[1]);
+
+          for(start; start !== end; start++)
+            yearArr.push(`${start}-${start+1}`)
+
+          if(yearArr.includes(fiscalYear))
+            dispatch({type: 'GET_USER_IN_FISCAL_YEAR', user})
+        }
+
+      })
+    })
+
+
   }
 };

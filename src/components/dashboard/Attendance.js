@@ -6,7 +6,7 @@ class Attendance extends React.Component {
   render() {
     const { profile } = this.props;
 
-    const hasAccess = profile.role !== "Member" || profile.developer;
+    const hasAccess = profile.position !== "Member" || profile.developer;
 
     if(!hasAccess)
       return <Redirect to="/dashboard" />

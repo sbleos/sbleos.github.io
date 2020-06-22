@@ -1,14 +1,10 @@
-const initState = {
-  notifications: []
-}
-
-const notificationReducer = (state = initState, action) => {
+const notificationReducer = (state = {}, action) => {
   switch (action.type) {
     case 'CREATE_NOTIFICATION':
       return {
         ...state,
         notifications: [
-          ...state.notifications,
+          ...state.notifications || [],
           action.notification
         ]
       };

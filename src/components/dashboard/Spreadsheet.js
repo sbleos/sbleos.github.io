@@ -20,6 +20,7 @@ import {
   TableColumnVisibility,
   Toolbar,
   SearchPanel,
+  TableBandHeader
 } from '@devexpress/dx-react-grid-bootstrap4';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -44,8 +45,11 @@ class Spreadsheet extends React.Component {
       headers,
       commitChanges,
       defaultSorting,
+      disableSorting,
       disableColumns,
+      disableFiltering,
       multilineColumnNames,
+      columnBands,
       styles,
       defaultHiddenColumnNames,
       customFormats,
@@ -68,8 +72,8 @@ class Spreadsheet extends React.Component {
           ))}
 
 
-          <SortingState defaultSorting={defaultSorting} />
-          <FilteringState />
+          <SortingState defaultSorting={defaultSorting} columnExtensions={disableSorting} />
+          <FilteringState columnExtensions={disableFiltering}/>
           <SearchState />
           <EditingState onCommitChanges={commitChanges} columnExtensions={disableColumns} />
 
@@ -93,6 +97,7 @@ class Spreadsheet extends React.Component {
               </button>
             )}
           />
+          <TableColumnVisibility defaultHiddenColumnNames={defaultHiddenColumnNames} />
           {canDelete &&
             <TableEditColumn
               showDeleteCommand
@@ -104,10 +109,13 @@ class Spreadsheet extends React.Component {
               )}
             />
           }
+          {columnBands && columnBands.every(band => band.children) &&
+            <TableBandHeader columnBands={columnBands} />
+          }
           <TableFilterRow />
           <TableInlineCellEditing startEditAction="doubleClick" />
 
-          <TableColumnVisibility defaultHiddenColumnNames={defaultHiddenColumnNames} />
+
 
           <Toolbar />
           {plugins && plugins.map((plugin, idx) => (

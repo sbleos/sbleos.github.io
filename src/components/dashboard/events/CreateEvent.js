@@ -20,21 +20,21 @@ const EventSchema = Yup.object().shape({
 class CreateEvent extends React.Component {
 
   render() {
+    const formType = this.props.formType || "Event"; //possible values: "Event", "Meeting"
     return (
       <div>
-
         <div className="modal fade" id="createEvent" tabIndex="-1" role="dialog" aria-labelledby="createEventModal" aria-hidden="true">
           <Notifications location="topRight"/>
           <div className="modal-dialog modal-dialog-centered" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLongTitle">Create Event</h5>
+                <h5 className="modal-title" id="exampleModalLongTitle">{`Create ${formType}`}</h5>
                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <Formik
-                initialValues={{ title: "", date: "", description: "", type:"Meeting",defaultImage:false, imgDescription:"", formLink:"", formDescription: "" }}
+                initialValues={{ title: "", date: "", description: "", type: formType === "Event" ? "Community": "Meeting", defaultImage:false, imgDescription:"", formLink:"", formDescription: "" }}
                 validationSchema={EventSchema}
                 onSubmit={(values, actions) => {
                   if(values.defaultImage){
@@ -103,23 +103,25 @@ class CreateEvent extends React.Component {
                       />
                     </div>
                     <div className="form-group col-md-4">
-                      <label htmlFor="type">Type of Event</label>
-                      <Field
-                        as="select"
-                        name="type"
-                        className="custom-select"
-                      >
-                        <option value="Meeting">Meeting</option>
-                        <option value="Community">Community</option>
-                        <option value="Diabetes">Diabetes</option>
-                        <option value="Vision">Vision</option>
-                        <option value="Hunger">Hunger</option>
-                        <option value="Environment">Environment</option>
-                        <option value="Childhood Cancer">Childhood Cancer</option>
-                        <option value="Youth">Youth</option>
-                        <option value="Humanitarian">Humanitarian</option>
-                        <option value="Disaster Relief">Disaster Relief</option>
-                      </Field>
+                      {formType !== "Meeting" &&
+                        <div>
+                          <label htmlFor="type">Type of Event</label>
+                          <Field
+                            as="select"
+                            name="type"
+                            className="custom-select"
+                          >
+                            <option value="Community">Community</option>
+                            <option value="Diabetes">Diabetes</option>
+                            <option value="Vision">Vision</option>
+                            <option value="Hunger">Hunger</option>
+                            <option value="Environment">Environment</option>
+                            <option value="Childhood Cancer">Childhood Cancer</option>
+                            <option value="Youth">Youth</option>
+                            <option value="Humanitarian">Humanitarian</option>
+                            <option value="Disaster Relief">Disaster Relief</option>
+                          </Field>
+                        </div>}
                       {values.type !== "Community" && values.type !== "Meeting" &&
                         <div>
                           <label>

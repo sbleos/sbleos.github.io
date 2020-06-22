@@ -35,7 +35,7 @@ class Home extends React.Component {
 
         <div className="container">
           <h1>Upcoming Events</h1>
-          <Events type="upcoming" max={80}/>
+          <Events type="upcoming" max={8}/>
 
           {/*}
           <h1>Previous Events</h1>

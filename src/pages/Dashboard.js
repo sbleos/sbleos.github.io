@@ -27,7 +27,7 @@ class Dashboard extends React.Component{
     if(profile.isEmpty)
       return <Redirect to="/login" />
 
-    const hasAccess = profile.role !== "Member" || profile.developer;
+    const hasAccess = profile.position !== "Member" || profile.developer;
 
     return (
       <div>
@@ -43,7 +43,7 @@ class Dashboard extends React.Component{
           </div>
           <div className="col-10 p-0">
             <Switch>
-              <Route exact path={path} render={props => hasAccess ? <Overview {...props} profile={profile} /> : (profile.memberID != 0 ? <Hours {...props} profile={profile} /> : <Profile {...props} profile={profile} />)} />
+              <Route exact path={path} render={props => hasAccess ? <Overview {...props} profile={profile} /> : (profile.memberID !== "" ? <Hours {...props} profile={profile} /> : <Profile {...props} profile={profile} />)} />
               <Route
                 path={`${path}/:id`}
                 render={ ({match}) => {

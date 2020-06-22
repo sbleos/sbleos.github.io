@@ -16,6 +16,21 @@ const eventReducer = (state = {}, action) => {
 
     case 'DELETE_EVENT_ERROR': return state;
 
+    case 'GET_USER_IN_FISCAL_YEAR':
+      return {
+        ...state,
+        users: [
+          ...state.users || [],
+          action.user
+        ]
+      }
+
+    case 'RESET_USER_IN_FISCAL_YEAR':
+      return {
+        ...state,
+        users: null
+      }
+
     default: return state;
   }
 }

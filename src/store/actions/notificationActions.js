@@ -1,9 +1,11 @@
+import { generateID } from '../../utils/utils'
+
 export const createNotification = (notification) => {
   return (dispatch, getState) => {
     dispatch({
       type: 'CREATE_NOTIFICATION',
       notification: {
-        id: parseInt(Math.random().toString().split('.')[1], 10),
+        id: generateID(10),
         ...notification,
       }
     })

@@ -1,4 +1,5 @@
 import { createNotification } from './notificationActions';
+import { getFiscalYear } from '../../utils/utils'
 
 export const signIn = (credentials) => {
   return (dispatch, getState, { getFirebase }) => {
@@ -48,10 +49,12 @@ export const signUp = (newUser) => {
         firstName: newUser.firstName,
         lastName: newUser.lastName,
         email: newUser.email,
-        memberID: 0,
-        role: "Member",
+        id: res.user.uid, //document id
+        memberID: "",
+        position: "Member",
         developer: false,
-        active: false,
+        start: getFiscalYear(new Date()),
+        end: "",
         dateOfBirth: "",
         address: "",
         city: "",

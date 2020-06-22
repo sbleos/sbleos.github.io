@@ -10,7 +10,7 @@ class Events extends React.Component{
   render(){
     const { events:years } = this.props;
     if(!years)
-      return(<p className="lead">There are no events at this time</p>)
+      return(<p className="lead">There are no events at this time.</p>)
 
     let events = years.map(year => year.events).flat().sort((a, b) => new Date(a.date) - new Date(b.date));
 
@@ -83,8 +83,11 @@ class Events extends React.Component{
               formDescription = {event.formDescription}
               border = {border} />
       )});
+    if(events.length === 0)
+      return (<p className="lead">There are no events at this time.</p>)
 
     return(<div className="row">{events}</div>)
+
   }
 }
 

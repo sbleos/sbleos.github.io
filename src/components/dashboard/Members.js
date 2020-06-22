@@ -13,8 +13,8 @@ class Members extends React.Component {
   render() {
     const { profile, users, updateUser } = this.props;
 
-    const hasAccess = profile.role !== "Member" || profile.developer;
-    const hasExecutiveAccess = profile.role === "President" || profile.role === "Vice President"
+    const hasAccess = profile.position !== "Member" || profile.developer;
+    const hasExecutiveAccess = profile.position === "President" || profile.position === "Vice President"
 
     if(!hasAccess)
       return <Redirect to="/dashboard" />
@@ -24,20 +24,21 @@ class Members extends React.Component {
       { name: 'firstName', title: 'First Name' },
       { name: 'lastName', title: 'Last Name' },
       { name: 'email', title: 'Email' },
-      { name: 'role', title: 'Role' },
+      { name: 'position', title: 'Position' },
       { name: 'developer', title: 'Developer' },
-      { name: 'active', title: 'Active' },
       { name: 'address', title: 'Address' },
       { name: 'city', title: 'City' },
       { name: 'zipCode', title: 'Zip Code' },
       { name: 'dateOfBirth', title: 'Date Of Birth' },
       { name: 'phoneNumber', title: 'Phone Number' },
       { name: 'joinDate', title: 'Join Date' },
+      { name: 'start', title: 'Start' },
+      { name: 'end', title: 'End' },
     ]
 
     const disableColumns = [
       { columnName: 'email', editingEnabled: false },
-      { columnName: 'role', editingEnabled: hasExecutiveAccess },
+      { columnName: 'position', editingEnabled: hasExecutiveAccess },
       { columnName: 'developer', editingEnabled: hasExecutiveAccess },
       { columnName: 'address', editingEnabled: false },
       { columnName: 'city', editingEnabled: false },
@@ -46,7 +47,7 @@ class Members extends React.Component {
       { columnName: 'phoneNumber', editingEnabled: false },
     ]
 
-    const defaultHiddenColumnNames = ['role','developer', 'active', 'address', 'city', 'zipCode', 'dateOfBirth', 'phoneNumber', 'joinDate',]
+    const defaultHiddenColumnNames = ['position','developer', 'start', 'end', 'address', 'city', 'zipCode', 'dateOfBirth', 'phoneNumber', 'joinDate',]
 
     const styles=[
       {
@@ -93,7 +94,7 @@ class Members extends React.Component {
           customFormats={
             [
               { formatterComponent: DateFormatter, for: ['joinDate', 'dateOfBirth'] },
-              { formatterComponent: BooleanFormatter, for: ['developer', 'active'] },
+              { formatterComponent: BooleanFormatter, for: ['developer', 'start', 'end'] },
             ]
           }
         />

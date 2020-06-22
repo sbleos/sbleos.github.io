@@ -22,6 +22,7 @@ class Profile extends React.Component {
     var initialValues = {
       firstName: profile.firstName,
       lastName: profile.lastName,
+      position: profile.position,
       memberID: profile.memberID,
       email: email,
       dateOfBirth: profile.dateOfBirth,
@@ -30,7 +31,8 @@ class Profile extends React.Component {
       zipCode: profile.zipCode,
       phoneNumber: profile.phoneNumber,
       joinDate: profile.joinDate,
-      active: profile.active
+      start: profile.start,
+      end: profile.end
     }
 
     return (
@@ -38,7 +40,7 @@ class Profile extends React.Component {
         <Notifications location="topRight"/>
         <div className="container p-3">
           <h2>Profile</h2>
-          { profile.memberID == 0 &&
+          { profile.memberID === "" &&
             <div className="alert alert-info" role="alert">
               <h4 className="alert-heading">Looks like the board has not verified your account yet.</h4>
               <p>You can get access to the rest of the dashboard once your account has been accepted by the board. Please fill up your profile to speed up the process.</p>
@@ -59,10 +61,10 @@ class Profile extends React.Component {
               },250);
             }}
           >
-            {({ touched, errors, isSubmitting }) => (
+            {({ touched, errors, isSubmitting, values }) => (
               <Form>
                 <div className="form-row">
-                  <div className="form-group col-sm-6 col-md-4">
+                  <div className="form-group col-6 col-md-2">
                     <label htmlFor="firstName">First Name</label>
                     <Field
                       type="text"
@@ -71,8 +73,7 @@ class Profile extends React.Component {
                       disabled={true}
                     />
                   </div>
-
-                  <div className="form-group col-sm-6 col-md-4">
+                  <div className="form-group col-6 col-md-2">
                     <label htmlFor="lastName">Last Name</label>
                     <Field
                       type="text"
@@ -81,11 +82,19 @@ class Profile extends React.Component {
                       disabled={true}
                     />
                   </div>
-
+                  {values.position !== "Member" && <div className="form-group col-md-2">
+                    <label htmlFor="position">Position</label>
+                    <Field
+                      type="text"
+                      name="position"
+                      className="form-control"
+                      disabled={true}
+                    />
+                  </div>}
                 </div>
 
                 <div className="form-row">
-                  <div className="form-group col-sm-6 col-md-2">
+                  <div className="form-group col-6 col-md-2">
                     <label htmlFor="memberID">Membership ID</label>
                     <Field
                       type="text"
@@ -94,20 +103,29 @@ class Profile extends React.Component {
                       disabled={true}
                     />
                   </div>
-                   <div className="form-group col-sm-6 col-md-2">
-                    <label htmlFor="active">Active</label>
-                    <Field
-                      type="text"
-                      name="active"
-                      className="form-control"
-                      disabled={true}
-                    />
-                  </div>
-                  <div className="form-group col-sm-6 col-md-2">
+                  <div className="form-group col-6 col-md-2">
                     <label htmlFor="joinDate">Join Date</label>
                     <Field
                       type="text"
                       name="joinDate"
+                      className="form-control"
+                      disabled={true}
+                    />
+                  </div>
+                  <div className="form-group col-6 col-md-2">
+                    <label htmlFor="start">Start</label>
+                    <Field
+                      type="text"
+                      name="start"
+                      className="form-control"
+                      disabled={true}
+                    />
+                  </div>
+                  <div className="form-group col-6 col-md-2">
+                    <label htmlFor="end">End</label>
+                    <Field
+                      type="text"
+                      name="end"
                       className="form-control"
                       disabled={true}
                     />
@@ -123,7 +141,7 @@ class Profile extends React.Component {
                       disabled={true}
                     />
                   </div>
-                  <div className="form-group col-sm-6 col-md-2">
+                  <div className="form-group col-6 col-md-2">
                     <label htmlFor="phoneNumber">Phone Number</label>
                     <Field
                       type="text"
@@ -139,7 +157,7 @@ class Profile extends React.Component {
                       className="invalid-feedback"
                     />
                   </div>
-                  <div className="form-group col-sm-6 col-md-2">
+                  <div className="form-group col-6 col-md-2">
                     <label htmlFor="dateOfBirth">Date of Birth</label>
                     <Field
                       type="date"
@@ -151,7 +169,7 @@ class Profile extends React.Component {
 
 
                 <div className="form-row">
-                  <div className="form-group col-sm-12  col-md-4">
+                  <div className="form-group col-md-4">
                     <label htmlFor="address">Address</label>
                     <Field
                       type="text"
@@ -159,7 +177,7 @@ class Profile extends React.Component {
                       className="form-control"
                     />
                   </div>
-                   <div className="form-group col-sm-6 col-md-2">
+                   <div className="form-group col-6 col-md-2">
                     <label htmlFor="city">City</label>
                     <Field
                       type="text"
@@ -167,7 +185,7 @@ class Profile extends React.Component {
                       className="form-control"
                     />
                   </div>
-                  <div className="form-group col-sm-6 col-md-2">
+                  <div className="form-group col-6 col-md-2">
                     <label htmlFor="zipCode">Zip Code</label>
                     <Field
                       type="text"

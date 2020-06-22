@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux';
 import CreateEvent from './events/CreateEvent';
-import { updateEvent, deleteEvent } from '../../store/actions/eventActions';
+import { updateEvent, deleteEvent, getUsers } from '../../store/actions/eventActions';
 import Spreadsheet from './Spreadsheet';
 import { ToolbarButton, ToolbarDropdown } from './plugins/plugins';
 
@@ -14,12 +14,21 @@ class Events extends React.Component{
   constructor(props){
     super(props)
     this.state = {filter: null}
+    this.props.getUsers(null)
+
+
+  }
+  filterFiscalYear = (fiscalYear) => {
+    const { getUsers } = this.props
+    this.setState({filter:fiscalYear})
+    if(fiscalYear !== this.state.filter)
+      getUsers(fiscalYear)
   }
   render(){
-    const { profile, events:years, updateEvent, deleteEvent } = this.props;
+    const { profile, events:years, users, updateEvent, deleteEvent } = this.props;
 
 
-    const hasAccess = profile.role !== "Member" || profile.developer;
+    const hasAccess = profile.position !== "Member" || profile.developer;
 
     if(!hasAccess)
       return <Redirect to="/dashboard" />
@@ -28,13 +37,27 @@ class Events extends React.Component{
 
     // error catching since Firestore is not that great with nested arrays
     let events = []
-    if(years.some(year => year.events)){
+    if(years.every(year => year.events)){
       const filteredYears = this.state.filter ? years.filter(year => year.id === this.state.filter) : years;
       const combined = filteredYears.map(year => year.events).flat();
       if(combined.some(event => event.type))
         events = combined.filter(event => event.type !== "Meeting").map(event => ({...event}));
     }
 
+    /* Events should look somewhat like this
+    events = {
+      ...events,
+      attendees : [
+        reference1,
+        reference2
+      ]
+    }
+    */
+
+    const userHeaders = users
+                              ? users.map(user => ({name: user.id, title: `${user.firstName} ${user.lastName}`}))
+                                      .sort((a, b) => a.title.localeCompare(b.title))
+                              : []
 
     const headers = [
       { name: 'title', title: 'Title' },
@@ -45,7 +68,12 @@ class Events extends React.Component{
       { name: 'imgDescription', title: 'Image Description' },
       { name: 'formLink', title: 'Form Link' },
       { name: 'formDescription', title: 'Form Description' },
+      ...userHeaders
     ]
+
+
+    // console.dir(users)
+
 
     const disableColumns = [
       { columnName: 'imgURL', editingEnabled: false },
@@ -60,6 +88,17 @@ class Events extends React.Component{
     const LinkFormatter = ({ value }) => <a href={value}>{value}</a>;
 
     const defaultSorting = [{ columnName: 'date', direction: 'asc' }];
+
+    const disableSorting = users ? users.map(user => ({columnName: user.id, sortingEnabled: false})) : []
+    const disableFiltering = users ? users.map(user => ({columnName: user.id, filteringEnabled: false})) : []
+
+    const columnBands = [
+      {
+        title: "Member Hours",
+        children : users ? users.map(user => ({columnName: user.id})) : []
+      }
+    ]
+
 
     const commitChanges = ({ changed, deleted }) => {
       // instead of passing 'events' to the action creator, we get it from Firestore since this copy may be modified
@@ -78,15 +117,18 @@ class Events extends React.Component{
         <Helmet>
           <title>Events</title>
         </Helmet>
-        <CreateEvent />
+        <CreateEvent formType="Event" />
         <Spreadsheet
           rows={events}
           headers={headers}
           commitChanges={commitChanges}
           defaultSorting={defaultSorting}
+          disableSorting={disableSorting}
           disableColumns={disableColumns}
+          disableFiltering={disableFiltering}
           multilineColumnNames={multilineColumnNames}
           defaultHiddenColumnNames={defaultHiddenColumnNames}
+          columnBands={columnBands}
           customFormats={
             [
               { component: DateTimeFormatter, for: ['date'] },
@@ -103,9 +145,16 @@ class Events extends React.Component{
                       Years
                     </button>
                     <div className="dropdown-menu" aria-labelledby="years">
-                    <button className="dropdown-item" type="button" onClick={()=>this.setState({filter:null})}>All</button>
+                    <button className="dropdown-item" type="button" onClick={() => this.filterFiscalYear(null)}>All</button>
                     {years && years.map((year, idx) => (
-                      <button className="dropdown-item" type="button" key={idx} onClick={()=>this.setState({filter:year.id})}>{year.id}</button>
+                      <button
+                        className="dropdown-item"
+                        type="button"
+                        onClick={() => this.filterFiscalYear(year.id)}
+                        key={idx}
+                      >
+                        {year.id}
+                      </button>
                     )).reverse()}
                     </div>
                 </div>
@@ -123,14 +172,16 @@ class Events extends React.Component{
 
 const mapStateToProps = (state) => {
   return {
-    events: state.firestore.ordered.events
+    events: state.firestore.ordered.events,
+    users: state.event.users
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     updateEvent: (updatedEvent) => dispatch(updateEvent(updatedEvent)),
-    deleteEvent: (deletedEventID) => dispatch(deleteEvent(deletedEventID))
+    deleteEvent: (deletedEventID) => dispatch(deleteEvent(deletedEventID)),
+    getUsers: (fiscalYear) => dispatch(getUsers(fiscalYear))
   }
 }
 
