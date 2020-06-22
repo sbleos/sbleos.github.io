@@ -10,7 +10,7 @@ class NavDash extends React.Component {
     const { profile, match } = this.props;
     const { url } = match; // === "dashboard", but since it is a nested, dynamic route, if the name of the declared route in App.js changes, it should still work
 
-    const hasAccess = profile.position !== "Member" || profile.developer;
+    const hasAccess = profile.position !== "Member" || JSON.parse(profile.developer);
     return(
       <nav className="navbar navbar-dark bg-dark h-100 align-items-start">
         <ul className="navbar-nav ml-lg-3 ml-md-2 ml-sm-1" >

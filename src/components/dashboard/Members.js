@@ -13,7 +13,7 @@ class Members extends React.Component {
   render() {
     const { profile, users, updateUser } = this.props;
 
-    const hasAccess = profile.position !== "Member" || profile.developer;
+    const hasAccess = profile.position !== "Member" || JSON.parse(profile.developer);
     const hasExecutiveAccess = profile.position === "President" || profile.position === "Vice President"
 
     if(!hasAccess)
@@ -59,7 +59,7 @@ class Members extends React.Component {
     ]
 
     const DateFormatter = ({ value }) => new Date(value).toLocaleDateString();
-    const BooleanFormatter = ({ value }) => value ? "Yes" : "No";
+    const BooleanFormatter = ({ value }) => JSON.parse(value) ? "Yes" : "No";
 
     const defaultSorting = [{ columnName: 'firstName', direction: 'asc' }]
 
@@ -93,8 +93,8 @@ class Members extends React.Component {
           styles={styles}
           customFormats={
             [
-              { formatterComponent: DateFormatter, for: ['joinDate', 'dateOfBirth'] },
-              { formatterComponent: BooleanFormatter, for: ['developer', 'start', 'end'] },
+              { component: DateFormatter, for: ['joinDate', 'dateOfBirth'] },
+              { component: BooleanFormatter, for: ['developer', 'start', 'end'] },
             ]
           }
         />

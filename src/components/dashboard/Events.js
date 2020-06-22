@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux';
-import CreateEvent from './events/CreateEvent';
+import CreateEvent from './create/CreateEvent';
 import { updateEvent, deleteEvent, getUsers } from '../../store/actions/eventActions';
 import Spreadsheet from './Spreadsheet';
 import { ToolbarButton, ToolbarDropdown } from './plugins/plugins';
@@ -28,7 +28,7 @@ class Events extends React.Component{
     const { profile, events:years, users, updateEvent, deleteEvent } = this.props;
 
 
-    const hasAccess = profile.position !== "Member" || profile.developer;
+    const hasAccess = profile.position !== "Member" || JSON.parse(profile.developer);
 
     if(!hasAccess)
       return <Redirect to="/dashboard" />
@@ -63,7 +63,6 @@ class Events extends React.Component{
 
     const hours = events.map(event => {
       if(event.attendees && event.attendees.length !== 0)
-        // console.log(event.attendees)
         return Object.keys(event.attendees)
                      .reduce( (obj, id) => {
                        obj[`user-${id}`] = event.attendees[id]
@@ -85,14 +84,11 @@ class Events extends React.Component{
 
     const multilineColumnNames = ['description']
 
-    const DateTimeFormatter = ({ value }) => new Date(value).toLocaleString();
+    const DateTimeFormatter = ({ value }) => new Date(value).toLocaleDateString([], {hour: '2-digit', minute:'2-digit'});
 
     const LinkFormatter = ({ value }) => <a href={value}>{value}</a>;
 
     const defaultSorting = [{ columnName: 'date', direction: 'asc' }];
-
-    // const disableSorting = users ? users.map(user => ({columnName: `user-${user.id}`, sortingEnabled: false})) : []
-    // const disableFiltering = users ? users.map(user => ({columnName: `user-${user.id}`, filteringEnabled: false})) : []
 
     const columnBands = [
       {
@@ -100,8 +96,6 @@ class Events extends React.Component{
         children : users ? users.map(user => ({columnName: `user-${user.id}`})) : []
       }
     ]
-
-    // console.log(userHeaders)
 
 
     const commitChanges = ({ changed, deleted }) => {
@@ -136,7 +130,7 @@ class Events extends React.Component{
           customFormats={
             [
               { component: DateTimeFormatter, for: ['date'] },
-              { component: LinkFormatter, for: ['imgURL'] },
+              { component: LinkFormatter, for: ['imgURL','formLink'] },
             ]
           }
           plugins={

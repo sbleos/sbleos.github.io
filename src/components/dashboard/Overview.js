@@ -6,7 +6,7 @@ class Overview extends React.Component {
   render() {
     const { profile } = this.props;
 
-    const hasAccess = profile.position !== "Member" || profile.developer;
+    const hasAccess = profile.position !== "Member" || JSON.parse(profile.developer);
 
     if(!hasAccess)
       return <Redirect to="/dashboard" />

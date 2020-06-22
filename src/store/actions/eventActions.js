@@ -89,14 +89,23 @@ export const updateEvent = (updatedEvent) => {
     const firebase = getFirebase();
     const firestore = firebase.firestore();
 
-    var attendees = Object.keys(updatedEvent).filter(event => event.indexOf("user-") === 0 && !isNaN(parseFloat(updatedEvent[event])) )
-                          .reduce( (obj, event) =>{
+    var attendees = Object.keys(updatedEvent)
+                          .filter(event => event.indexOf("user-") === 0 && !isNaN(updatedEvent[event]) )
+                          .reduce((obj, event) =>{
                             obj[event.replace("user-","")] = parseFloat(updatedEvent[event]);
                             delete updatedEvent[event]
                             return obj;
                             }, {})
 
-    updatedEvent = {...updatedEvent,attendees}
+    updatedEvent = {
+      ...Object.keys(updatedEvent)
+               .filter(event => event.indexOf("user-") !== 0)
+               .reduce((obj, key) => {
+                  obj[key] = updatedEvent[key]
+                  return obj;
+               }, {}),
+      attendees
+    }
 
     const docRef = firestore.collection('events').doc(getFiscalYear(updatedEvent.date));
 

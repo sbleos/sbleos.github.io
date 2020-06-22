@@ -91,7 +91,7 @@ class CreateEvent extends React.Component {
                   </div>
 
                   <div className="form-row">
-                    <div className="form-group col-md-8">
+                    <div className={`form-group ${formType === "Event" ? "col-md-8" : "col-12"}`}>
                       <label htmlFor="description">Description</label>
                       <Field
                         as="textarea"
