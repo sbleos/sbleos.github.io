@@ -49,7 +49,7 @@ class SignIn extends React.Component {
               }}
             >
               {({ touched, errors, isSubmitting }) => (
-                <Form>
+                <Form autoComplete="on">
                   <div className="form-group">
                     <label htmlFor="email">Email</label>
                     <Field

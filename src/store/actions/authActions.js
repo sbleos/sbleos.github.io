@@ -38,7 +38,7 @@ export const signUp = (newUser) => {
         url: 'https://sbleos.org'
       };
       res.user.sendEmailVerification(actionCodeSettings)
-      .then(() => { //.then() is nested and not added on to the main level to maintain seperation of errors
+      .then(() => {
         dispatch({type: "EMAIL_VERIFICATION_SUCCESS"})
       })
       .catch((error) => {
@@ -65,8 +65,8 @@ export const signUp = (newUser) => {
     }).then(() => {
       dispatch({type: "SIGNUP_SUCCESS"})
       dispatch(createNotification({
-          title: `SUCK`,
-          message: "CESS",
+          title: "You signed up!",
+          message: "Welcome to the South Brunswick Leo Club!",
           type: "success",
           delay: 5000
         }))

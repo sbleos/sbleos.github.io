@@ -113,12 +113,12 @@ class Meetings extends React.Component{
     const commitChanges = ({ changed, deleted }) => {
       // instead of passing 'events' to the action creator, we get it from Firestore since this copy may be modified
       if(changed){
-        events.forEach(event => changed[event.id] ? updateEvent({...event, ...changed[event.id]}) : event)
+        events.forEach(event => changed[event.id] ? updateEvent({...event, ...changed[event.id]},event.date) : event)
       }
       else if(deleted){
         new Set(deleted).forEach(id => {
           let idx = events.findIndex(event => {return event.id === id});
-          deleteEvent(events[idx])
+          deleteEvent(events[idx],null)
         })
       }
     }
@@ -185,8 +185,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateEvent: (updatedEvent) => dispatch(updateEvent(updatedEvent)),
-    deleteEvent: (deletedEventID) => dispatch(deleteEvent(deletedEventID)),
+    updateEvent: (updatedEvent, originalDate) => dispatch(updateEvent(updatedEvent, originalDate)),
+    deleteEvent: (deletedEvent, originalDate) => dispatch(deleteEvent(deletedEvent, originalDate)),
     getUsers: (fiscalYear) => dispatch(getUsers(fiscalYear))
   }
 }

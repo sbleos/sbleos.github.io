@@ -73,7 +73,6 @@ class Events extends React.Component{
 
       const options = {year: "numeric", month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit"}; //to format event dates
       return(<Event
-              key = {index}
               title = {event.title}
               date = {new Date(event.date).toLocaleTimeString("en-us", options)}
               description = {event.description}
@@ -81,7 +80,8 @@ class Events extends React.Component{
               imgDescription = {imgDescription}
               formLink = {event.formLink}
               formDescription = {event.formDescription}
-              border = {border} />
+              border = {border}
+              key = {index} />
       )});
     if(events.length === 0)
       return (<p className="lead">There are no events at this time.</p>)
@@ -92,10 +92,10 @@ class Events extends React.Component{
 }
 
 
-export const Event = ({ key, title, date, description, imgsrc, imgDescription, formLink, formDescription, border }) => (
+export const Event = ({ title, date, description, imgsrc, imgDescription, formLink, formDescription, border }) => (
   <div className="col-sm-6 col-md-4 col-lg-3 d-flex">
     <div className="card mb-4 flex-fill" style={{"border": border}}>
-      {imgsrc && <img className="card-img-top text-center align-self-center p-1" src={imgsrc} alt={imgDescription} style={{maxHeight:"200px",maxWidth:"200px"}}></img>}
+      {imgsrc && <img className="card-img-top text-center align-self-center" src={imgsrc} alt={imgDescription} style={{maxHeight:"200px",maxWidth:"200px"}}></img>}
       <div className="card-body">
         {title && <h5 className="card-title">{title}</h5>}
         {date !== "Invalid Date" && <h6 className="card-subtitle mb-2 text-muted">{date}</h6>}

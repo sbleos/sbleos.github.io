@@ -25,7 +25,6 @@ class Dashboard extends React.Component{
       return <Redirect to="/login" />
 
     var hasAccess = profile.position !== "Member" || profile.developer === true || profile.developer == "true";
-    console.log(hasAccess)
 
     return (
       <div>

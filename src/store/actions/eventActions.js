@@ -9,6 +9,10 @@ export const createEvent = (event) => {
 
     const uuid = generateID(20);
 
+    if(event.hasOwnProperty(("date"))){
+      event.date = new Date(event.date).toLocaleDateString([], {hour: '2-digit', minute:'2-digit'});
+    }
+
     if(event.image){
       const imgPath = `images/events/${uuid}-${event.image.name}`;
       storageRef.child(imgPath).put(event.image)
@@ -61,6 +65,7 @@ export const createEvent = (event) => {
       }).catch((error) => {
         dispatch({type: 'CREATE_EVENT_ERROR', error})
         dispatch(createNotification({error}))
+        console.log(error)
       });
     }
 
@@ -71,7 +76,7 @@ export const getImage = (imgsrc) => {
   return (dispatch, getState, { getFirebase }) => {
     const storage = getFirebase().storage();
     const storageRef = storage.ref();
-    console.log(imgsrc)
+
     storageRef.child(imgsrc).getDownloadURL().then((url) => {
       dispatch({type: 'GET_EVENT_IMAGE_SUCCESS',
         image: {
@@ -84,7 +89,7 @@ export const getImage = (imgsrc) => {
   }
 };
 
-export const updateEvent = (updatedEvent) => {
+export const updateEvent = (updatedEvent, originalDate) => {
   return (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
     const firestore = firebase.firestore();
@@ -112,18 +117,28 @@ export const updateEvent = (updatedEvent) => {
       attendees
     }
 
-    const docRef = firestore.collection('events').doc(getFiscalYear(updatedEvent.date));
+    const docRef = firestore.collection('events').doc(getFiscalYear(originalDate));
 
     firestore.runTransaction(transaction => (
       transaction.get(docRef).then(doc => {
-        const events = doc.data().events;
-        let idx = events.findIndex(event => {return event.id === updatedEvent.id});
-        if(idx > -1)
-          events[idx] = updatedEvent;
+        var events = doc.data().events;
 
-        return events;
+        let idx = events.findIndex(event => {return event.id === updatedEvent.id});
+
+        if(idx > -1){
+          if(getFiscalYear(originalDate) === getFiscalYear(updatedEvent.date)){
+            events[idx] = updatedEvent;
+            return events;
+          }
+          else{
+            dispatch(createEvent(updatedEvent));
+            dispatch(deleteEvent(updatedEvent,originalDate));
+            return null;
+          }
+        }
       }).then(events => {
-        transaction.update(docRef,{ events })
+        if(events)
+          transaction.update(docRef,{ events })
       })
     )).then(() => {
       dispatch({type: 'UPDATE_EVENT', updatedEvent})
@@ -134,23 +149,29 @@ export const updateEvent = (updatedEvent) => {
   }
 };
 
-export const deleteEvent = (deletedEvent) => {
+export const deleteEvent = (deletedEvent, originalDate) => {
   return (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
     const firestore = firebase.firestore();
 
-    const docRef = firestore.collection('events').doc(getFiscalYear(deletedEvent.date));
+    const docRef = !originalDate ? firestore.collection('events').doc(getFiscalYear(deletedEvent.date)) : firestore.collection('events').doc(getFiscalYear(originalDate));
 
     firestore.runTransaction(transaction => (
       transaction.get(docRef).then(doc => {
         const events = doc.data().events;
         let idx = events.findIndex(event => {return event.id === deletedEvent.id}); //call this again the order of 'events' may not be the same
         if(idx > -1)
-          events.splice(idx,1) // TODO: Be sure to delete the image if imagePath is given
+          events.splice(idx,1)
 
         return events;
       }).then(events => {
         events.length !== 0 ? transaction.update(docRef,{events}) : transaction.delete(docRef) // update event if there are other events in the year, or else delete the year (because it holds no data)
+      }).then(() => {
+        if(!originalDate && deletedEvent.hasOwnProperty("imgPath")){ // delete image if there was a stored image
+          const storage = firebase.storage();
+          const storageRef = storage.ref();
+          storageRef.child(deletedEvent.imgPath).delete()
+        }
       })
     )).then(() => {
       dispatch({type: 'DELETE_EVENT', deletedEvent})
