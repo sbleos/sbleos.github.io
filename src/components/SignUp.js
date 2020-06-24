@@ -118,7 +118,14 @@ class SignUp extends React.Component {
                     }`}
                   />
                   <div className="input-group-append text-center align-self-center">
-                    <button type="button" className="btn btn-sm" onClick={this.togglePassword}><FontAwesomeIcon icon={this.state.passwordHidden ? "eye-slash" : "eye"} style={{ color: 'rgb(89,89,98)' }} size="lg" /></button>
+                    <button
+                      type="button"
+                      className="btn btn-sm"
+                      onClick={this.togglePassword}
+                      aria-label="Toggle password"
+                    >
+                      <FontAwesomeIcon icon={this.state.passwordHidden ? "eye-slash" : "eye"} style={{ color: 'rgb(89,89,98)' }} size="lg" />
+                    </button>
                   </div>
                   <ErrorMessage
                     component="div"

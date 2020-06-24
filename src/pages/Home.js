@@ -3,6 +3,8 @@ import Events from '../components/Events';
 import SignUp from '../components/SignUp';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet'
+import PDF from "../assets/leo50a_en.pdf";
+
 
 class Home extends React.Component {
   componentDidMount(){
@@ -33,14 +35,19 @@ class Home extends React.Component {
           </div>
         </div>
 
-        <div className="container">
+        <section id="events" className="container">
           <h1>Upcoming Events</h1>
           <Events type="upcoming" max={8}/>
 
-          {/*}
           <h1>Previous Events</h1>
-          <Events type="previous" max={4}/>*/}
-        </div>
+          <Events type="previous" max={4}/>
+        </section>
+        <section id="links" className="container">
+          <h1>Important links</h1>
+          <a href={PDF} className="d-block m-1" target='_blank' rel="noopener noreferrer">Registration form</a>
+          <a href="https://groups.google.com/forum/#!forum/sbleoclub/join" className="d-block m-1" target='_blank' rel="noopener noreferrer">Mailing List</a>
+          <a href="https://www.remind.com/join/sbleo" className="d-block m-1 pb-1" target='_blank' rel="noopener noreferrer">Remind SMS Notifications</a>
+        </section>
       </div>
     )}
 }

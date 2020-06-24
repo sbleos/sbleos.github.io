@@ -92,17 +92,17 @@ class Events extends React.Component{
 }
 
 
-export const Event = props => (
+export const Event = ({ key, title, date, description, imgsrc, imgDescription, formLink, formDescription, border }) => (
   <div className="col-sm-6 col-md-4 col-lg-3 d-flex">
-    <div className="card mb-4 flex-fill" style={{"border": props.border}}>
-      {props.imgsrc && <img className="card-img-top text-center align-self-center p-1" src={props.imgsrc} alt={props.imgDescription} style={{maxHeight:"200px",maxWidth:"200px"}}></img>}
+    <div className="card mb-4 flex-fill" style={{"border": border}}>
+      {imgsrc && <img className="card-img-top text-center align-self-center p-1" src={imgsrc} alt={imgDescription} style={{maxHeight:"200px",maxWidth:"200px"}}></img>}
       <div className="card-body">
-        {props.title && <h5 className="card-title">{props.title}</h5>}
-        {props.date !== "Invalid Date" && <h6 className="card-subtitle mb-2 text-muted">{props.date}</h6>}
-        {props.description && <p className="card-text">{props.description}</p>}
+        {title && <h5 className="card-title">{title}</h5>}
+        {date !== "Invalid Date" && <h6 className="card-subtitle mb-2 text-muted">{date}</h6>}
+        {description && <p className="card-text">{description}</p>}
       </div>
       <div className="card-body d-flex flex-column">
-        {props.formLink && <a href={props.formLink} className="card-link mt-auto">{props.formDescription}</a>}
+        {formLink && <a href={formLink} className="card-link mt-auto">{formDescription}</a>}
       </div>
     </div>
   </div>

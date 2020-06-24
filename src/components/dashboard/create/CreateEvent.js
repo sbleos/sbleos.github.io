@@ -151,12 +151,13 @@ class CreateEvent extends React.Component {
                       </div>
                       <div className="input-group-append text-center align-self-center">
                         <button
-                        type="button"
-                        className="btn sm"
-                        disabled={isSubmitting}
-                        onClick={() => {
-                          setFieldValue("image", null);
-                        }}
+                          type="button"
+                          className="btn sm"
+                          disabled={isSubmitting}
+                          aria-label="Remove Image"
+                          onClick={() => {
+                            setFieldValue("image", null);
+                          }}
                         >
                           <FontAwesomeIcon icon="trash" style={{ color: 'rgb(89,89,98)' }} size="lg" />
                         </button>

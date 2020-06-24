@@ -38,7 +38,10 @@ function App() {
 
 
               <Route exact path="/projects" component={Projects} />
-              {/*THIS IS HOW TO REDIRECT AN INTERNAL ROUTE TO AN EXTERNAL LINK*/}
+              {/* THIS IS HOW TO REDIRECT AN INTERNAL ROUTE TO AN EXTERNAL LINK
+                * AKA set up custom subdirectory routes "example.com/custom"
+                * you can also set up subdomains that redirect to a link on Google Domains "custom.example.com"
+                */}
               <Route path='/leo5krun' component={() => {
                 window.location.href = 'https://runsignup.com/Race/NJ/MonmouthJunction/Leo5KRun';
                 return {Home};

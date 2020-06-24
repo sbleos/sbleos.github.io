@@ -137,7 +137,7 @@ class Spreadsheet extends React.Component {
           <SearchPanel />
           <ColumnChooser
             toggleButtonComponent={({ onToggle, buttonRef }) => (
-              <button type="button" className="btn btn-light btn-sm m-3" onClick={onToggle} ref={buttonRef}>
+              <button type="button" className="btn btn-light btn-sm m-3" onClick={onToggle} ref={buttonRef} aria-label="Choose Visible Columns">
                 <FontAwesomeIcon icon="eye" onClick={onToggle}/>
               </button>
             )}

@@ -41,7 +41,7 @@ class Dashboard extends React.Component{
           </div>
           <div className="col-10 p-0">
             <Switch>
-              <Route exact path={path} render={props => hasAccess ? <Overview profile={profile} hasAccess={hasAccess} {...props} /> : (profile.memberID !== "" ? <Events profile={profile} hasAccess={hasAccess} {...props} /> : <Profile profile={profile} {...props} />)} />
+              <Route exact path={path} render={props => hasAccess ? <Overview {...props} /> : (profile.memberID !== "" ? <Events profile={profile} hasAccess={hasAccess} {...props} /> : <Profile profile={profile} {...props} />)} />
               <Route
                 path={`${path}/:id`}
                 render={ ({match}) => {

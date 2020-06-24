@@ -36,9 +36,9 @@ class SignIn extends React.Component {
       return <Redirect to="/dashboard" />
     return (
       <div>
-        <Notifications location="topRight"/>
-          <div style={{height:"91vh",background:"radial-gradient(circle, gainsboro, lightsteelblue)"}}>
-            <div className=" mx-auto pt-5" style={{maxWidth:"330px"}}>
+        <Notifications location="topRight" />
+        <div style={{height:"calc(100vh - 10rem)",background:"radial-gradient(circle, gainsboro, lightsteelblue)"}}>
+          <div className=" mx-auto pt-5" style={{maxWidth:"330px"}}>
             <h2 className="text-center">Sign in</h2>
             <Formik
               initialValues={{ email: "", password:""}}
@@ -77,7 +77,14 @@ class SignIn extends React.Component {
                         }`}
                       />
                       <div className="input-group-append text-center align-self-center">
-                        <button type="button" className="btn btn-sm" onClick={this.togglePassword}><FontAwesomeIcon icon={this.state.passwordHidden ? "eye-slash" : "eye"} style={{ color: 'rgb(89,89,98)' }} size="lg" /></button>
+                        <button
+                          type="button"
+                          className="btn btn-sm"
+                          onClick={this.togglePassword}
+                          aria-label="Toggle password"
+                        >
+                          <FontAwesomeIcon icon={this.state.passwordHidden ? "eye-slash" : "eye"} style={{ color: 'rgb(89,89,98)' }} size="lg" />
+                        </button>
                       </div>
                       <ErrorMessage
                         component="div"
