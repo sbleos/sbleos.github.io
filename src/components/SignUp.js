@@ -58,10 +58,11 @@ class SignUp extends React.Component {
             <Form>
               <div className="form-row">
                 <div className="form-group col-md-6 col-sm-12">
-                <label htmlFor="firstName">First Name</label>
+                <label htmlFor="signUpFirstName">First Name</label>
                   <Field
                     type="text"
                     name="firstName"
+                    id="signUpFirstName"
                     className={`form-control ${
                       touched.firstName && errors.firstName ? "is-invalid" : ""
                     }`}
@@ -74,10 +75,11 @@ class SignUp extends React.Component {
                 </div>
 
                 <div className="form-group col-md-6 col-sm-12">
-                  <label htmlFor="lastName">Last Name</label>
+                  <label htmlFor="signUpLastName">Last Name</label>
                   <Field
                   type="text"
                   name="lastName"
+                  id="signUpLastName"
                   className={`form-control ${
                       touched.lastName && errors.lastName ? "is-invalid" : ""
                     }`}
@@ -92,10 +94,11 @@ class SignUp extends React.Component {
 
 
               <div className="form-group">
-                <label htmlFor="email">Email</label>
+                <label htmlFor="Email">Email</label>
                 <Field
                   type="email"
                   name="email"
+                  id="signUpEmail"
                   className={`form-control ${
                     touched.email && errors.email ? "is-invalid" : ""
                   }`}
@@ -108,11 +111,12 @@ class SignUp extends React.Component {
               </div>
 
               <div className="form-group">
-                <label htmlFor="password">Password</label>
+                <label htmlFor="signUpPassword">Password</label>
                 <div className="input-group">
                   <Field
                     type={this.state.passwordHidden ? "password" : "text"}
                     name="password"
+                    id="signUpPassword"
                     className={`form-control ${
                       touched.password && errors.password ? "is-invalid" : ""
                     }`}

@@ -51,10 +51,11 @@ class SignIn extends React.Component {
               {({ touched, errors, isSubmitting }) => (
                 <Form autoComplete="on">
                   <div className="form-group">
-                    <label htmlFor="email">Email</label>
+                    <label htmlFor="signInEmail">Email</label>
                     <Field
                       type="email"
                       name="email"
+                      id="signInEmail"
                       className={`form-control ${
                         touched.email && errors.email ? "is-invalid" : ""
                       }`}
@@ -67,11 +68,12 @@ class SignIn extends React.Component {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="password">Password</label>
+                    <label htmlFor="signInPassword">Password</label>
                     <div className="input-group">
                       <Field
                         type={this.state.passwordHidden ? "password" : "text"}
                         name="password"
+                        id="signInPassword"
                         className={`form-control ${
                           touched.password && errors.password ? "is-invalid" : ""
                         }`}

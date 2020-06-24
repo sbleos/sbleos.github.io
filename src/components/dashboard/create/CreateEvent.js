@@ -73,10 +73,11 @@ class CreateEvent extends React.Component {
                     </div>
 
                     <div className="form-group col-md-7">
-                      <label htmlFor="date">Date</label>
+                      <label htmlFor="createEventDate">Date</label>
                       <Field
                         type="datetime-local"
                         name="date"
+                        id="createEventDate"
                         className={`form-control ${
                           touched.date && errors.date ? "is-invalid" : ""
                         }`}
@@ -92,11 +93,12 @@ class CreateEvent extends React.Component {
 
                   <div className="form-row">
                     <div className={`form-group ${formType === "Event" ? "col-md-8" : "col-12"}`}>
-                      <label htmlFor="description">Description</label>
+                      <label htmlFor="createEventDescription">Description</label>
                       <Field
                         as="textarea"
                         type="text"
                         name="description"
+                        id="createEventDescription"
                         className="form-control"
                         style={{resize:"none"}}
                         rows={3}
@@ -105,10 +107,11 @@ class CreateEvent extends React.Component {
                     <div className="form-group col-md-4">
                       {formType !== "Meeting" &&
                         <div>
-                          <label htmlFor="type">Type of Event</label>
+                          <label htmlFor="createEventType">Type of Event</label>
                           <Field
                             as="select"
                             name="type"
+                            id="createEventType"
                             className="custom-select"
                           >
                             <option value="Community">Community</option>

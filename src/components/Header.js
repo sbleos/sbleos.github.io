@@ -9,7 +9,7 @@ class Header extends React.Component {
 
     return(
       <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top" style={{"position": "sticky","top": 0}}>
-        <Link to="/"><img src={require("../assets/logos/leo_blue.png")} width="50" height="50" className="navbar-brand" alt="Home"/></Link>
+        <Link to="/"><img src={require("../assets/logos/leo_blue.svg")} width="50" height="50" className="navbar-brand" alt="Home"/></Link>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
@@ -36,7 +36,7 @@ class Header extends React.Component {
               <NavLink className="nav-link" to="/board">Board</NavLink>
             </li>
              <li className="nav-item">
-              <NavLink to={!profile.isEmpty ? "/dashboard" : "/login"} >
+              <NavLink to={!profile.isEmpty ? "/dashboard" : "/login"} aria-label="Dashboard">
                   <FontAwesomeIcon icon="user" size="lg" style={{height:"100%",margin:"0 .5rem",color:"rgb(89,89,98)"}}/>
               </NavLink>
             </li>
