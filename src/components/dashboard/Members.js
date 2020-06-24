@@ -4,17 +4,38 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux';
-import { updateUser } from '../../store/actions/userActions';
+import { updateUser, getYears } from '../../store/actions/userActions';
+import { getUsers } from '../../store/actions/eventActions';
+import { ToolbarDropdown } from './plugins/plugins';
+
+
 import Spreadsheet from './Spreadsheet';
 
 
 class Members extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {filter: null}
+    this.props.getUsers(null)
+
+  }
+
+  filterFiscalYear = (fiscalYear) => {
+    const { getUsers } = this.props
+    this.setState({filter:fiscalYear})
+    if(fiscalYear !== this.state.filter)
+      getUsers(fiscalYear)
+  }
+
+  componentDidUpdate(prevProps) {
+    if (JSON.stringify(this.props.users) !== JSON.stringify(prevProps.users))
+      this.props.getYears()
+  }
 
   render() {
-    const { profile, users, updateUser } = this.props;
+    const { profile, users, years, updateUser, getUsers } = this.props;
 
-    const hasAccess = profile.position !== "Member" || JSON.parse(profile.developer);
-    const hasExecutiveAccess = profile.position === "President" || profile.position === "Vice President"
+    const hasAccess = profile.position !== "Member" || profile.developer == "true";
 
     if(!hasAccess)
       return <Redirect to="/dashboard" />
@@ -38,8 +59,6 @@ class Members extends React.Component {
 
     const disableColumns = [
       { columnName: 'email', editingEnabled: false },
-      { columnName: 'position', editingEnabled: hasExecutiveAccess },
-      { columnName: 'developer', editingEnabled: hasExecutiveAccess },
       { columnName: 'address', editingEnabled: false },
       { columnName: 'city', editingEnabled: false },
       { columnName: 'zipCode', editingEnabled: false },
@@ -59,9 +78,27 @@ class Members extends React.Component {
     ]
 
     const DateFormatter = ({ value }) => new Date(value).toLocaleDateString();
-    const BooleanFormatter = ({ value }) => JSON.parse(value) ? "Yes" : "No";
+    const BooleanFormatter = ({ value }) => {
+      if(value == "true")
+        return "Yes";
+      else if(value == "false")
+        return "No"
+      else
+        return <span style={{color:"red"}}>Enter <strong>true</strong> or <strong>false</strong></span>
+    };
+    const ActiveFormatter = ({ value }) => value === "" ? "Present" : value;
+
+    const customProviders = [
+      { formatter: DateFormatter, for: ['joinDate', 'dateOfBirth'] },
+      { formatter: BooleanFormatter, for: ['developer'] },
+      { formatter: ActiveFormatter, for: ['end'] },
+    ]
 
     const defaultSorting = [{ columnName: 'firstName', direction: 'asc' }]
+
+    const summaryColumnNames = [{ columnName: 'memberID', type: 'count' }]
+
+    const leftColumns = ['firstName','lastName']
 
 
     /* added and delete are also parameters,
@@ -74,8 +111,10 @@ class Members extends React.Component {
      * Since the state is managed by Redux, it will update immediately.
      */
     const commitChanges = ({ changed }) => {
-      if(changed)
+      if(changed){
         users.forEach(user => changed[user.id] ? updateUser({...user, ...changed[user.id]}) : user)
+        getUsers(this.state.fiscalYear)
+      }
     }
 
     return(
@@ -91,10 +130,33 @@ class Members extends React.Component {
           disableColumns={disableColumns}
           defaultHiddenColumnNames={defaultHiddenColumnNames}
           styles={styles}
-          customFormats={
+          summaryColumnNames={summaryColumnNames}
+          customProviders={customProviders}
+          leftColumns={leftColumns}
+          plugins={
             [
-              { component: DateFormatter, for: ['joinDate', 'dateOfBirth'] },
-              { component: BooleanFormatter, for: ['developer', 'start', 'end'] },
+              <ToolbarDropdown
+                dropdown={
+                  <div className="dropdown">
+                    <button className="btn btn-outline-dark dropdown-toggle m-1" type="button" id="years" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Years
+                    </button>
+                    <div className="dropdown-menu" aria-labelledby="years">
+                    <button className="dropdown-item" type="button" onClick={() => this.filterFiscalYear(null)}>All</button>
+                    {years && years.map((year, idx) => (
+                      <button
+                        className="dropdown-item"
+                        type="button"
+                        onClick={() => this.filterFiscalYear(year)}
+                        key={idx}
+                      >
+                        {year}
+                      </button>
+                    )).reverse()}
+                    </div>
+                </div>
+                }
+              />,
             ]
           }
         />
@@ -106,13 +168,16 @@ class Members extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    users: state.firestore.ordered.users
+    users: !state.event.users ? state.firestore.ordered.users : state.event.users,
+    years: state.user.years
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateUser: (updatedUser) => dispatch(updateUser(updatedUser))
+    updateUser: (updatedUser) => dispatch(updateUser(updatedUser)),
+    getYears: () => dispatch(getYears()),
+    getUsers: (fiscalYear) => dispatch(getUsers(fiscalYear))
   }
 }
 

@@ -10,7 +10,7 @@ import Spreadsheet from './Spreadsheet';
 import { ToolbarButton, ToolbarDropdown } from './plugins/plugins';
 
 
-class Attendance extends React.Component{
+class Meetings extends React.Component{
   constructor(props){
     super(props)
     this.state = {filter: null}
@@ -28,7 +28,7 @@ class Attendance extends React.Component{
     const { profile, events:years, users, updateEvent, deleteEvent } = this.props;
 
 
-    const hasAccess = profile.position !== "Member" || JSON.parse(profile.developer);
+    const hasAccess = profile.position !== "Member" || profile.developer == "true";
 
     if(!hasAccess)
       return <Redirect to="/dashboard" />
@@ -63,6 +63,7 @@ class Attendance extends React.Component{
         return Object.keys(event.attendees)
                      .reduce( (obj, id) => {
                        obj[`user-${id}`] = event.attendees[id]
+                       // console.log( obj[`user-${id}`])
                        return obj;
                      }, {})
       })
@@ -78,23 +79,37 @@ class Attendance extends React.Component{
 
     const multilineColumnNames = ['description']
 
+    const leftColumns = ['title','date']
+
     const DateTimeFormatter = ({ value }) => new Date(value).toLocaleDateString([], {hour: '2-digit', minute:'2-digit'});
     const LinkFormatter = ({ value }) => <a href={value}>{value}</a>;
+
+
+    const customProviders = [
+      { formatter: DateTimeFormatter, for: ['date'] },
+      { formatter: LinkFormatter, for: ['formLink'] },
+    ]
 
     const defaultSorting = [{ columnName: 'date', direction: 'asc' }];
 
     const columnBands = [
       {
         title: "Attendance",
-        children : users ? users.map(user => ({columnName: `user-${user.id}`})) : []
+        children : users ? users.map(user => ({ columnName: `user-${user.id}` })) : []
       }
+    ]
+
+    const summaryColumnNames = [
+       { columnName: 'title', type: 'count' },
+       ...(users ? users.map(user => ({ columnName: `user-${user.id}`,  type: 'sum' })) : [])
     ]
 
 
     const commitChanges = ({ changed, deleted }) => {
       // instead of passing 'events' to the action creator, we get it from Firestore since this copy may be modified
-      if(changed)
+      if(changed){
         events.forEach(event => changed[event.id] ? updateEvent({...event, ...changed[event.id]}) : event)
+      }
       else if(deleted){
         new Set(deleted).forEach(id => {
           let idx = events.findIndex(event => {return event.id === id});
@@ -117,12 +132,10 @@ class Attendance extends React.Component{
           multilineColumnNames={multilineColumnNames}
           defaultHiddenColumnNames={defaultHiddenColumnNames}
           columnBands={columnBands}
-          customFormats={
-            [
-              { component: DateTimeFormatter, for: ['date'] },
-              { component: LinkFormatter, for: ['formLink'] },
-            ]
-          }
+          summaryColumnNames={summaryColumnNames}
+          leftColumns={leftColumns}
+          customProviders={customProviders}
+          canDelete={true}
           plugins={
             [
               <ToolbarButton button={<button type="button" className="btn btn-outline-dark m-3" data-toggle="modal" data-target="#createEvent">Create Meeting</button>} />,
@@ -150,7 +163,6 @@ class Attendance extends React.Component{
               />,
             ]
           }
-          canDelete={true}
         />
       </div>
     )
@@ -176,4 +188,4 @@ const mapDispatchToProps = (dispatch) => {
 export default compose(
   connect(mapStateToProps,mapDispatchToProps),
   firestoreConnect(['events'])
-)(Attendance);
+)(Meetings);

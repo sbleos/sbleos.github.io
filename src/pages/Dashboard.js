@@ -3,12 +3,10 @@ import NavDash from '../components/dashboard/NavDash';
 import Overview from '../components/dashboard/Overview';
 import Members from '../components/dashboard/Members';
 import Hours from '../components/dashboard/Hours';
-import Attendance from '../components/dashboard/Attendance';
+import Meetings from '../components/dashboard/Meetings';
 import Events from '../components/dashboard/Events';
-// import Points from '../components/dashboard/Points';
 import Profile from '../components/dashboard/Profile';
 import { connect } from 'react-redux';
-// import Notifications from '../components/Notifications.js';
 import { Helmet } from 'react-helmet';
 import { Route, withRouter, Redirect, Switch } from 'react-router-dom'
 
@@ -27,7 +25,7 @@ class Dashboard extends React.Component{
     if(profile.isEmpty)
       return <Redirect to="/login" />
 
-    const hasAccess = profile.position !== "Member" || JSON.parse(profile.developer);
+    const hasAccess = profile.position !== "Member" || profile.developer == "true";
 
     return (
       <div>
@@ -51,7 +49,7 @@ class Dashboard extends React.Component{
                     case "profile": return <Profile profile={profile} />;
                     case "members": return <Members profile={profile} />;
                     case "hours": return <Hours profile={profile} />;
-                    case "attendance": return <Attendance profile={profile} />;
+                    case "meetings": return <Meetings profile={profile} />;
                     case "events": return <Events profile={profile} />;
                     default : return null;
                   }

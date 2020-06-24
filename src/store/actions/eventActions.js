@@ -92,7 +92,12 @@ export const updateEvent = (updatedEvent) => {
     var attendees = Object.keys(updatedEvent)
                           .filter(event => event.indexOf("user-") === 0 && !isNaN(updatedEvent[event]) )
                           .reduce((obj, event) =>{
-                            obj[event.replace("user-","")] = parseFloat(updatedEvent[event]);
+                            let key = event.replace("user-","");
+                            obj[key] = parseFloat(updatedEvent[event]);
+
+                            if(isNaN(obj[key]) || obj[key] === 0)
+                              delete obj[key];
+
                             delete updatedEvent[event]
                             return obj;
                             }, {})
@@ -170,7 +175,7 @@ export const getUsers = (fiscalYear) => {
         if(!fiscalYear){ //All Users
           dispatch({type: 'GET_USER_IN_FISCAL_YEAR', user})
         }
-        else{ // Users in Fiscal Year
+        else{ // Users in fiscalYear
           var yearArr = [user["start"]],
           start = parseInt(user["start"].split("-")[0]),
           end = user["end"] !== "" ? parseInt(user["end"].split("-")[1]) : parseInt(getFiscalYear(new Date()).split("-")[1]);
@@ -180,10 +185,13 @@ export const getUsers = (fiscalYear) => {
 
           if(yearArr.includes(fiscalYear))
             dispatch({type: 'GET_USER_IN_FISCAL_YEAR', user})
+
         }
 
       })
-    })
+    }).catch(error => {
+      dispatch({type: 'GET_USER_IN_FISCAL_YEAR_ERROR', error})
+    });
 
 
   }

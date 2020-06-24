@@ -7,6 +7,8 @@ import {
   FilteringState,
   SearchState,
   IntegratedFiltering,
+  SummaryState,
+  IntegratedSummary,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -19,7 +21,9 @@ import {
   TableColumnVisibility,
   Toolbar,
   SearchPanel,
-  TableBandHeader
+  TableBandHeader,
+  TableSummaryRow,
+  TableFixedColumns
 } from '@devexpress/dx-react-grid-bootstrap4';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -36,6 +40,12 @@ const StyleTypeProvider = props => (
   />
 )
 
+const summaryCalculator = (type, rows, getValue) => { //extend calculator sum to exclude NaN
+  if (type === 'sum')
+    return IntegratedSummary.defaultCalculator(type, rows.filter(row => !isNaN(getValue(row))), getValue)
+  return IntegratedSummary.defaultCalculator(type, rows, getValue);
+};
+
 class Spreadsheet extends React.Component {
 
   render() {
@@ -51,9 +61,12 @@ class Spreadsheet extends React.Component {
       columnBands,
       styles,
       defaultHiddenColumnNames,
-      customFormats,
+      customProviders,
       plugins,
       canDelete,
+      summaryColumnNames,
+      leftColumns,
+      rightColumns,
     } = this.props;
 
     return (
@@ -64,8 +77,8 @@ class Spreadsheet extends React.Component {
             <StyleTypeProvider for={format['for']} style={format['style']} key={idx}/>
           ))}
 
-          {customFormats && customFormats.map((format, idx) => (
-            <DataTypeProvider for={format['for']} formatterComponent={format['component']} key={idx}/>
+          {customProviders && customProviders.map((component, idx) => (
+            <DataTypeProvider for={component['for']} formatterComponent={component['formatter']} key={idx}/>
           ))}
 
 
@@ -73,9 +86,11 @@ class Spreadsheet extends React.Component {
           <FilteringState columnExtensions={disableFiltering}/>
           <SearchState />
           <EditingState onCommitChanges={commitChanges} columnExtensions={disableColumns} />
+          {summaryColumnNames && <SummaryState totalItems={summaryColumnNames} />}
 
           <IntegratedSorting />
           <IntegratedFiltering />
+          {summaryColumnNames && <IntegratedSummary calculator={summaryCalculator}/>}
 
           <VirtualTable
             cellComponent={FocusableCell}
@@ -110,7 +125,8 @@ class Spreadsheet extends React.Component {
           }
           <TableFilterRow />
           <TableInlineCellEditing startEditAction="doubleClick" />
-
+          {summaryColumnNames && <TableSummaryRow />}
+          { (leftColumns || rightColumns) && <TableFixedColumns leftColumns={leftColumns} rightColumns={rightColumns} /> }
 
 
           <Toolbar />

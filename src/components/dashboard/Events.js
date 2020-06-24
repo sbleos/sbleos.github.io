@@ -16,7 +16,6 @@ class Events extends React.Component{
     this.state = {filter: null}
     this.props.getUsers(null)
 
-
   }
   filterFiscalYear = (fiscalYear) => {
     const { getUsers } = this.props
@@ -28,7 +27,7 @@ class Events extends React.Component{
     const { profile, events:years, users, updateEvent, deleteEvent } = this.props;
 
 
-    const hasAccess = profile.position !== "Member" || JSON.parse(profile.developer);
+    const hasAccess = profile.position !== "Member" || profile.developer == "true";
 
     if(!hasAccess)
       return <Redirect to="/dashboard" />
@@ -84,17 +83,28 @@ class Events extends React.Component{
 
     const multilineColumnNames = ['description']
 
-    const DateTimeFormatter = ({ value }) => new Date(value).toLocaleDateString([], {hour: '2-digit', minute:'2-digit'});
+    const leftColumns = ['title','date']
 
+    const DateTimeFormatter = ({ value }) => new Date(value).toLocaleDateString([], {hour: '2-digit', minute:'2-digit'});
     const LinkFormatter = ({ value }) => <a href={value}>{value}</a>;
+
+    const customProviders = [
+      { formatter: DateTimeFormatter, for: ['date'] },
+      { formatter: LinkFormatter, for: ['imgURL','formLink'] },
+    ]
 
     const defaultSorting = [{ columnName: 'date', direction: 'asc' }];
 
     const columnBands = [
       {
         title: "Member Hours",
-        children : users ? users.map(user => ({columnName: `user-${user.id}`})) : []
+        children : users ? users.map(user => ({ columnName: `user-${user.id}` })) : []
       }
+    ]
+
+    const summaryColumnNames = [
+       { columnName: 'title', type: 'count' },
+       ...(users ? users.map(user => ({ columnName: `user-${user.id}`,  type: 'sum' })) : [])
     ]
 
 
@@ -121,18 +131,14 @@ class Events extends React.Component{
           headers={headers}
           commitChanges={commitChanges}
           defaultSorting={defaultSorting}
-
           disableColumns={disableColumns}
-
+          summaryColumnNames={summaryColumnNames}
           multilineColumnNames={multilineColumnNames}
           defaultHiddenColumnNames={defaultHiddenColumnNames}
           columnBands={columnBands}
-          customFormats={
-            [
-              { component: DateTimeFormatter, for: ['date'] },
-              { component: LinkFormatter, for: ['imgURL','formLink'] },
-            ]
-          }
+          customProviders={customProviders}
+          canDelete={true}
+          leftColumns={leftColumns}
           plugins={
             [
               <ToolbarButton button={<button type="button" className="btn btn-outline-dark m-3" data-toggle="modal" data-target="#createEvent">Create Event</button>} />,
@@ -160,7 +166,6 @@ class Events extends React.Component{
               />,
             ]
           }
-          canDelete={true}
         />
       </div>
     )
