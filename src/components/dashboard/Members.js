@@ -33,9 +33,7 @@ class Members extends React.Component {
   }
 
   render() {
-    const { profile, users, years, updateUser, getUsers } = this.props;
-
-    const hasAccess = profile.position !== "Member" || profile.developer == "true";
+    const { users, years, hasAccess, updateUser, getUsers } = this.props;
 
     if(!hasAccess)
       return <Redirect to="/dashboard" />
@@ -80,6 +78,8 @@ class Members extends React.Component {
     const DateFormatter = ({ value }) => new Date(value).toLocaleDateString();
     const BooleanFormatter = ({ value }) => {
       if(value == "true")
+        return "Yes";
+      else if(value === true)
         return "Yes";
       else if(value == "false")
         return "No"
@@ -133,6 +133,7 @@ class Members extends React.Component {
           summaryColumnNames={summaryColumnNames}
           customProviders={customProviders}
           leftColumns={leftColumns}
+          hasAccess={hasAccess}
           plugins={
             [
               <ToolbarDropdown

@@ -2,7 +2,6 @@ import React from 'react';
 import NavDash from '../components/dashboard/NavDash';
 import Overview from '../components/dashboard/Overview';
 import Members from '../components/dashboard/Members';
-import Hours from '../components/dashboard/Hours';
 import Meetings from '../components/dashboard/Meetings';
 import Events from '../components/dashboard/Events';
 import Profile from '../components/dashboard/Profile';
@@ -25,7 +24,8 @@ class Dashboard extends React.Component{
     if(profile.isEmpty)
       return <Redirect to="/login" />
 
-    const hasAccess = profile.position !== "Member" || profile.developer == "true";
+    var hasAccess = profile.position !== "Member" || profile.developer === true || profile.developer == "true";
+    console.log(hasAccess)
 
     return (
       <div>
@@ -37,20 +37,19 @@ class Dashboard extends React.Component{
 
         <div className="row m-0" style={{minHeight:"91vh"}}> {/* Render Dashboard if user is signed in */}
           <div className="col-2 p-0">
-            <NavDash profile={profile}/>
+            <NavDash profile={profile} hasAccess={hasAccess}/>
           </div>
           <div className="col-10 p-0">
             <Switch>
-              <Route exact path={path} render={props => hasAccess ? <Overview {...props} profile={profile} /> : (profile.memberID !== "" ? <Hours {...props} profile={profile} /> : <Profile {...props} profile={profile} />)} />
+              <Route exact path={path} render={props => hasAccess ? <Overview profile={profile} hasAccess={hasAccess} {...props} /> : (profile.memberID !== "" ? <Events profile={profile} hasAccess={hasAccess} {...props} /> : <Profile profile={profile} {...props} />)} />
               <Route
                 path={`${path}/:id`}
                 render={ ({match}) => {
                   switch(match.params.id){ //none of these components need to connect with Redux state for PROFILE because it is passed as a prop
                     case "profile": return <Profile profile={profile} />;
-                    case "members": return <Members profile={profile} />;
-                    case "hours": return <Hours profile={profile} />;
-                    case "meetings": return <Meetings profile={profile} />;
-                    case "events": return <Events profile={profile} />;
+                    case "members": return <Members hasAccess={hasAccess} />;
+                    case "meetings": return <Meetings profile={profile} hasAccess={hasAccess} />;
+                    case "events": return <Events profile={profile} hasAccess={hasAccess} />;
                     default : return null;
                   }
                 }}

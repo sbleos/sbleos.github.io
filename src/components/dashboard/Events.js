@@ -24,14 +24,11 @@ class Events extends React.Component{
       getUsers(fiscalYear)
   }
   render(){
-    const { profile, events:years, users, updateEvent, deleteEvent } = this.props;
+    const { profile, events:years, users, hasAccess, updateEvent, deleteEvent } = this.props;
 
-
-    const hasAccess = profile.position !== "Member" || profile.developer == "true";
-
-    if(!hasAccess)
-      return <Redirect to="/dashboard" />
-    else if(!years)
+    if(profile.memberID === "")
+      return <Redirect to="/dashboard/profile" />
+    if(!years)
       return <div></div>
 
     // error catching since Firestore is not that great with nested arrays
@@ -43,20 +40,28 @@ class Events extends React.Component{
         events = combined.filter(event => event.type !== "Meeting").map(event => ({...event}));
     }
 
-    const userHeaders = users
-                              ? users.map(user => ({name: `user-${user.id}`, title: `${user.firstName} ${user.lastName}`}))
-                                     .sort((a, b) => a.title.localeCompare(b.title))
-                              : []
+    const userHeaders = hasAccess
+    ? (users
+          ? users.map(user => ({name: `user-${user.id}`, title: `${user.firstName} ${user.lastName}`}))
+                 .sort((a, b) => a.title.localeCompare(b.title))
+          : [])
+    : [{name: `user-${profile.id}`, title: `${profile.firstName} ${profile.lastName}`}]
+
+    const extraHeaders = hasAccess
+    ? [
+        { name: 'formLink', title: 'Form Link' },
+        { name: 'formDescription', title: 'Form Description' },
+        { name: 'imgURL', title: 'Image URL' },
+        { name: 'imgDescription', title: 'Image Description' },
+    ]
+    : []
 
     const headers = [
       { name: 'title', title: 'Title' },
       { name: 'date', title: 'Date' },
       { name: 'description', title: 'Description' },
       { name: 'type', title: 'Type' },
-      { name: 'imgURL', title: 'Image URL' },
-      { name: 'imgDescription', title: 'Image Description' },
-      { name: 'formLink', title: 'Form Link' },
-      { name: 'formDescription', title: 'Form Description' },
+      ...extraHeaders,
       ...userHeaders
     ]
 
@@ -64,8 +69,8 @@ class Events extends React.Component{
       if(event.attendees && event.attendees.length !== 0)
         return Object.keys(event.attendees)
                      .reduce( (obj, id) => {
-                       obj[`user-${id}`] = event.attendees[id]
-                       return obj;
+                        obj[`user-${id}`] = event.attendees[id]
+                        return obj;
                      }, {})
       })
     events = events.map((event, idx) => {
@@ -75,9 +80,11 @@ class Events extends React.Component{
         event = {...event,...hours[idx]};
       return event;
     })
-    const disableColumns = [
-      { columnName: 'imgURL', editingEnabled: false },
-    ]
+
+    if(!hasAccess)
+      events = events.filter(event => event[`user-${profile.id}`] > 0)
+
+    const disableColumns = [{ columnName: 'imgURL', editingEnabled: false }]
 
     const defaultHiddenColumnNames = ['imgURL','imgDescription','formLink','formDescription']
 
@@ -139,9 +146,10 @@ class Events extends React.Component{
           customProviders={customProviders}
           canDelete={true}
           leftColumns={leftColumns}
+          hasAccess={hasAccess}
           plugins={
             [
-              <ToolbarButton button={<button type="button" className="btn btn-outline-dark m-3" data-toggle="modal" data-target="#createEvent">Create Event</button>} />,
+              (hasAccess && <ToolbarButton button={<button type="button" className="btn btn-outline-dark m-3" data-toggle="modal" data-target="#createEvent">Create Event</button>} />),
               <ToolbarDropdown
                 dropdown={
                   <div className="dropdown">
@@ -149,17 +157,17 @@ class Events extends React.Component{
                       Years
                     </button>
                     <div className="dropdown-menu" aria-labelledby="years">
-                    <button className="dropdown-item" type="button" onClick={() => this.filterFiscalYear(null)}>All</button>
-                    {years && years.map((year, idx) => (
-                      <button
-                        className="dropdown-item"
-                        type="button"
-                        onClick={() => this.filterFiscalYear(year.id)}
-                        key={idx}
-                      >
-                        {year.id}
-                      </button>
-                    )).reverse()}
+                      <button className="dropdown-item" type="button" onClick={() => this.filterFiscalYear(null)}>All</button>
+                      {years && years.map((year, idx) => (
+                        <button
+                          className="dropdown-item"
+                          type="button"
+                          onClick={() => this.filterFiscalYear(year.id)}
+                          key={idx}
+                        >
+                          {year.id}
+                        </button>
+                      )).reverse()}
                     </div>
                 </div>
                 }

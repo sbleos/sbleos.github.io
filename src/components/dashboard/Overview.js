@@ -4,9 +4,7 @@ import { Redirect } from 'react-router-dom'
 class Overview extends React.Component {
 
   render() {
-    const { profile } = this.props;
-
-    const hasAccess = profile.position !== "Member" || profile.developer == "true";
+    const { profile, hasAccess } = this.props;
 
     if(!hasAccess)
       return <Redirect to="/dashboard" />

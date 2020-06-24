@@ -67,6 +67,7 @@ class Spreadsheet extends React.Component {
       summaryColumnNames,
       leftColumns,
       rightColumns,
+      hasAccess
     } = this.props;
 
     return (
@@ -85,7 +86,7 @@ class Spreadsheet extends React.Component {
           <SortingState defaultSorting={defaultSorting} columnExtensions={disableSorting} />
           <FilteringState columnExtensions={disableFiltering}/>
           <SearchState />
-          <EditingState onCommitChanges={commitChanges} columnExtensions={disableColumns} />
+          {hasAccess && <EditingState onCommitChanges={commitChanges} columnExtensions={disableColumns} />}
           {summaryColumnNames && <SummaryState totalItems={summaryColumnNames} />}
 
           <IntegratedSorting />
@@ -109,7 +110,7 @@ class Spreadsheet extends React.Component {
             )}
           />
           <TableColumnVisibility defaultHiddenColumnNames={defaultHiddenColumnNames} />
-          {canDelete &&
+          {canDelete && hasAccess &&
             <TableEditColumn
               showDeleteCommand
               commandComponent={({ onExecute, ...restProps }) => (
@@ -124,7 +125,7 @@ class Spreadsheet extends React.Component {
             <TableBandHeader columnBands={columnBands} />
           }
           <TableFilterRow />
-          <TableInlineCellEditing startEditAction="doubleClick" />
+          {hasAccess && <TableInlineCellEditing startEditAction="doubleClick" />}
           {summaryColumnNames && <TableSummaryRow />}
           { (leftColumns || rightColumns) && <TableFixedColumns leftColumns={leftColumns} rightColumns={rightColumns} /> }
 

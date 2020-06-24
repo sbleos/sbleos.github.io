@@ -90,7 +90,7 @@ export const updateEvent = (updatedEvent) => {
     const firestore = firebase.firestore();
 
     var attendees = Object.keys(updatedEvent)
-                          .filter(event => event.indexOf("user-") === 0 && !isNaN(updatedEvent[event]) )
+                          .filter(event => event.indexOf("user-") === 0 && !isNaN(updatedEvent[event]) && parseFloat(updatedEvent[event]) > 0)
                           .reduce((obj, event) =>{
                             let key = event.replace("user-","");
                             obj[key] = parseFloat(updatedEvent[event]);

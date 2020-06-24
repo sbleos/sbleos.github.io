@@ -7,10 +7,9 @@ import { withRouter } from 'react-router-dom'
 
 class NavDash extends React.Component {
   render(){
-    const { profile, match } = this.props;
+    const { profile, match, hasAccess } = this.props;
     const { url } = match; // === "dashboard", but since it is a nested, dynamic route, if the name of the declared route in App.js changes, it should still work
 
-    const hasAccess = profile.position !== "Member" || profile.developer == "true";
     return(
       <nav className="navbar navbar-dark bg-dark h-100 align-items-start">
         <ul className="navbar-nav ml-lg-3 ml-md-2 ml-sm-1" >
@@ -18,8 +17,7 @@ class NavDash extends React.Component {
             <li className="nav-item">
               <NavLink exact className="nav-link" to={url}>
                 <FontAwesomeIcon icon="tachometer-alt"  />
-                &nbsp;&nbsp;
-                <span className="d-md-inline d-none">Overview</span>
+                <span className="d-md-inline d-none">&nbsp;&nbsp;Overview</span>
               </NavLink>
             </li>
           }
@@ -27,47 +25,39 @@ class NavDash extends React.Component {
             <li className="nav-item">
               <NavLink className="nav-link" to={`${url}/members`}>
                 <FontAwesomeIcon icon="users" />
-                &nbsp;&nbsp;
-                <span className="d-md-inline d-none">Members</span>
+                <span className="d-md-inline d-none">&nbsp;&nbsp;Members</span>
               </NavLink>
             </li>
           }
-          <li className="nav-item">
-            <NavLink className="nav-link" to={`${url}/hours`}>
-              <FontAwesomeIcon icon="clock" />
-              &nbsp;&nbsp;
-              <span className="d-md-inline d-none">Hours</span>
-            </NavLink>
-          </li>
-          { hasAccess &&
+          { (profile.memberID !== "" || hasAccess) &&
+            <li className="nav-item">
+              <NavLink className="nav-link" to={`${url}/events`}>
+                <FontAwesomeIcon icon="calendar-alt" />
+                <span className="d-md-inline d-none">&nbsp;&nbsp;Events</span>
+              </NavLink>
+            </li>
+          }
+          { (profile.memberID !== "" || hasAccess) &&
             <li className="nav-item">
               <NavLink className="nav-link" to={`${url}/meetings`}>
                 <FontAwesomeIcon icon="clipboard-list" />
-                &nbsp;&nbsp;
-                <span className="d-md-inline d-none">Meetings</span>
+                <span className="d-md-inline d-none">&nbsp;&nbsp;Meetings</span>
               </NavLink>
             </li>
           }
-          <li className="nav-item">
-            <NavLink className="nav-link" to={`${url}/events`}>
-              <FontAwesomeIcon icon="calendar-alt" />
-              &nbsp;&nbsp;
-              <span className="d-md-inline d-none">Events</span>
-            </NavLink>
-          </li>
-          <li style={{margin:"1rem 0",borderTop:"1px solid rgba(255,255,255,.5)"}}></li>
+          { (profile.memberID !== "" || hasAccess) &&
+            <li style={{margin:"1rem 0",borderTop:"1px solid rgba(255,255,255,.5)"}}></li>
+          }
           <li className="nav-item">
             <NavLink className="nav-link" to={`${url}/profile`}>
               <FontAwesomeIcon icon="user-circle" />
-              &nbsp;&nbsp;
-              <span className="d-md-inline d-none">Profile</span>
+              <span className="d-md-inline d-none">&nbsp;&nbsp;Profile</span>
             </NavLink>
           </li>
           <li className="nav-item">
             <NavLink className="nav-link text-danger" to="/login" onClick={this.props.signOut}>
               <FontAwesomeIcon icon="sign-out-alt" />
-              &nbsp;&nbsp;
-              <span className="d-md-inline d-none">Sign Out</span></NavLink>
+              <span className="d-md-inline d-none">&nbsp;&nbsp;Sign Out</span></NavLink>
           </li>
         </ul>
       </nav>
