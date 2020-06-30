@@ -5,6 +5,25 @@ export const updateUser = (updatedUser) => {
     const firebase = getFirebase();
     const firestore = firebase.firestore();
 
+    var dues = Object.keys(updatedUser)
+                          .filter(attr => attr.indexOf("dues-") === 0)
+                          .reduce((obj,key) => {
+                            if(updatedUser[key]) {
+                              let num = +updatedUser[key];
+                              if(isNaN(updatedUser[key]) && updatedUser[key].trim() !== "")
+                                obj[key.replace("dues-","")] = updatedUser[key].replace("$","");
+                              else if(num > 0)
+                                obj[key.replace("dues-","")] = num;
+                            }
+                            delete updatedUser[key];
+                            return obj;
+                          }, {})
+
+    updatedUser = {
+      ...updatedUser,
+      dues
+    }
+
     firestore.collection('users').doc(updatedUser.id).update(updatedUser)
     .then(() => {
       dispatch({type: 'UPDATE_USER', updatedUser})

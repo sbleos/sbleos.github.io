@@ -1,4 +1,4 @@
-import { createNotification } from './notificationActions';
+ import { createNotification } from './notificationActions';
 import { getFiscalYear } from '../../utils/utils'
 
 export const signIn = (credentials) => {
@@ -60,7 +60,7 @@ export const signUp = (newUser) => {
         city: "",
         zipCode: "",
         phoneNumber: "",
-        joinDate: new Date().toLocaleDateString()
+        joinDate: new Intl.DateTimeFormat('en-US').format(new Date())
       });
     }).then(() => {
       dispatch({type: "SIGNUP_SUCCESS"})

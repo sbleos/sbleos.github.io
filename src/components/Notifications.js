@@ -18,7 +18,7 @@ class Notifications extends React.Component{
       s = {position: "absolute", bottom: 0, left: 0}
 
     return(
-      <div style={{position:"absolute",height:"100vh",width:"100vw",zIndex:300,pointerEvents: "none"}}>
+      <div style={{position:"absolute",height:"100vh",width:"100%",zIndex:300,pointerEvents: "none"}}>
         <div aria-live="polite" aria-atomic="true"  className={`${c}`} style={{position: "relative",pointerEvents: "auto"}}>
           <div style={s}>
             {notifications && notifications.map(notification => {

@@ -25,7 +25,7 @@ class Meetings extends React.Component{
       getUsers(fiscalYear)
   }
   render(){
-    const { profile, events:years, users, hasAccess, updateEvent, deleteEvent } = this.props;
+    const { profile, events: years, users, hasAccess, updateEvent, deleteEvent } = this.props;
 
     if(!years)
       return <div></div>

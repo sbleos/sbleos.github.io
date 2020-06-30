@@ -31,15 +31,6 @@ const FocusableCell = ({ onClick, ...restProps }) => (
   <VirtualTable.Cell {...restProps} tabIndex={0} onFocus={onClick} />
 );
 
-const StyleTypeProvider = props => (
-  <DataTypeProvider
-    formatterComponent={({ value }) => (
-      <div style={props.style}>{value}</div>
-    )}
-    {...props}
-  />
-)
-
 const summaryCalculator = (type, rows, getValue) => { //extend calculator sum to exclude NaN
   if (type === 'sum')
     return IntegratedSummary.defaultCalculator(type, rows.filter(row => !isNaN(getValue(row))), getValue)
@@ -59,7 +50,6 @@ class Spreadsheet extends React.Component {
       disableFiltering,
       multilineColumnNames,
       columnBands,
-      styles,
       defaultHiddenColumnNames,
       customProviders,
       plugins,
@@ -74,14 +64,9 @@ class Spreadsheet extends React.Component {
     <div className="card">
       {rows &&
         <Grid rows={rows} columns={headers} getRowId={row=>row.id}>
-          {styles && styles.map((format, idx) => (
-            <StyleTypeProvider for={format['for']} style={format['style']} key={idx}/>
-          ))}
-
           {customProviders && customProviders.map((component, idx) => (
             <DataTypeProvider for={component['for']} formatterComponent={component['formatter']} key={idx}/>
           ))}
-
 
           <SortingState defaultSorting={defaultSorting} columnExtensions={disableSorting} />
           <FilteringState columnExtensions={disableFiltering}/>

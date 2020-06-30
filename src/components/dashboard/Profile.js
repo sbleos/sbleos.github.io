@@ -50,7 +50,6 @@ class Profile extends React.Component {
             initialValues={initialValues}
             validationSchema={ProfileSchema}
             onSubmit={(values, actions) => {
-              //only save changes if there are changes
               if(JSON.stringify(values) !== JSON.stringify(initialValues)){
                 this.props.updateProfile(values);
                 initialValues = values;

@@ -31,8 +31,6 @@ const eventReducer = (state = {}, action) => {
         users: null
       }
 
-    case 'GET_USER_IN_FISCAL_YEAR': return state;
-
     default: return state;
   }
 }

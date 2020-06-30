@@ -94,7 +94,7 @@ class SignUp extends React.Component {
 
 
               <div className="form-group">
-                <label htmlFor="Email">Email</label>
+                <label htmlFor="signUpEmail">Email</label>
                 <Field
                   type="email"
                   name="email"

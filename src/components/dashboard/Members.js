@@ -33,10 +33,27 @@ class Members extends React.Component {
   }
 
   render() {
-    const { users, years, hasAccess, updateUser, getUsers } = this.props;
+    const { users: usersShaped, years, hasAccess, updateUser, getUsers } = this.props;
 
     if(!hasAccess)
       return <Redirect to="/dashboard" />
+
+    const users = usersShaped && years
+    ? usersShaped.map(user =>
+        ({
+          ...user,
+          ...years.reduce((obj,year) => {
+            obj[`dues-${year}`] = user.hasOwnProperty("dues") && user.dues[year] ? user.dues[year] : undefined
+            return obj
+          }, {})
+        })
+      )
+    : []
+
+    const duesHeaders = years
+      ? years.map(year => ({name: `dues-${year}`, title: `${year} Dues`}))
+             .sort((a, b) => a.title.localeCompare(b.title))
+      : []
 
     const headers = [
       { name: 'memberID', title: 'ID' },
@@ -44,6 +61,7 @@ class Members extends React.Component {
       { name: 'lastName', title: 'Last Name' },
       { name: 'email', title: 'Email' },
       { name: 'position', title: 'Position' },
+      ...duesHeaders,
       { name: 'developer', title: 'Developer' },
       { name: 'address', title: 'Address' },
       { name: 'city', title: 'City' },
@@ -64,39 +82,43 @@ class Members extends React.Component {
       { columnName: 'phoneNumber', editingEnabled: false },
     ]
 
-    const defaultHiddenColumnNames = ['position','developer', 'start', 'end', 'address', 'city', 'zipCode', 'dateOfBirth', 'phoneNumber', 'joinDate',]
-
-    const styles=[
-      {
-        style: {
-          fontWeight: 'bold'
-        },
-        for: ['memberID']
-      },
+    const defaultHiddenColumnNames = ['position','developer', 'start', 'end', 'address', 'city', 'zipCode', 'dateOfBirth', 'phoneNumber', 'joinDate',
+      ...duesHeaders.map(header => header.name) // duesHeaders are not hidden by default anymore for some reason
     ]
 
-    const DateFormatter = ({ value }) => new Date(value).toLocaleDateString();
-    const BooleanFormatter = ({ value }) => {
-      if(value == "true")
-        return "Yes";
-      else if(value === true)
-        return "Yes";
-      else if(value == "false")
-        return "No"
-      else
-        return <span style={{color:"red"}}>Enter <strong>true</strong> or <strong>false</strong></span>
-    };
+    const dateTimeFormatter = new Intl.DateTimeFormat('en-US');
+    const currencyFormatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    });
+
+    const DateFormatter = ({ value }) => value ? dateTimeFormatter.format(new Date(value)) : value;
+    const BooleanFormatter = ({ value }) => value === true || value == "true" ? "Yes" : "No";
     const ActiveFormatter = ({ value }) => value === "" ? "Present" : value;
+    const MemberIDFormatter = ({ value }) => value === "" ? <strong className="text-warning">UNVERIFIED</strong> : <strong>{value}</strong>;
+    const DuesFormatter = ({ value }) => {
+      if(!value || value === "" || (!isNaN(value) && parseFloat(value) <= 0))
+        return <p className="text-danger">Not Paid</p>
+      else if(!isNaN(value) && parseFloat(value) > 0)
+        return <p className="text-success">{currencyFormatter.format(parseFloat(value))}</p>
+      else
+        return <p className="text-info">{value}</p>
+    };
 
     const customProviders = [
       { formatter: DateFormatter, for: ['joinDate', 'dateOfBirth'] },
       { formatter: BooleanFormatter, for: ['developer'] },
       { formatter: ActiveFormatter, for: ['end'] },
+      { formatter: MemberIDFormatter, for: ['memberID'] },
+      { formatter: DuesFormatter, for: duesHeaders && duesHeaders.map(year => year.name) },
     ]
 
     const defaultSorting = [{ columnName: 'firstName', direction: 'asc' }]
 
-    const summaryColumnNames = [{ columnName: 'memberID', type: 'count' }]
+    const summaryColumnNames = [
+      { columnName: 'memberID', type: 'count' },
+      ...duesHeaders.map(header => ({ columnName: header.name, type: 'sum' }))
+    ]
 
     const leftColumns = ['firstName','lastName']
 
@@ -107,7 +129,7 @@ class Members extends React.Component {
      * If someone makes a spam account, either keep them marked is inactive or delete them directly from the firebase developer console
      * DO NOT DELETE USERS WHO HAVE GRADUATED or left the club because we can store their records and everything is linked
      *
-     * This funciton updates the user that was changed.
+     * This function updates the user that was changed.
      * Since the state is managed by Redux, it will update immediately.
      */
     const commitChanges = ({ changed }) => {
@@ -129,7 +151,6 @@ class Members extends React.Component {
           defaultSorting={defaultSorting}
           disableColumns={disableColumns}
           defaultHiddenColumnNames={defaultHiddenColumnNames}
-          styles={styles}
           summaryColumnNames={summaryColumnNames}
           customProviders={customProviders}
           leftColumns={leftColumns}

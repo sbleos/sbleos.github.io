@@ -1,6 +1,6 @@
 {
   "name": "sbleos",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "private": true,
   "homepage": "https://sbleos.org/",
   "dependencies": {
@@ -13,7 +13,6 @@
     "@fortawesome/react-fontawesome": "^0.1.8",
     "firebase": "^7.14.0",
     "formik": "^2.1.4",
-    "i": "^0.3.6",
     "npm": "^6.14.4",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
