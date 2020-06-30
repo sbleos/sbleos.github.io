@@ -45,7 +45,8 @@ class Board extends React.Component{
 
   renderYear(year){
     switch(year){
-      // case "2019-2020": return <Board20192020 year={year} />;
+      case "2019-2020": return <Board20192020 year={year} />;
+      case "2020-2021": return <Board20192020 year={year} />;
       default: return <BoardCurrent />;
     }
   }
@@ -61,14 +62,19 @@ class Board extends React.Component{
 
         {this.renderYear(year)}
 
-        {/*
-        <div >
+
+        <div className="mt-2 mb-5 d-inline-block">
           <h4>See the board from the previous years!</h4>
-          <ul className="list-group list-group-flush d-inline-block">
-            <li className="list-group-item"><Link to="/board?year=2019-2020">2019-2020</Link></li>
+          <ul className="list-group list-group-flush">
+            <li className="list-group-item">
+              <Link to="/board?year=2020-2021">2020-2021</Link>
+            </li>
+            <li className="list-group-item">
+              <Link to="/board?year=2019-2020">2019-2020</Link>
+            </li>
           </ul>
         </div>
-        */}
+
       </div>
   )}
 }

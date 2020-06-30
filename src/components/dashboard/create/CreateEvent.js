@@ -55,85 +55,85 @@ class CreateEvent extends React.Component {
               {({ touched, errors, isSubmitting, setFieldValue, values }) => (
                 <Form>
                   <div className="modal-body">
-                  <div className="form-row">
-                    <div className="form-group col-md-5">
-                      <label htmlFor="title">Title</label>
-                      <Field
-                        type="text"
-                        name="title"
-                        className={`form-control ${
-                          touched.title && errors.title ? "is-invalid" : ""
-                        }`}
-                      />
-                      <ErrorMessage
-                        component="div"
-                        name="title"
-                        className="invalid-feedback"
-                      />
+                    <div className="form-row">
+                      <div className="form-group col-md-5">
+                        <label htmlFor="title">Title</label>
+                        <Field
+                          type="text"
+                          name="title"
+                          className={`form-control ${
+                            touched.title && errors.title ? "is-invalid" : ""
+                          }`}
+                        />
+                        <ErrorMessage
+                          component="div"
+                          name="title"
+                          className="invalid-feedback"
+                        />
+                      </div>
+
+                      <div className="form-group col-md-7">
+                        <label htmlFor="createEventDate">Date</label>
+                        <Field
+                          type="datetime-local"
+                          name="date"
+                          id="createEventDate"
+                          className={`form-control ${
+                            touched.date && errors.date ? "is-invalid" : ""
+                          }`}
+                        />
+                        <ErrorMessage
+                          component="div"
+                          name="date"
+                          className="invalid-feedback"
+                        />
+                      </div>
+
                     </div>
 
-                    <div className="form-group col-md-7">
-                      <label htmlFor="createEventDate">Date</label>
-                      <Field
-                        type="datetime-local"
-                        name="date"
-                        id="createEventDate"
-                        className={`form-control ${
-                          touched.date && errors.date ? "is-invalid" : ""
-                        }`}
-                      />
-                      <ErrorMessage
-                        component="div"
-                        name="date"
-                        className="invalid-feedback"
-                      />
-                    </div>
-
-                  </div>
-
-                  <div className="form-row">
-                    <div className={`form-group ${formType === "Event" ? "col-md-8" : "col-12"}`}>
-                      <label htmlFor="createEventDescription">Description</label>
-                      <Field
-                        as="textarea"
-                        type="text"
-                        name="description"
-                        id="createEventDescription"
-                        className="form-control"
-                        style={{resize:"none"}}
-                        rows={3}
-                      />
-                    </div>
-                    <div className="form-group col-md-4">
-                      {formType !== "Meeting" &&
-                        <div>
-                          <label htmlFor="createEventType">Type of Event</label>
-                          <Field
-                            as="select"
-                            name="type"
-                            id="createEventType"
-                            className="custom-select"
-                          >
-                            <option value="Community">Community</option>
-                            <option value="Diabetes">Diabetes</option>
-                            <option value="Vision">Vision</option>
-                            <option value="Hunger">Hunger</option>
-                            <option value="Environment">Environment</option>
-                            <option value="Childhood Cancer">Childhood Cancer</option>
-                            <option value="Youth">Youth</option>
-                            <option value="Humanitarian">Humanitarian</option>
-                            <option value="Disaster Relief">Disaster Relief</option>
-                          </Field>
-                        </div>}
-                      {values.type !== "Community" && values.type !== "Meeting" &&
-                        <div>
-                          <label>
-                            <Field type="checkbox" name="defaultImage" className="mr-1"/>
-                            Use default event type logo as image
-                          </label>
-                        </div>
-                      }
-                    </div>
+                    <div className="form-row">
+                      <div className={`form-group ${formType === "Event" ? "col-md-8" : "col-12"}`}>
+                        <label htmlFor="createEventDescription">Description</label>
+                        <Field
+                          as="textarea"
+                          type="text"
+                          name="description"
+                          id="createEventDescription"
+                          className="form-control"
+                          style={{resize:"none"}}
+                          rows={3}
+                        />
+                      </div>
+                      <div className="form-group col-md-4">
+                        {formType !== "Meeting" &&
+                          <div>
+                            <label htmlFor="createEventType">Type of Event</label>
+                            <Field
+                              as="select"
+                              name="type"
+                              id="createEventType"
+                              className="custom-select"
+                            >
+                              <option value="Community">Community</option>
+                              <option value="Diabetes">Diabetes</option>
+                              <option value="Vision">Vision</option>
+                              <option value="Hunger">Hunger</option>
+                              <option value="Environment">Environment</option>
+                              <option value="Childhood Cancer">Childhood Cancer</option>
+                              <option value="Youth">Youth</option>
+                              <option value="Humanitarian">Humanitarian</option>
+                              <option value="Disaster Relief">Disaster Relief</option>
+                            </Field>
+                          </div>}
+                        {values.type !== "Community" && values.type !== "Meeting" &&
+                          <div>
+                            <label>
+                              <Field type="checkbox" name="defaultImage" className="mr-1"/>
+                              Use default event type logo as image
+                            </label>
+                          </div>
+                        }
+                      </div>
                   </div>
 
                   {!values.defaultImage && values.type !== "Meeting" &&
@@ -176,37 +176,37 @@ class CreateEvent extends React.Component {
                 }
 
 
-                  <div className="form-row">
-                    <div className="form-group col-md-7">
-                      <label htmlFor="formLink">Form Link</label>
-                      <Field
-                        type="text"
-                        name="formLink"
-                        placeholder="https://example.com/"
-                        className={`form-control ${
-                          touched.formLink && errors.formLink ? "is-invalid" : ""
-                        }`}
-                      />
-                      <ErrorMessage
-                        component="div"
-                        name="formLink"
-                        className="invalid-feedback"
-                      />
-                    </div>
+                <div className="form-row">
+                  <div className="form-group col-md-7">
+                    <label htmlFor="formLink">Form Link</label>
+                    <Field
+                      type="text"
+                      name="formLink"
+                      placeholder="https://example.com/"
+                      className={`form-control ${
+                        touched.formLink && errors.formLink ? "is-invalid" : ""
+                      }`}
+                    />
+                    <ErrorMessage
+                      component="div"
+                      name="formLink"
+                      className="invalid-feedback"
+                    />
+                  </div>
 
-                    <div className="form-group col-md-5">
-                      <label htmlFor="formDescription">Form Description</label>
-                      <Field
-                        type="text"
-                        name="formDescription"
-                        placeholder="Example"
-                        className={`form-control ${
-                          touched.formLink && errors.formLink ? "is-invalid" : ""
-                        }`}
-                      />
-                    </div>
+                  <div className="form-group col-md-5">
+                    <label htmlFor="formDescription">Form Description</label>
+                    <Field
+                      type="text"
+                      name="formDescription"
+                      placeholder="Example"
+                      className={`form-control ${
+                        touched.formLink && errors.formLink ? "is-invalid" : ""
+                      }`}
+                    />
                   </div>
-                  </div>
+                </div>
+                </div>
 
                   <div className="modal-footer">
                     <button

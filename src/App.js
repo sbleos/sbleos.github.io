@@ -19,6 +19,14 @@ function AuthIsLoaded({ children }) {
     return children;
 }
 
+/* TODO
+ *  - Make Breadcrumbs work recursively for subdirectories
+ *  - Add keywords to React Helmet
+ *  - Add Attendance and Meeting graphs to Overview.js
+ *  - Improve front-end
+ *  - Add 2020-2021 Board
+ */
+
 
 function App() {
   return (
@@ -46,11 +54,7 @@ function App() {
                 window.location.href = 'https://runsignup.com/Race/NJ/MonmouthJunction/Leo5KRun';
                 return {Home};
               }}/>
-              <Route path='/covid-19' component={() => {
-                window.location.href = 'https://charity.gofundme.com/';
-                return {Home};
-              }}/>
-              {/*THIS IS HOW TO REDIRECT AN INTERNAL ROUTE TO AN EXTERNAL LINK*/}
+              {/*^^^^^ THIS IS HOW TO REDIRECT AN INTERNAL ROUTE TO AN EXTERNAL LINK ^^^^^^*/}
 
               <Route path="/board" component={Board} />
               <Route path="/dashboard" component={Dashboard} />

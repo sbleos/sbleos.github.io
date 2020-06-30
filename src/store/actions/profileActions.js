@@ -8,7 +8,7 @@ export const updateProfile = (updatedProfile) => {
     .then(() => {
       dispatch({type: 'UPDATE_PROFILE'})
       dispatch(createNotification({
-        title: "Updated profile",
+        title: "Updated Profile",
         type: "success",
         delay: 5000
       }))

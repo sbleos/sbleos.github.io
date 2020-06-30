@@ -29,7 +29,6 @@ class Header extends React.Component {
               <div className="dropdown-menu dropdown-menu-right" aria-labelledby="project_dropdown">
                 <NavLink className="dropdown-item" to="/projects">Projects</NavLink>
                 <a className="dropdown-item" href="https://runsignup.com/Race/NJ/MonmouthJunction/Leo5KRun">Leo 5k Run</a>
-                <a className="dropdown-item" href="https://charity.gofundme.com/">COVID-19 Relief</a>
               </div>
             </li>
             <li className="nav-item">
