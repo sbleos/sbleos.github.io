@@ -16,7 +16,7 @@ export default class Projects extends React.Component{
           <meta name="description" content="These are some of the projects we do each year to serve our community" />
           <meta name="keywords" content="" />
         </Helmet>
-        <Breadcrumb directory={[{"path":"/projects","name":"Projects"}]} />
+        <Breadcrumb directory={{"path":"/projects","name":"Projects"}} />
         <div className="container">
           <h3 className="display-3 text-center pt-5 pb-5">Projects</h3>
           {/*

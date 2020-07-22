@@ -16,7 +16,7 @@ export default class About extends React.Component {
           <meta name="keywords" content="" />
         </Helmet>
 
-        <Breadcrumb directory={[{"path":"/about","name":"About"}]} />
+        <Breadcrumb directory={{"path":"/about","name":"About"}} />
 
         <div className="container">
           <h1 className="display-3 text-center pt-5 pb-3">About Us</h1>

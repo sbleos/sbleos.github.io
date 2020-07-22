@@ -8,7 +8,7 @@ import Board from './pages/Board';
 import Dashboard from './pages/Dashboard';
 import SignIn from './components/SignIn';
 import NoMatch from './pages/NoMatch';
-import { Route, Switch, BrowserRouter as Router } from 'react-router-dom'
+import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { isLoaded } from 'react-redux-firebase';
 import { Helmet } from 'react-helmet';
@@ -19,12 +19,30 @@ function AuthIsLoaded({ children }) {
     return children;
 }
 
-/* TODO
- *  - Make Breadcrumbs work recursively for subdirectories
- *  - Add keywords to React Helmet
+/**
+ * TODO:
  *  - Add Attendance and Meeting graphs to Overview.js
  *  - Improve front-end
  *  - Add 2020-2021 Board
+ *  - Update documentation
+ *  - Send email to CURRENT board whenever a new member joins using Firebase Cloud Functions (filter by making sure they are active using the join and end year, as well as by all positions that are not member)
+ *  - Add Firestore security rules!!
+ *  - Add keywords to React Helmet
+ *  - Get add a white background to the favicon and generate an icon set (better contrast on dark backgrounds and able to use as apple touch icon)
+ *
+ *
+ *  - Lazy Load/Blur up images
+ *  - Currently, all styles are set inline. This is bad for performance because everytime a component re-renders, the CSS compiles again.
+ *      Ways to fix it:
+ *       - Declare the styles as an object outside of the component (in the global scope)
+ *       - Use a CSS file and give classNames
+ *       - Use styled-components (npm package)
+ *      Either move all styles to variables declared outside of the component, to keep styles individual to each component,
+ *      or move
+ *  - robots.txt may not be working properly because it is a SPA
+ *
+ * Known Issues:
+ *  - When viewing all the members in an incognito browser, the dues should initially be hidden, but they are sometimes not. This is not an issue in regular browsing for some reason.
  */
 
 
@@ -40,13 +58,19 @@ function App() {
         <AuthIsLoaded>
           <Layout className="App">
             <Switch>
+
+              {/**
+                * Use 'exact' when there the path has a "sub-path"
+                * Ex. "/" is the root so you use exact on the root, "/about" is the sub-path so there is no need for exact
+                * UNLESS there is another route that is like "/about/me", then "/about" also needs exact
+                */}
         	    <Route exact path="/" component={Home} />
         	    <Route path="/about" component={About} />
               <Route path="/mission" component={Mission} />
+              <Route path="/projects" component={Projects} />
 
-
-              <Route exact path="/projects" component={Projects} />
-              {/* THIS IS HOW TO REDIRECT AN INTERNAL ROUTE TO AN EXTERNAL LINK
+              {/**
+                * THIS IS HOW TO REDIRECT AN INTERNAL ROUTE TO AN EXTERNAL LINK
                 * AKA set up custom subdirectory routes "example.com/custom"
                 * you can also set up subdomains that redirect to a link on Google Domains "custom.example.com"
                 */}
@@ -54,7 +78,7 @@ function App() {
                 window.location.href = 'https://runsignup.com/Race/NJ/MonmouthJunction/Leo5KRun';
                 return {Home};
               }}/>
-              {/*^^^^^ THIS IS HOW TO REDIRECT AN INTERNAL ROUTE TO AN EXTERNAL LINK ^^^^^^*/}
+
 
               <Route path="/board" component={Board} />
               <Route path="/dashboard" component={Dashboard} />
@@ -62,7 +86,7 @@ function App() {
         	    <Route component={NoMatch}/>
             </Switch>
           </Layout>
-          </AuthIsLoaded>
+        </AuthIsLoaded>
       </Router>
     </div>
   );

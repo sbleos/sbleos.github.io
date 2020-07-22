@@ -83,7 +83,7 @@ class Members extends React.Component {
     ]
 
     const defaultHiddenColumnNames = ['position','developer', 'start', 'end', 'address', 'city', 'zipCode', 'dateOfBirth', 'phoneNumber', 'joinDate',
-      ...duesHeaders.map(header => header.name) // duesHeaders are not hidden by default anymore for some reason
+      ...duesHeaders.map(header => header.name)
     ]
 
     const dateTimeFormatter = new Intl.DateTimeFormat('en-US');

@@ -8,6 +8,7 @@ import Profile from '../components/dashboard/Profile';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { Route, withRouter, Redirect, Switch } from 'react-router-dom'
+import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css'; // try moving this to Dashboard.js instead
 
 class Dashboard extends React.Component{
 
