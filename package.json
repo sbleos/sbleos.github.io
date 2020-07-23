@@ -1,6 +1,6 @@
 {
   "name": "sbleos",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "private": true,
   "homepage": "https://sbleos.org/",
   "dependencies": {
@@ -13,7 +13,7 @@
     "@fortawesome/react-fontawesome": "^0.1.8",
     "firebase": "^7.14.0",
     "formik": "^2.1.4",
-    "npm": "^6.14.4",
+    "npm": "^6.14.7",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-helmet": "^6.0.0",
@@ -24,6 +24,7 @@
     "redux": "^4.0.5",
     "redux-firestore": "^0.13.0",
     "redux-thunk": "^2.3.0",
+    "victory": "^35.0.5",
     "yup": "^0.28.3"
   },
   "scripts": {

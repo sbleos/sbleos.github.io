@@ -214,7 +214,7 @@ class CreateEvent extends React.Component {
                       className="btn btn-primary"
                       disabled={isSubmitting}
                     >
-                      {isSubmitting ? "Creating..." : "Create New Event!"}
+                      {isSubmitting ? "Creating..." : `Create New ${formType}!`}
                     </button>
                   </div>
                 </Form>
