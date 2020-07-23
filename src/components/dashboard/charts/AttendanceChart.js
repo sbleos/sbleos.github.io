@@ -33,7 +33,7 @@ class AttendanceChart extends React.Component {
 
   render() {
     let { events } = this.props;
-    let eventData = [], attendanceData = [], dates = [];
+    let eventData = [], meetingData = [], dates = [];
     const dateTimeFormatter = new Intl.DateTimeFormat('en-US');
 
     if(events) {
@@ -49,7 +49,7 @@ class AttendanceChart extends React.Component {
       });
 
 
-      attendanceData = meetings.map(event => {
+      meetingData = meetings.map(event => {
         let attendees = event.attendees ? Object.keys(event.attendees).length : 0;
         return {x: new Date(event.date), y: attendees || 0, title: event.title};
       });
@@ -61,7 +61,7 @@ class AttendanceChart extends React.Component {
           widthMini = widthMain, heightMini = heightMain * 0.4,
           centerX = widthMain/2;
 
-    const eventColor = "#1b77b2", attendanceColor = "#ff7f1e"; // default matplotlib pyplot colors (tab:orange and tab:blue)
+    const eventColor = "#1b77b2", meetingColor = "#ff7f1e"; // default matplotlib pyplot colors (tab:orange and tab:blue)
     return(
       <React.Fragment>
         <VictoryChart
@@ -81,7 +81,7 @@ class AttendanceChart extends React.Component {
               zoomDomain={this.state.zoomDomain}
               onZoomDomainChange={this.handleZoom}
               labels={({ datum }) => `${datum.title}\n${dateTimeFormatter.format(new Date(datum.x))}: ${datum.y}`}
-              voronoiBlacklist={["scatterEvents","scatterAttendance"]}
+              voronoiBlacklist={["scatterEvents","scatterMeeting"]}
               style={{data: {  fill: "white" }}}
               labelComponent={
                 <VictoryTooltip
@@ -91,11 +91,11 @@ class AttendanceChart extends React.Component {
             />
           }
         >
-          <VictoryLabel text="Attendance of Events and Meetings" x={centerX} y={30} textAnchor="middle"/>
+          <VictoryLabel text="Meeting of Events and Meetings" x={centerX} y={30} textAnchor="middle"/>
           <VictoryLegend
               style={{ border: { stroke: "black" }, labels: { fontSize: 10 } }}
               data={[
-                { name: "Attendance", symbol: { fill: attendanceColor } },
+                { name: "Meeting", symbol: { fill: meetingColor } },
                 { name: "Events", symbol: { fill: eventColor } }
               ]}
               x={widthMain-100} y={5}
@@ -126,18 +126,18 @@ class AttendanceChart extends React.Component {
           />
           <VictoryLine
             style={{
-              data: { stroke: attendanceColor },
-              labels: { fill: attendanceColor }
+              data: { stroke: meetingColor },
+              labels: { fill: meetingColor }
             }}
             interpolation="monotoneX"
-            data={attendanceData}
+            data={meetingData}
           />
           <VictoryScatter
-            name="scatterAttendance"
+            name="scatterMeeting"
             style={{
-              data: {fill: attendanceColor}
+              data: {fill: meetingColor}
             }}
-            data={attendanceData}
+            data={meetingData}
           />
         </VictoryChart>
 
@@ -183,16 +183,16 @@ class AttendanceChart extends React.Component {
           />
           <VictoryLine
             style={{
-              data: {stroke: attendanceColor}
+              data: {stroke: meetingColor}
             }}
             interpolation="monotoneX"
-            data={attendanceData}
+            data={meetingData}
           />
           <VictoryScatter
             style={{
-              data: {fill: attendanceColor}
+              data: {fill: meetingColor}
             }}
-            data={attendanceData}
+            data={meetingData}
           />
         </VictoryChart>
       </React.Fragment>
