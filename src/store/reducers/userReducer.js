@@ -7,6 +7,11 @@ const userReducer = (state = {}, action) => {
       years: [...action.years]
     }
 
+    case 'ACTIVE_MEMBERSHIP': return {
+      ...state,
+      activeMembership: action.activeMembership
+    }
+
     default: return state;
   }
 }

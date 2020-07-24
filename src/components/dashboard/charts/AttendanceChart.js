@@ -6,7 +6,7 @@ import {
   VictoryChart,
   VictoryLine,
   VictoryScatter,
-  VictoryAxis, // may need to format dates
+  VictoryAxis,
   VictoryBrushContainer,
   createContainer,
   VictoryTheme,
@@ -21,6 +21,10 @@ const VictoryZoomVoronoiContainer = createContainer("zoom","voronoi");
  * Based off of demo https://formidable.com/open-source/victory/guides/brush-and-zoom
  * Cannot combine into one graph using createContainer to join zoom and brush
  * because overlapping drag and click functionality does not work together
+ *
+ * It is not possible to create a reusable LineChart component
+ * because victory does not work with mapping an array to components nor does it allow wrapping its components.
+ * The only way to use a victory is to code each chart individually.
  */
 class AttendanceChart extends React.Component {
    constructor(props) {
@@ -38,23 +42,21 @@ class AttendanceChart extends React.Component {
 
     if(events) {
       events = events.map(year => year.events).flat().sort((a, b) => new Date(a.date) - new Date(b.date));
-      dates = [...new Set(events.map(event => new Date(event.date)))]
+      dates = [...new Set(events.map(event => new Date(event.date).setHours(0,0,0,0)))]
 
       let meetings = events.filter(event => event.type === "Meeting");
       events = events.filter(event => event.type !== "Meeting");
 
       eventData = events.map(event => {
         let attendees = event.attendees ? Object.keys(event.attendees).length : 0;
-        return {x: new Date(event.date), y: attendees || 0, title: event.title};
+        return {x: new Date(event.date).setHours(0,0,0,0), y: attendees || 0, title: event.title};
       });
 
 
       meetingData = meetings.map(event => {
         let attendees = event.attendees ? Object.keys(event.attendees).length : 0;
-        return {x: new Date(event.date), y: attendees || 0, title: event.title};
+        return {x: new Date(event.date).setHours(0,0,0,0), y: attendees || 0, title: event.title};
       });
-
-
     }
 
     const widthMain = 600, heightMain = 350,
@@ -91,7 +93,7 @@ class AttendanceChart extends React.Component {
             />
           }
         >
-          <VictoryLabel text="Meeting of Events and Meetings" x={centerX} y={30} textAnchor="middle"/>
+          <VictoryLabel text="Attendance of Events and Meetings" x={centerX} y={30} textAnchor="middle"/>
           <VictoryLegend
               style={{ border: { stroke: "black" }, labels: { fontSize: 10 } }}
               data={[
