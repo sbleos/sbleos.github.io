@@ -17,6 +17,7 @@ The South Brunswick Leo Club website is hosted at [sbleos.org](https://sbleos.or
         - [DevExtreme React Grid](#devextreme-react-grid)
         - [Victory](#victory)
         - [FontAwesome](#fortawesome-fontawesome)
+        - [Google Domains](#google-domains)
     - [Project Structure](#project-structure)
         - [Assets](#assets)
             - [Board](#board)
@@ -257,6 +258,15 @@ Victory is a charting library for React.js built on [d3](https://d3js.org/), a v
 
 We can use svg icons using FontAwesome, a popular icon library, with React. This is a lot better than loading the entire icon set with a CDN because it only loads the icons used in the project. See [library.js](#libraryjs).
 
+### [Google Domains](https://domains.google.com/)
+
+Google Domains isn't a dependency, but the domain name is registered from there. A domain name gives us some extra features:
+
+**If you want to have a subdomain redirect to an external link**, you have to set it up on Google Domains (where the domain is hosted). Look at a tutorial to redirect a subdomain to an external URL with Google Domains.<br>
+For example,`example.sbleos.org` could redirect to `https://example.com/path/to/really/long/link`.
+
+**Any name `@sbleos.org` gets redirected to the club email.** For example, `hello@sbleos.org`, `info@sbleos.org`, etc. all redirect to the club email. You can also set up to 100 addresses with `@sbleos.org` that redirect to a personal email (you may have to remove the wildcard `*@sbleos.org` that makes *any* email redirect to the club email). For example, you can set `advisor@sbleos.org` to redirect to the current club advisor.
+
 ## Project Structure
 
 ### Assets
@@ -269,14 +279,19 @@ The directory `src/assets/board` is split up into directories named by fiscal ye
 
 One of the tasks of the developers is to add the images of the current year's board and update `board.json`. Remember, the images must be centered and square-cropped or else they will appear stretched.
 
+Each member object has the following properties:
+- `name`: First and Last Name
+- `relativeImageURL`: image file name only (ex. "john.jpg")
+- `description`: Description provided by each member
+
 Follow this template for how each object with the key of the fiscal year should look in `board.json`.
 
 ```json
 "2019-2020": {
   "president" : {
-    "name": "", // First and Last Name
-    "relativeImageURL": "", // image file name only (ex. "john.jpg")
-    "description": "" // Description provided by each member
+    "name": "",
+    "relativeImageURL": "",
+    "description": ""
   },
   "vicePresident" : {
     "name": "",
@@ -316,12 +331,8 @@ Follow this template for how each object with the key of the fiscal year should 
 In the end, `board.json` should look something like this:
 ```json
 {
-    "2019-2020": {
-        // 2019-2020 board object
-    },
-    "2020-2021": {
-        // 2020-2021 board object
-    } // and so on for the years after that
+    "2019-2020": { },
+    "2020-2021": { }
 }
 ```
 
