@@ -21,9 +21,7 @@ function AuthIsLoaded({ children }) {
 
 /**
  * TODO:
- *  - Add Attendance and Meeting graphs to Overview.js
  *  - Improve front-end
- *  - Add 2020-2021 Board
  *  - Find a working password validation regular expression
  *  - Send email to CURRENT board whenever a new member joins using Firebase Cloud Functions (filter by making sure they are active using the join and end year, as well as by all positions that are not member)
  *  - Add Firestore security rules!!

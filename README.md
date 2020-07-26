@@ -6,6 +6,8 @@ The South Brunswick Leo Club website is hosted at [sbleos.org](https://sbleos.or
 - [Usage (Leos)](#usage-leos)
 - [Usage (Developers)](#usage-developers)
     - [Scripts](#scripts)
+        - [Development Mode](#npm-start)
+        - [Deploy to Production](#npm-run-deploy)
     - [Dependencies](#dependencies)
         - [React](#react)
         - [Redux](#redux)
@@ -17,6 +19,7 @@ The South Brunswick Leo Club website is hosted at [sbleos.org](https://sbleos.or
         - [FontAwesome](#fortawesome-fontawesome)
     - [Project Structure](#project-structure)
         - [Assets](#assets)
+            - [Board](#board)
         - [Components](#components)
             - [Dashboard](#----dashboard)
                 - [Charts](#--------charts)
@@ -88,6 +91,50 @@ The South Brunswick Leo Club website is hosted at [sbleos.org](https://sbleos.or
 
 ## Usage (Leos)
 
+These are general instructions on how to use the website properly. Feel free to modify how the website looks and the information of the website, but be careful when entering data in the dashboard. The forms will only accept valid data, but the spreadsheet does not have the same level of data validation.
+
+Be sure to share [sbleos.org](https://sbleos.org) to your friends so they can join! One of the main reasons for this website is to reach more people and quickly sign them up! The homepage contains a sign up form requiring a name, email and password. When signed up, new users are directed to the dashboard but only have access to their profile because they are unverified. They are recommended to fill out their profile so the board can verify them faster, but it also helps when registering them in MyLCI.
+
+> :warning: You should only delete users if they are not actually joining the club. Only verify them after they have turned in their registration form and have been accepted to the club on MyLCI (you need their Member ID to verify them). There is no built in functionality for deleting users for security reasons. To delete a user, ask the current developer to delete them from the Firebase Console. Only do this for new users or when absolutely necessary!
+
+Members only have limited access to the dashboard. The main purpose of this website is so members can see their own hours and events they have attended. However, they will not be able to edit any data besides their own profile information. On the other hand, board members have complete access to the entire club's data, can edit hours volunteered, and can see club metrics.
+
+> :information_source: Once again, members can only see the events and meetings they have attended and hours earned. The rest of the instructions pertain only to the board.
+
+> :information_source: **Spreadsheet usage**: The Members, Events, and Meetings tab use spreadsheets. Each cell of the spreadsheet is editable, unless otherwise specified, by double clicking on it. Only those with admin privileges can edit the cells. Each column can be sorted in ascending or descending order by clicking on its header. Additionally, each column has a search bar above the header to search values in that column. The entire spreadsheet has a search bar as well in the toolbar to search in the entire dataset provided. Certain are hidden from the grid by default (only the important information is shown at first), and the user can see more or less columns by clicking the 'eye' icon and enabling or disabling the column. You can also filter the members by fiscal year using the dropdown menu.
+
+The next step is verifying new members. On the Members tab of the dashboard, you will see all unverified users identified by a yellow "UNVERIFIED" text underneath their `ID`. Once the new member is accepted to MyLCI, the board should enter their Member ID to verify them, which gives them access to the rest of the dashboard.
+
+When verifying a new member of the board, remember to change their `position` so they can have admin privileges.
+
+This is also when you should fill out any extra information the club already has about the user. You will not be able to change any profile information, but you can edit the rest. For example, when editing the dues, fill out the amount paid under each fiscal year (only the number value, do not include the `$` sign). All empty values will read "Not Paid" in red. If the member was not in the club, type in "Not in club" which will be printed in blue. The sum of the total amount collected in dues in that fiscal year will be at the bottom.
+
+The `developer` attribute reads "No" and has a value of false, but if you want to give someone admin privileges, especially if they are not on the board, change it to true. This should be given to the people who are developing the website.
+
+:exclamation: **Important things to know**
+- `joinDate` uses the date the users signed-up on the website. If you have the actual date stored (either on MyLCI, Google Sheets, or their registration form), you should **absolutely** use that date instead of the date the person signed up on the website. **This is especially important if the member was in the club before the website was created**.
+- A member's `start` feature is by default the fiscal year according to the date they signed up on the website, but if he or she was in the club before, update the `start` fiscal year accordingly. Similarly, `end` is left blank (and is rendered as "Present" on the spreadsheet), but if the member graduated from the club, update their fiscal year to their last year in the club.
+
+> :information_source: **The fiscal year is from July 1st to June 30th and should be written in the form "2019-2020".**
+
+:exclamation: **RECAP!!**
+`joinDate`, `start`, and `end` should be properly updated because it **affects the functionality of the entire dashboard!!** Don't forget to update `end` when a member leaves the club.
+
+When logging in to the website, use the username and password you signed up with. If you forgot your password, you can send yourself a password reset email. You can also change your password in your profile. You are redirected to the Overview dashboard page, which has two line charts with special functionality.
+
+> :information_source: Members are redirected to the events page to see their hours, which is more important to them, and unverified users are redirected to their profile.
+
+These are two time series line charts that help visualize trends in the club. The first chart shows trends in the number of people going to events and or meetings, and the second chart displays the number of active memberships at any given time. It is useful to visualize the growth of the club.
+
+> :information_source: **Chart usage**: Each chart consists of a main chart and a mini chart. The main chart has tooltips that are visible on hover. You are also able to zoom by scrolling to see a specific region of the chart in more depth. You can pan through different regions by dragging left or right. The mini chart has a "brush" that allows you to drag and select a region, and "brushing" across the chart to changes the domain. The domains are synced, so a change in one of the charts changes the other. To quickly reset the domain, click outside of the shaded brush area.
+
+The remaining tabs on the dashboard are the Events and Meetings tab, that have nearly the same functionality. You can create a new event or meeting by clicking the respective button. In both forms, a title and date is required. Also, there are optional fields to specify a description of the event, a link, and the link description. The link can be used for a Google Form to sign up as to volunteer.
+
+There are additional features when creating an event. You can choose the type of event (default is "Community", a more general type, or there are other options such as the global causes set by LCIF). You can also upload an image. If the event type is anything other than community, you have an option to use the icon that corresponds to the type of event.
+
+A new event or meeting is immediately added to the spreadsheet and will also show up on the home page. The number of events and total number of hours of each member is located at the footer. Admins can also delete events, which will remove it from the spreadsheet and the homepage. When entering attendance of a meeting, simply enter `1` for present (unless if the board decides to give hours for meetings, then enter the number of hours earned) and leave the cell blank for absent.
+
+> :warning: Deleting events will also delete the hours earned by volunteers. Once an event is delete, you cannot recover it and will have to create it again.
 
 Everything below this is for developers! If you only wanted to know how to use the website, there's no need to go any further. If you are interested in maintaining the website, all of the instructions are below!
 
@@ -131,7 +178,15 @@ git push
 
 ## Dependecies
 
+Check out the links for more information about the dependencies used in this project! They are all interesting and explain their usage better than I can. It also helps to look at their documentation! The website domain is from Google Domains.
+
 ### [React](https://reactjs.org/)
+
+React is a component based JavaScript library that makes writing front-end code more logical. The components are very simple to be reusable, using separate JavaScript components instead of writing everything allows you to manage the `state` of the app. Another important thing is conditional rendering based on certain values, meaning that you can choose when a component looks and functions differently. Often, these values are taken in as input data called `props`.
+
+The syntax of React components is [JSX](https://reactjs.org/docs/introducing-jsx.html), which is JavaScript that renders the HTML inside. Read the [main concepts](https://reactjs.org/docs/hello-world.html) of React to quickly learn it.
+
+> :warning: Since JSX is closer to JavaScript than HTML, React DOM uses `camelCase` property naming convention instead of HTML attribute names, which is in `snake-case`. For example, `class` becomes `className`, and `font-family` becomes `fontFamily`.
 
 > :information_source: React tip: if style is a variable, you can set a components style with `style={style}`, with `style` being an object . To set styles inline, you can use something link `style={{display:"block",fontFamily:"Lato"}}`. Remember to use camel case and not dashes like regular CSS. You can also use `className="d-block"` by using Bootstrap classes or from a CSS file. Inline styles are not the best for performance because the CSS is compiled each time the component re-renders.
 
@@ -139,21 +194,42 @@ git push
 
 This project Client-Side Routing and is a Single Page React App, meaning that everything is rendered on one HTMl file. React Router allows us to render different pages of our app using [predefined routes](#routes) based on the URL.
 
+> :information_source: Fun fact: since the app uses React and React Router, changing the page does not load a new HMTL page, but just swaps the component. This means that clicking links in the header instantly changes the page, but the header stays in place. It is a small, cool thing once yoo notice how fast it is!
+
 ##### [React Helmet](https://github.com/nfl/react-helmet)
+
+Create React APP, the method used to create this project, uses CSR. The limitations of this is that the client retrieves an empty `index.html` page and then JavaScript from the host, and is required to compile everything on the client computer. This is slower because it makes multiple requests and takes time to build the web page. Time is a valuable resource that web crawlers do not have. Due to the structure of CSR, Create React APP does not function too well for SEO (this can be simply thought as "getting to the front page on search engines"). We can use React Helmet to add meta data to the document head, which greatly improves SEO.
 
 > :information_source: Fun fact: react-helmet was made by the NFL!)
 
-### Redux
+A way around the limitations of Create React APP is to use Server-Side Rendering, which does all the work on the server and sends the compiled HTML file (servers cost money), or to prerender the application with a package from npm or alternatives to Create React APP, such as Gatsby.js.
+
+### [Redux](https://react-redux.js.org/)
+
+Redux is a "a predictable state container for JS apps", and `react-redux` is basically Redux for React.
+
+So how does Redux work? An important concept in programming, especially web development, is "seperation of concerns". We like to generally keep data manipulation and state management outside of the component, and solely use the component for rendering.
+
+Redux has a central data store for the application where all components can retreive the state. For example, instead of connecting too Firebase Auth in a top-level component, such as App.js, and passing it all the way down to two unrelated components, those two components can subscribe to the the Redux store and retreive the state itself. The first step is for a component to subscribe to changes, which is sent to the component as props from `mapStateToProps`. An example of this is reading the events and rendering them in a component. If we want to change the state, such as adding or deleting an event, the component can dispatch an action (this is also passed to the component as props in `mapDispatchToProps`). This action (and the optional payload) is manipulated in the action creator and then passed to the reducer, which updates the central state.
 
 ##### [Redux Thunk](https://github.com/reduxjs/redux-thunk)
 
-Redux store allows dispatching simple synchronous updates by dispatching an action. Redux Thunk allows you to extend this functionality to middleware. It allows us to interact with Firebase with `react-redux-firebase`.
+Redux store allows dispatching simple synchronous updates by dispatching an action. Redux Thunk allows you to extend this functionality to middleware to write async logic. It allows us to interact with Firebase with `react-redux-firebase` in the action creator.
+
 
 > :information_source: Fun fact: redux-thunk is only [14 lines of code](https://github.com/reduxjs/redux-thunk/blob/master/src/index.js)
 
 ### [Firebase](https://firebase.google.com/)
 
+Firebase is used for Authentication, Cloud Firestore, and Storage.
+
+Authentication is simple with Firebase as it provides secure sign-in functionality. It connects with Firestore, a serverless NoSQL database. In this project, Firestore holds the user and event data. Firestore's free tier allows 50k document reads, 20k writes, and 20k deletes. Firebase storage provides 5GB storage that this project uses to serve event images.
+
 ### [react-redux-firebase](https://react-redux-firebase.com/)
+
+Rather than components interacting directly with Firebase, this package connects Redux state to Firebase. We enable it to connect Auth with Firestore and automatically load the user profile to the state.
+
+Check out the [React, Redux, & Firebase App Tutorial](https://www.youtube.com/playlist?list=PL4cUxeGkcC9iWstfXntcj8f-dFZ4UtlN3) playlist for more information on integrating everything together. Redux can be a little confusing at first, but he explains it very well.
 
 ### [Bootstrap](https://getbootstrap.com/)
 
@@ -161,7 +237,7 @@ This project users Bootstrap 4 using a CDN found in `public/index.html`. You can
 
 ### [Formik](https://formik.org/)
 
-Formik is used to create forms for the webpage. It is a simple and reusable interface that handles the state so you do not have to code a React form yourself.
+Formik is used to create forms for the web page. It is a simple and reusable interface that handles the state so you do not have to code a React form yourself.
 
 > :information_source: Many functions, such as signing up, are incredibly fast with Formik forms which make it feel like the form did not even work. To give the form submission user experience a better feel, I added a brief delay.
 
@@ -179,11 +255,75 @@ Victory is a charting library for React.js built on [d3](https://d3js.org/), a v
 
 ### [FortAwesome (FontAwesome)](https://fortawesome.com/)
 
-We can use svg icons with React. This is a lot better than loading the entire icon set with a CDN because it only loads the icons used in the project. See [library.js](#libraryjs).
+We can use svg icons using FontAwesome, a popular icon library, with React. This is a lot better than loading the entire icon set with a CDN because it only loads the icons used in the project. See [library.js](#libraryjs).
 
 ## Project Structure
 
 ### Assets
+
+The `src/assets` folder is where any local assets are kept, including images, PDFs, JSON files, etc. Each directory in `src/assets` corresponds to the images in its respective page. `src/assets/logos` is used as logos for certain parts of the front-end of the app, but many of the logos are rendered in the Upcoming or Previous Events when it is a property of that specific event. `src/assets/board` has a unique structure and is gone over in further detail.
+
+##### Board
+
+The directory `src/assets/board` is split up into directories named by fiscal years. Each subdirectory has the images of that fiscal year's board. `board.json` contains the data of each board that is rendered on the Board page.
+
+One of the tasks of the developers is to add the images of the current year's board and update `board.json`. Remember, the images must be centered and square-cropped or else they will appear stretched.
+
+Follow this template for how each object with the key of the fiscal year should look in `board.json`.
+
+```json
+"2019-2020": {
+  "president" : {
+    "name": "", // First and Last Name
+    "relativeImageURL": "", // image file name only (ex. "john.jpg")
+    "description": "" // Description provided by each member
+  },
+  "vicePresident" : {
+    "name": "",
+    "relativeImageURL": "",
+    "description": ""
+  },
+  "secretary" : {
+    "name": "",
+    "relativeImageURL": "",
+    "description": ""
+  },
+  "treasurer" : {
+    "name": "",
+    "relativeImageURL": "",
+    "description": ""
+  },
+  "executiveMembers": [
+    {
+      "name": "",
+      "relativeImageURL": "",
+      "description": ""
+    },
+    {
+      "name": "",
+      "relativeImageURL": "",
+      "description": ""
+    },
+    {
+      "name": "",
+      "relativeImageURL": "",
+      "description": ""
+    }
+  ]
+}
+```
+
+In the end, `board.json` should look something like this:
+```json
+{
+    "2019-2020": {
+        // 2019-2020 board object
+    },
+    "2020-2021": {
+        // 2020-2021 board object
+    } // and so on for the years after that
+}
+```
 
 #### Components
 
@@ -207,9 +347,9 @@ The component is connected to the `Events` Firestore collection and splits into 
 
 #### --- --- --- MembershipChart.js
 
-MembershipChart displays the number of active memberships at a given time. It is useful to visualize the growth of the club.
+MembershipChart displays the number of active memberships at any given time. It is useful to visualize the growth of the club.
 
-Unlike AttendanceChart, there is more logic required to create the data, which is a running total, so this is done in `getActiveMembership` in the user action creator.
+Unlike AttendanceChart, there is more logic required to create the data, which is a running total, so this is done in[ `getActiveMembership`](#------------getactivemembership) in the user action creator.
 
 #### --- --- Create
 
@@ -269,7 +409,7 @@ You can also enter in a value for the number of dues for a certain year, which w
 A member's name, email address, home address, phone number, and date of birth cannot be changed by an admin.
 
 :exclamation: **Even more important things to know**
-- `joinDate` uses the date of the users sign up on the console. If you have the actual date stored (either on MyLCI, Google Sheets, or the registration form), you should **absolutely** use that date instead of the date the person signed up on the website. **This is especially important if the member was in the club before the website was created**.
+- `joinDate` uses the date the users signed-up on the website. If you have the actual date stored (either on MyLCI, Google Sheets, or the registration form), you should **absolutely** use that date instead of the date the person signed up on the website. **This is especially important if the member was in the club before the website was created**.
 - A member's `start` feature is by default the fiscal year according to the date they signed up on the website, but if he or she was in the club before, update the `start` fiscal year accordingly. Similarly, `end` is left blank (and is rendered as "Present" on the spreadsheet), but if the member graduated from the club, update their fiscal year to their last year in the club.
 
 :exclamation: **RECAP!!**
@@ -279,7 +419,7 @@ A member's name, email address, home address, phone number, and date of birth ca
 
 The navigation menu of the dashboard takes up part of the left of the screen, and has links to each of the dashboard tabs. If the user is unverified, the only tab is Profile. Once the user is verified, he or she gains access to Events and Meetings. Admins also have access to Overview and Members.
 
-The links to each tab use nested, dynamic routes, meaning that if the name of the declared route in App.js changes, it should still work [(see React Router v4 docs)](https://reactrouter.com/web/example/nesting).
+The links to each tab use [nested, dynamic routes](https://reactrouter.com/web/example/nesting), meaning that if the name of the declared route in App.js changes, it should still work.
 
 #### --- --- Overview.js
 
@@ -485,7 +625,7 @@ Redirects the user to the login page if not logged in.
 
 Renders NavDash on the left (navigation menu), and the dashboard tab on the right. Dashboard.js connects to the Firebase profile (current user profile) with Redux, and has access to the URL with `withRouter` from `react-router-dom`. Both are passed to the component as props.
 
-Renders each tab using nested, dynamic routes, meaning that if the name of the declared route in App.js changes, it should still work [(see React Router v4 docs)](https://reactrouter.com/web/example/nesting). Based on the relative URL, it renders one of the tabs. The default tab for admins is Overview, the default tab for verified members is Events, and the default tab for unverified members is Profile.
+Renders each tab using [nested, dynamic routes](https://reactrouter.com/web/example/nesting), meaning that if the name of the declared route in App.js changes, it should still work. Based on the relative URL, it renders one of the tabs. The default tab for admins is Overview, the default tab for verified members is Events, and the default tab for unverified members is Profile.
 
 ### Home.js
 
@@ -505,7 +645,12 @@ Responsive page using Bootstrap informing about the projects of the club.
 
 ### Store
 
+This is the central Redux store used to manage the state of the application.
+
 #### --- Actions
+
+Actions, found in action creators, are simply functions that allow you to manipulate payload from the dispatch, which then is passed to the reducer. We can also interact with Firebase in the action creators.
+
 
 #### --- --- authActions.js
 
@@ -582,7 +727,7 @@ Parameters: `fiscalYear` String of the fiscal year
 
 #### --- --- notificationActions.js
 
-See [Notification System](#----notificationsystem)
+See [Notification System](#----notificationsystem) for usage.
 
 #### --- --- --- createNotification
 
@@ -629,7 +774,7 @@ Gets the number of active members from each year the club has existed using the 
 
 #### --- Reducers
 
-Each action creator has its own designated reducer. All of the reducers are combined in the rootReducer. These reduces allow you to access the state from any component that is subscribed to Redux.
+Each action creator has its own designated reducer. All of the reducers are combined in the rootReducer. These reduces allow you to determine changes in the state of the central Redux store.
 
 ### Utils
 
@@ -679,7 +824,7 @@ Top-level App component. React Helmet makes the window have a default title, and
 
 Wraps the App in `BrowserRouter`, and creates Routes for the pages of the application.
 
-> :information_source: Normally, the webpage is rendered before Firebase Auth is connected. This does not look good because a logged-in user is first redirected to `/login` because Auth is not loaded, and then redirected back to the dashboard. This results in a quick "flash" which is prevent by the function AuthIsLoaded
+> :information_source: Normally, the web page is rendered before Firebase Auth is connected. This does not look good because a logged-in user is first redirected to `/login` because Auth is not loaded, and then redirected back to the dashboard. This results in a quick "flash" which is prevent by the function AuthIsLoaded.
 
 #### Routes
 
