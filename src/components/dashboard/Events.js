@@ -128,7 +128,7 @@ class Events extends React.Component{
     }
 
     return(
-      <div>
+      <React.Fragment>
         <Helmet>
           <title>Events</title>
         </Helmet>
@@ -175,7 +175,7 @@ class Events extends React.Component{
             ]
           }
         />
-      </div>
+      </React.Fragment>
     )
   }
 

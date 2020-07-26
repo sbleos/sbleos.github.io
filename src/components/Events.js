@@ -14,8 +14,6 @@ class Events extends React.Component{
 
     let events = years.map(year => year.events).flat().sort((a, b) => new Date(a.date) - new Date(b.date));
 
-    // let events = e.slice().sort((a, b) => new Date(a.date) - new Date(b.date)); // all events
-
     const today = new Date();
     if(this.props.type.toLowerCase() === "upcoming")
       events = events.filter(a => new Date(a.date) >= today || !a.date); //this will show events without a date as upcoming, BUT SPECIFY A DATE SO IT IS SORTED PROPERLY

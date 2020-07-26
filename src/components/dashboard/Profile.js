@@ -8,7 +8,7 @@ class Profile extends React.Component {
     const { profile } = this.props; // profile is passed down as a prop, so there is no need to connect to redux
 
     return (
-      <div>
+      <React.Fragment>
         <Notifications location="topRight"/>
         <div className="container p-3">
           <UpdateProfile profile={profile}/>
@@ -16,7 +16,7 @@ class Profile extends React.Component {
         <div className="container p-3">
           <UpdatePassword />
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }

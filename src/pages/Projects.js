@@ -10,20 +10,16 @@ export default class Projects extends React.Component{
 
   render(){
     return (
-      <div>
+      <React.Fragment>
         <Helmet>
           <title>Projects</title>
           <meta name="description" content="These are some of the projects we do each year to serve our community" />
           <meta name="keywords" content="" />
         </Helmet>
-        <Breadcrumb directory={{"path":"/projects","name":"Projects"}} />
+        <Breadcrumb directory={{path:"/projects",name:"Projects"}} />
         <div className="container">
           <h3 className="display-3 text-center pt-5 pb-5">Projects</h3>
-          {/*
-          <div className="text-center">
-            <iframe title="calendar" src="https://calendar.google.com/calendar/embed?src=gb0ph7kb3k9g37t2f0ckvobeak%40group.calendar.google.com&ctz=America%2FNew_York" style={{border: 0}} width="800" height="600" frameborder="0" scrolling="no"></iframe>
-          </div>
-          */}
+
           <div className="mt-5 mb-5">
             <h4 className="display-4">Diabetes</h4>
             <div className="mt-4 mb-5">
@@ -121,7 +117,7 @@ export default class Projects extends React.Component{
 
 
         </div>
-      </div>
+      </React.Fragment>
     )
   }
 }

@@ -7,14 +7,14 @@ export default class NoMatch extends React.Component {
   }
   render(){
     return (
-      <div>
+      <React.Fragment>
         <Helmet>
           <title>Page Not Found</title>
           <meta name="description" content="The page you are looking for doesn't exist." />
           <meta name="keywords" content="" />
         </Helmet>
         404
-      </div>
+      </React.Fragment>
     )}
 }
 

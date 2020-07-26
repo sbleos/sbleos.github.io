@@ -9,14 +9,14 @@ export default class About extends React.Component {
 
   render(){
     return (
-      <div>
+      <React.Fragment>
         <Helmet>
           <title>About</title>
           <meta name="description" content="About the South Brunswick Leo Club" />
           <meta name="keywords" content="" />
         </Helmet>
 
-        <Breadcrumb directory={{"path":"/about","name":"About"}} />
+        <Breadcrumb directory={{path:"/about",name:"About"}} />
 
         <div className="container">
           <h1 className="display-3 text-center pt-5 pb-3">About Us</h1>
@@ -48,6 +48,6 @@ export default class About extends React.Component {
             </div>
           </div>
         </div>
-      </div>
+      </React.Fragment>
   )}
 }

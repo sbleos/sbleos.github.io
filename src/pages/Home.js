@@ -13,7 +13,7 @@ class Home extends React.Component {
 
   render(){
     return (
-      <div>
+      <React.Fragment>
         <Helmet>
           <meta name="description" content="Website for the South Brunwick Leo Club" />
           <meta name="keywords" content="" />
@@ -28,7 +28,7 @@ class Home extends React.Component {
 
               <div className={`col-md-4 ${this.props.auth.isEmpty ? "visible" : "invisible"}`}>
                 <div style={{"zIndex":20,"borderRadius":"4px","boxShadow":"0 16px 40px rgba(0,0,0,0.12)"}} className="bg-white p-4">
-                  <SignUp/>
+                  <SignUp />
                 </div>
               </div>
             </div>
@@ -48,7 +48,7 @@ class Home extends React.Component {
           <a href="https://groups.google.com/forum/#!forum/sbleoclub/join" className="d-block m-1" target='_blank' rel="noopener noreferrer">Mailing List</a>
           <a href="https://www.remind.com/join/sbleo" className="d-block m-1 pb-1" target='_blank' rel="noopener noreferrer">Remind SMS Notifications</a>
         </section>
-      </div>
+      </React.Fragment>
     )}
 }
 

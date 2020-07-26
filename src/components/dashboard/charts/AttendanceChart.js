@@ -18,6 +18,8 @@ import {
 const VictoryZoomVoronoiContainer = createContainer("zoom","voronoi");
 
 /**
+ * Displays the number of people that attend each event or meeting
+ *
  * Based off of demo https://formidable.com/open-source/victory/guides/brush-and-zoom
  * Cannot combine into one graph using createContainer to join zoom and brush
  * because overlapping drag and click functionality does not work together

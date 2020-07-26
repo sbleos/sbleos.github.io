@@ -15,7 +15,7 @@ export const generateID = (len) => [...Array(len)].map(_=>(Math.random()*36|0).t
 
 /**
  * Generates an array of Date objects of every single day since July 1st of the specified year.
- * @param  {Date} date Earliest date from User.joinDate
+ * @param  {Date} date Date from user.joinDate
  */
 export const getDateArray = (date) => {
   var arr = [];

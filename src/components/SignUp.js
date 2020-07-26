@@ -39,7 +39,7 @@ class SignUp extends React.Component {
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         <h2>Join Now</h2>
         <p>Sign up to receive all club emails. If you are registered through MyLCI, you will be given access to a personal dashboard.</p>
         <Formik
@@ -157,7 +157,7 @@ class SignUp extends React.Component {
             </Form>
           )}
         </Formik>
-      </div>
+      </React.Fragment>
     );
   }
 }

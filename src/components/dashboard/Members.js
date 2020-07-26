@@ -74,6 +74,8 @@ class Members extends React.Component {
     ]
 
     const disableColumns = [
+      { columnName: 'firstName', editingEnabled: false },
+      { columnName: 'lastName', editingEnabled: false },
       { columnName: 'email', editingEnabled: false },
       { columnName: 'address', editingEnabled: false },
       { columnName: 'city', editingEnabled: false },
@@ -140,7 +142,7 @@ class Members extends React.Component {
     }
 
     return(
-      <div>
+      <React.Fragment>
         <Helmet>
           <title>Members</title>
         </Helmet>
@@ -182,7 +184,7 @@ class Members extends React.Component {
             ]
           }
         />
-      </div>
+      </React.Fragment>
     )
   }
 

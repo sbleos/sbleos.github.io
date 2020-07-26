@@ -9,13 +9,13 @@ export default class Mission extends React.Component {
 
   render(){
     return (
-      <div>
+      <React.Fragment>
         <Helmet>
           <title>Our Mission</title>
           <meta name="description" content="Leos strive for the goals set by Lions Clubs International." />
           <meta name="keywords" content="" />
         </Helmet>
-        <Breadcrumb directory={{"path":"/mission","name":"Our Mission"}} />
+        <Breadcrumb directory={{path:"/mission",name:"Our Mission"}} />
         <div className="container">
           <h1 className="display-3 text-center pt-5 pb-3">Our Mission</h1>
           <blockquote className="blockquote text-center">
@@ -103,7 +103,7 @@ export default class Mission extends React.Component {
 
 
         </div>
-      </div>
+      </React.Fragment>
     )}
 }
 

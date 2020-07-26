@@ -24,12 +24,12 @@ function AuthIsLoaded({ children }) {
  *  - Add Attendance and Meeting graphs to Overview.js
  *  - Improve front-end
  *  - Add 2020-2021 Board
- *  - Update documentation
+ *  - Find a working password validation regular expression
  *  - Send email to CURRENT board whenever a new member joins using Firebase Cloud Functions (filter by making sure they are active using the join and end year, as well as by all positions that are not member)
  *  - Add Firestore security rules!!
  *  - Add keywords to React Helmet
  *  - Get add a white background to the favicon and generate an icon set (better contrast on dark backgrounds and able to use as apple touch icon)
- *
+ *  - ADVANCED: Create a wrapper component for <Link> that requires the user to be logged in if true, or is a regular link if false.
  *
  *  - Lazy Load/Blur up images
  *  - Currently, all styles are set inline. This is bad for performance because everytime a component re-renders, the CSS compiles again.
@@ -48,7 +48,7 @@ function AuthIsLoaded({ children }) {
 
 function App() {
   return (
-    <div>
+    <React.Fragment>
        <Helmet titleTemplate="%s | SB Leo Club" defaultTitle="SB Leo Club">
           <meta charset="UTF-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -88,7 +88,7 @@ function App() {
           </Layout>
         </AuthIsLoaded>
       </Router>
-    </div>
+    </React.Fragment>
   );
 
 

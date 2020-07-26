@@ -10,8 +10,11 @@ import { Link, withRouter } from 'react-router-dom'
  * Executive members should write less because they are 3 to one row and not 2 like the rest
  */
 
-const CURRENT_YEAR = "2019-2020";
+
 const board = require("../assets/board/board.json");
+const clubYears = Object.keys(board).sort();
+const clubYearsReversed = clubYears.reverse();
+const LATEST_YEAR = clubYears[clubYears.length - 1];
 
 class Board extends React.Component{
   componentDidMount(){
@@ -25,38 +28,39 @@ class Board extends React.Component{
     const year = query.get("year");
 
     return (
-      <div>
+      <React.Fragment>
 
         {
-          ["2019-2020","2020-2021"].includes(year) ? // so it only works for the years which there are records
+          clubYears.includes(year) ? // so it only works for the years which there are records
           <BoardDescription year={year} board={board[year]} /> :
-          <BoardDescription board={board[CURRENT_YEAR]} />
+          <BoardDescription board={board[LATEST_YEAR]} />
         }
 
         <div className="container">
           <div className="mt-2 mb-5 d-inline-block">
             <h4>See the board from the previous years!</h4>
             <ul className="list-group list-group-flush">
-              <li className="list-group-item">
-                <Link to="/board?year=2020-2021">2020-2021</Link>
-              </li>
-              <li className="list-group-item">
-                <Link to={`/board?year=${CURRENT_YEAR}`}>{CURRENT_YEAR}</Link>
-              </li>
+              {clubYearsReversed.map(year =>
+                <li className="list-group-item" key={year}>
+                  <Link to={`/board?year=${year}`}>{year}</Link>
+                </li>
+              )}
             </ul>
           </div>
         </div>
 
-      </div>
+      </React.Fragment>
   )}
 }
 
 const BoardDescription = ( { year, board }) => {
 
   const { president, vicePresident, secretary, treasurer, executiveMembers } = board;
-  let breadcrumb, helmet;
-  if(year && year !== CURRENT_YEAR){
-    breadcrumb = <Breadcrumb directory={{"path":`/board?year=${year}`,"name":["Board",year]}} />;
+
+  let breadcrumb, helmet, title = "Meet our Board";
+  if(year && year !== LATEST_YEAR){
+    breadcrumb = <Breadcrumb directory={{path:`/board?year=${year}`,name:["Board",year]}} />;
+    title = `Meet our ${year} Board`;
     helmet = (
       <Helmet>
         <title>{year} Board</title>
@@ -74,7 +78,7 @@ const BoardDescription = ( { year, board }) => {
         <meta name="keywords" content="" />
       </Helmet>
     )
-    year = CURRENT_YEAR;
+    year = LATEST_YEAR;
   }
 
   return(
@@ -83,20 +87,20 @@ const BoardDescription = ( { year, board }) => {
       {breadcrumb}
       <div className="container">
         <div style={{textAlign:"center"}} className="mt-5">
-          <h1 className="display-3 text-center pt-5 pb-5">Meet our Board</h1>
+          <h1 className="display-3 text-center pt-5 pb-5">{title}</h1>
           <div className="row mt-3 mb-3 justify-content-around">
-            <BoardMember position="President" name={president.name} width="90" height="90" src={require(`../assets/board/${year}/${president.relativeImageURL}`)} alt={president.name} description={president.description} />
-            <BoardMember position="Vice President" name={vicePresident.name} width="90" height="90" src={require(`../assets/board/${year}/${vicePresident.relativeImageURL}`)} alt={vicePresident.name} description={vicePresident.description} />
+            {president && <BoardMember position="President" name={president.name} width="90" height="90" src={require(`../assets/board/${year}/${president.relativeImageURL}`)} alt={president.name} description={president.description} />}
+            {vicePresident && <BoardMember position="Vice President" name={vicePresident.name} width="90" height="90" src={require(`../assets/board/${year}/${vicePresident.relativeImageURL}`)} alt={vicePresident.name} description={vicePresident.description} />}
           </div>
           <div className="row mt-3 mb-3 justify-content-around">
-            <BoardMember position="Secretary" name={secretary.name} width="90" height="90" src={require(`../assets/board/${year}/${secretary.relativeImageURL}`)} alt={secretary.name} description={secretary.description} />
-            <BoardMember position="Treasurer" name={treasurer.name} width="90" height="90" src={require(`../assets/board/${year}/${treasurer.relativeImageURL}`)} alt={treasurer.name} description={treasurer.description} />
+            {secretary && <BoardMember position="Secretary" name={secretary.name} width="90" height="90" src={require(`../assets/board/${year}/${secretary.relativeImageURL}`)} alt={secretary.name} description={secretary.description} />}
+            {treasurer && <BoardMember position="Treasurer" name={treasurer.name} width="90" height="90" src={require(`../assets/board/${year}/${treasurer.relativeImageURL}`)} alt={treasurer.name} description={treasurer.description} />}
           </div>
-          <div className="row mt-3 mb-3 justify-content-around">
+          {executiveMembers && <div className="row mt-3 mb-3 justify-content-around">
             {executiveMembers.map((member, idx) => (
               <BoardMember key={idx} executive name={member.name} width="90" height="90" src={require(`../assets/board/${year}/${member.relativeImageURL}`)} alt={member.name} description={member.description} />
             ))}
-          </div>
+          </div>}
         </div>
       </div>
     </div>

@@ -44,7 +44,7 @@ class SignIn extends React.Component {
     if(!profile.isEmpty)
       return <Redirect to="/dashboard" />
     return (
-      <div>
+      <React.Fragment>
         <Notifications location="topRight" />
         <div style={{height:"calc(100vh - 10rem)",background:"radial-gradient(circle, gainsboro, lightsteelblue)"}}>
           <div className=" mx-auto pt-5" style={{maxWidth:"330px"}}>
@@ -145,7 +145,7 @@ class SignIn extends React.Component {
             </Formik>
           </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }

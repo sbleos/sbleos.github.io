@@ -28,7 +28,7 @@ class Dashboard extends React.Component{
     var hasAccess = profile.position !== "Member" || profile.developer === true || profile.developer == "true";
 
     return (
-      <div>
+      <React.Fragment>
         <Helmet>
           <title>Dashboard</title>
           <meta name="description" content="This is the console where the board manages the backend of the club. The rest of the club can also log in to see their hours." />
@@ -58,7 +58,7 @@ class Dashboard extends React.Component{
           </div>
         </div>
 
-      </div>
+      </React.Fragment>
     )}
 }
 
