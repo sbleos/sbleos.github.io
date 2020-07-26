@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 
 export default class Mission extends React.Component {
   componentDidMount(){
-    document.title = "Our Mission | SB Leo Club";
+    window.scrollTo(0, 0);
   }
 
   render(){
