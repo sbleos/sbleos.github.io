@@ -876,6 +876,8 @@ For example,`example.sbleos.org` could redirect to `https://example.com/path/to/
 
 Imports Firebase, Firestore, Auth, and Storage. Initializes firebaseConfig taken from the firestore console. Initializes firebase app as well as Firestore, Auth, and Storage.
 
+> Do not worry that the apiKey is exposed on GitHub. It is just a reference to the firebase app that only this app can access.
+
 ### index.js
 
 This is where the React App starts. Wraps `<App />` in a providers from  to connect Firebase to the Redux store. Firebase Auth and user profile is connected to the Firestore `users` collection. The Redux store is created from the rootReducer and is supplied with an extra argument of firebase with `redux-thunk`. The service worker is also registered for offline usage.
