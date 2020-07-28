@@ -60,7 +60,7 @@ The South Brunswick Leo Club website is hosted at [sbleos.org](https://sbleos.or
             - [NoMatch.js](#nomatchjs)
             - [Projects.js](#projectjs)
         - [Store](#store)
-            - [Actons](#----actions)
+            - [Actions](#----actions)
                 - [authActions.js](#--------authactionsjs)
                     - [signIn](#------------signin)
                     - [signOut](#------------signout)
@@ -135,7 +135,7 @@ There are additional features when creating an event. You can choose the type of
 
 A new event or meeting is immediately added to the spreadsheet and will also show up on the home page. The number of events and total number of hours of each member is located at the footer. Admins can also delete events, which will remove it from the spreadsheet and the homepage. When entering attendance of a meeting, simply enter `1` for present (unless if the board decides to give hours for meetings, then enter the number of hours earned) and leave the cell blank for absent.
 
-> :warning: Deleting events will also delete the hours earned by volunteers. Once an event is delete, you cannot recover it and will have to create it again.
+> :warning: Deleting events will also delete the hours earned by volunteers. Once an event is deleted, you cannot recover it and will have to create it again.
 
 Everything below this is for developers! If you only wanted to know how to use the website, there's no need to go any further. If you are interested in maintaining the website, all of the instructions are below!
 
@@ -177,7 +177,7 @@ git commit -m "INCLUDE MESSAGE HERE"
 git push
 ```
 
-## Dependecies
+## Dependencies
 
 Check out the links for more information about the dependencies used in this project! They are all interesting and explain their usage better than I can. It also helps to look at their documentation! The website domain is from Google Domains.
 
@@ -195,7 +195,7 @@ The syntax of React components is [JSX](https://reactjs.org/docs/introducing-jsx
 
 This project Client-Side Routing and is a Single Page React App, meaning that everything is rendered on one HTMl file. React Router allows us to render different pages of our app using [predefined routes](#routes) based on the URL.
 
-> :information_source: Fun fact: since the app uses React and React Router, changing the page does not load a new HMTL page, but just swaps the component. This means that clicking links in the header instantly changes the page, but the header stays in place. It is a small, cool thing once yoo notice how fast it is!
+> :information_source: Fun fact: since the app uses React and React Router, changing the page does not load a new HMTL page, but just swaps the component. This means that clicking links in the header instantly changes the page, but the header stays in place. It is a small, cool thing once you notice how fast it is!
 
 ##### [React Helmet](https://github.com/nfl/react-helmet)
 
@@ -209,9 +209,9 @@ A way around the limitations of Create React APP is to use Server-Side Rendering
 
 Redux is a "a predictable state container for JS apps", and `react-redux` is basically Redux for React.
 
-So how does Redux work? An important concept in programming, especially web development, is "seperation of concerns". We like to generally keep data manipulation and state management outside of the component, and solely use the component for rendering.
+So how does Redux work? An important concept in programming, especially web development, is "separation of concerns". We like to generally keep data manipulation and state management outside of the component, and solely use the component for rendering.
 
-Redux has a central data store for the application where all components can retreive the state. For example, instead of connecting too Firebase Auth in a top-level component, such as App.js, and passing it all the way down to two unrelated components, those two components can subscribe to the the Redux store and retreive the state itself. The first step is for a component to subscribe to changes, which is sent to the component as props from `mapStateToProps`. An example of this is reading the events and rendering them in a component. If we want to change the state, such as adding or deleting an event, the component can dispatch an action (this is also passed to the component as props in `mapDispatchToProps`). This action (and the optional payload) is manipulated in the action creator and then passed to the reducer, which updates the central state.
+Redux has a central data store for the application where all components can retrieve the state. For example, instead of connecting too Firebase Auth in a top-level component, such as App.js, and passing it all the way down to two unrelated components, those two components can subscribe to the the Redux store and retrieve the state itself. The first step is for a component to subscribe to changes, which is sent to the component as props from `mapStateToProps`. An example of this is reading the events and rendering them in a component. If we want to change the state, such as adding or deleting an event, the component can dispatch an action (this is also passed to the component as props in `mapDispatchToProps`). This action (and the optional payload) is manipulated in the action creator and then passed to the reducer, which updates the central state.
 
 ##### [Redux Thunk](https://github.com/reduxjs/redux-thunk)
 
