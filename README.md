@@ -19,6 +19,7 @@ The South Brunswick Leo Club website is hosted at [sbleos.org](https://sbleos.or
         - [FontAwesome](#fortawesome-fontawesome)
         - [Google Domains](#google-domains)
     - [Project Structure](#project-structure)
+        - [Public](#public)
         - [Assets](#assets)
             - [Board](#board)
         - [Components](#components)
@@ -147,7 +148,7 @@ If you plan on doing more than that to change the website, you may need to know 
 
 ## Scripts
 
-Before you run any of the scripts, make sure you have the `node_modules/` directory in your project. If it is your first time running the project, then it may not be there because it is blocked by the gitignore. If you do not have the directory, run `npm install`. By the way, if you are not sure where to run this command, this is done in the command line. The command line may seem complicated, but it is very useful and a simple tutorial can show you how to use it. If you do not have npm installed, then install [Node.js](https://nodejs.org), as it comes with npm.
+Before you run any of the scripts, make sure you have the `node_modules/` directory in your project. If it is your first time running the project, then it may not be there because it is blocked in `.gitignore`. If you do not have the directory, run `npm install`. By the way, if you are not sure where to run this command, this is done in the command line. The command line may seem complicated, but it is very useful and a simple tutorial can show you how to use it. If you do not have npm installed, then install [Node.js](https://nodejs.org), as it comes with npm.
 
 ### `npm start`
 
@@ -268,6 +269,19 @@ For example,`example.sbleos.org` could redirect to `https://example.com/path/to/
 **Any name `@sbleos.org` gets redirected to the club email.** For example, `hello@sbleos.org`, `info@sbleos.org`, etc. all redirect to the club email. You can also set up to 100 addresses with `@sbleos.org` that redirect to a personal email (you may have to remove the wildcard `*@sbleos.org` that makes *any* email redirect to the club email). For example, you can set `advisor@sbleos.org` to redirect to the current club advisor.
 
 ## Project Structure
+
+### Public
+ 
+`public/` is the only other directory in the root of the project other than `src/`. You can think of it as `src` is compiled into `public`, which creates `build/`, the actual directory that is served as the website (the `build/` directory in the `dev` branch is actually ignored in `.gitignore`, but the entire folder turns into the `master` branch so GitHub Pages can host the site.)
+
+Basically, `public/` contains the general files a Progressive Web App has.
+- `index.html`: Contains the icons and manifest for a PWA, as well as the required Bootstrap 4 CSS and JS CDN's. If you look at `src/index.js`, the entire App is rendered to `<div id="root"></div>` in `index.html`. You should not change `index.html` since the React App is JavaScript that is compiled to the root.
+- `404.html`: This file also should not be changed. It is only so the `404` page works properly with GitHub pages. You can also notice that `index.html` was changed so the URL works with the browser history.
+- `CNAME`: This is a file for GitHub pages so it knows to redirect sbleos.github.io to [sbleos.org](https://sbleos.org).
+- `favicon.ico`: The icon of the tab on a browser.
+- `icons/`: An icon set used so mobile devices can "install" the website locally (add the website to the phone home screen).
+- `manifest.json`: A descriptive JSON file for mobile devices to "install" the website.
+- `robots.txt`: Tells web crawlers which routes it should not crawl for faster indexing.
 
 ### Assets
 
