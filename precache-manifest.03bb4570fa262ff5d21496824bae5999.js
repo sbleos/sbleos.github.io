@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "00e8f61a7cbf0347844227c545d0239e",
+    "revision": "70f2f1918de9b454abba2d0c66615709",
     "url": "/index.html"
   },
   {
-    "revision": "09b7873460c5618de902",
+    "revision": "735820b1e552104d704e",
     "url": "/static/css/2.c30c8f9e.chunk.css"
   },
   {
-    "revision": "fc10d2ef25678d07a922",
+    "revision": "575ba6f10a0a9b6a1c66",
     "url": "/static/css/main.931657d2.chunk.css"
   },
   {
-    "revision": "09b7873460c5618de902",
-    "url": "/static/js/2.1f2184eb.chunk.js"
+    "revision": "735820b1e552104d704e",
+    "url": "/static/js/2.9e811ca8.chunk.js"
   },
   {
     "revision": "d23177fec93e964c4db3412907307edc",
-    "url": "/static/js/2.1f2184eb.chunk.js.LICENSE.txt"
+    "url": "/static/js/2.9e811ca8.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "fc10d2ef25678d07a922",
-    "url": "/static/js/main.341bc8ee.chunk.js"
+    "revision": "575ba6f10a0a9b6a1c66",
+    "url": "/static/js/main.77816569.chunk.js"
   },
   {
     "revision": "08f2c98c9e85fde58599",
@@ -92,6 +92,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/media/hunger.9b024b3c.png"
   },
   {
+    "revision": "07fd2446d2377351e75079ff5c433924",
+    "url": "/static/media/isha.07fd2446.jpg"
+  },
+  {
     "revision": "176729640ce5635e1165c427c5f1bf8f",
     "url": "/static/media/ldun.17672964.jpeg"
   },
@@ -120,6 +124,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/media/madison.3f122e0e.jpg"
   },
   {
+    "revision": "97879e16fe1789103263fd2c96f3c9e4",
+    "url": "/static/media/nishka.97879e16.jpg"
+  },
+  {
     "revision": "8821fd9c9a12ec9c64a4a48bbfec4bad",
     "url": "/static/media/nno.8821fd9c.jpeg"
   },
@@ -138,6 +146,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "dc91c30e3aaa39b9bf0ff26c797be5d0",
     "url": "/static/media/sarang.dc91c30e.jpeg"
+  },
+  {
+    "revision": "9bb93af0574d84774b8a7c4af5d56113",
+    "url": "/static/media/shaurya.9bb93af0.jpg"
   },
   {
     "revision": "2f06601d1e6f521248a239bb23087e2d",
