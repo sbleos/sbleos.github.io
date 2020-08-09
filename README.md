@@ -19,6 +19,7 @@ The South Brunswick Leo Club website is hosted at [sbleos.org](https://sbleos.or
         - [FontAwesome](#fortawesome-fontawesome)
         - [Google Domains](#google-domains)
     - [Project Structure](#project-structure)
+        - [Public](#public)
         - [Assets](#assets)
             - [Board](#board)
         - [Components](#components)
@@ -60,7 +61,7 @@ The South Brunswick Leo Club website is hosted at [sbleos.org](https://sbleos.or
             - [NoMatch.js](#nomatchjs)
             - [Projects.js](#projectjs)
         - [Store](#store)
-            - [Actons](#----actions)
+            - [Actions](#----actions)
                 - [authActions.js](#--------authactionsjs)
                     - [signIn](#------------signin)
                     - [signOut](#------------signout)
@@ -135,7 +136,7 @@ There are additional features when creating an event. You can choose the type of
 
 A new event or meeting is immediately added to the spreadsheet and will also show up on the home page. The number of events and total number of hours of each member is located at the footer. Admins can also delete events, which will remove it from the spreadsheet and the homepage. When entering attendance of a meeting, simply enter `1` for present (unless if the board decides to give hours for meetings, then enter the number of hours earned) and leave the cell blank for absent.
 
-> :warning: Deleting events will also delete the hours earned by volunteers. Once an event is delete, you cannot recover it and will have to create it again.
+> :warning: Deleting events will also delete the hours earned by volunteers. Once an event is deleted, you cannot recover it and will have to create it again.
 
 Everything below this is for developers! If you only wanted to know how to use the website, there's no need to go any further. If you are interested in maintaining the website, all of the instructions are below!
 
@@ -147,7 +148,7 @@ If you plan on doing more than that to change the website, you may need to know 
 
 ## Scripts
 
-Before you run any of the scripts, make sure you have the `node_modules/` directory in your project. If it is your first time running the project, then it may not be there because it is blocked by the gitignore. If you do not have the directory, run `npm install`. By the way, if you are not sure where to run this command, this is done in the command line. The command line may seem complicated, but it is very useful and a simple tutorial can show you how to use it. If you do not have npm installed, then install [Node.js](https://nodejs.org), as it comes with npm.
+Before you run any of the scripts, make sure you have the `node_modules/` directory in your project. If it is your first time running the project, then it may not be there because it is blocked in `.gitignore`. If you do not have the directory, run `npm install`. By the way, if you are not sure where to run this command, this is done in the command line. The command line may seem complicated, but it is very useful and a simple tutorial can show you how to use it. If you do not have npm installed, then install [Node.js](https://nodejs.org), as it comes with npm.
 
 ### `npm start`
 
@@ -177,7 +178,7 @@ git commit -m "INCLUDE MESSAGE HERE"
 git push
 ```
 
-## Dependecies
+## Dependencies
 
 Check out the links for more information about the dependencies used in this project! They are all interesting and explain their usage better than I can. It also helps to look at their documentation! The website domain is from Google Domains.
 
@@ -195,7 +196,7 @@ The syntax of React components is [JSX](https://reactjs.org/docs/introducing-jsx
 
 This project Client-Side Routing and is a Single Page React App, meaning that everything is rendered on one HTMl file. React Router allows us to render different pages of our app using [predefined routes](#routes) based on the URL.
 
-> :information_source: Fun fact: since the app uses React and React Router, changing the page does not load a new HMTL page, but just swaps the component. This means that clicking links in the header instantly changes the page, but the header stays in place. It is a small, cool thing once yoo notice how fast it is!
+> :information_source: Fun fact: since the app uses React and React Router, changing the page does not load a new HMTL page, but just swaps the component. This means that clicking links in the header instantly changes the page, but the header stays in place. It is a small, cool thing once you notice how fast it is!
 
 ##### [React Helmet](https://github.com/nfl/react-helmet)
 
@@ -209,9 +210,9 @@ A way around the limitations of Create React APP is to use Server-Side Rendering
 
 Redux is a "a predictable state container for JS apps", and `react-redux` is basically Redux for React.
 
-So how does Redux work? An important concept in programming, especially web development, is "seperation of concerns". We like to generally keep data manipulation and state management outside of the component, and solely use the component for rendering.
+So how does Redux work? An important concept in programming, especially web development, is "separation of concerns". We like to generally keep data manipulation and state management outside of the component, and solely use the component for rendering.
 
-Redux has a central data store for the application where all components can retreive the state. For example, instead of connecting too Firebase Auth in a top-level component, such as App.js, and passing it all the way down to two unrelated components, those two components can subscribe to the the Redux store and retreive the state itself. The first step is for a component to subscribe to changes, which is sent to the component as props from `mapStateToProps`. An example of this is reading the events and rendering them in a component. If we want to change the state, such as adding or deleting an event, the component can dispatch an action (this is also passed to the component as props in `mapDispatchToProps`). This action (and the optional payload) is manipulated in the action creator and then passed to the reducer, which updates the central state.
+Redux has a central data store for the application where all components can retrieve the state. For example, instead of connecting too Firebase Auth in a top-level component, such as App.js, and passing it all the way down to two unrelated components, those two components can subscribe to the the Redux store and retrieve the state itself. The first step is for a component to subscribe to changes, which is sent to the component as props from `mapStateToProps`. An example of this is reading the events and rendering them in a component. If we want to change the state, such as adding or deleting an event, the component can dispatch an action (this is also passed to the component as props in `mapDispatchToProps`). This action (and the optional payload) is manipulated in the action creator and then passed to the reducer, which updates the central state.
 
 ##### [Redux Thunk](https://github.com/reduxjs/redux-thunk)
 
@@ -268,6 +269,19 @@ For example,`example.sbleos.org` could redirect to `https://example.com/path/to/
 **Any name `@sbleos.org` gets redirected to the club email.** For example, `hello@sbleos.org`, `info@sbleos.org`, etc. all redirect to the club email. You can also set up to 100 addresses with `@sbleos.org` that redirect to a personal email (you may have to remove the wildcard `*@sbleos.org` that makes *any* email redirect to the club email). For example, you can set `advisor@sbleos.org` to redirect to the current club advisor.
 
 ## Project Structure
+
+### Public
+ 
+`public/` is the only other directory in the root of the project other than `src/`. You can think of it as `src` is compiled into `public`, which creates `build/`, the actual directory that is served as the website (the `build/` directory in the `dev` branch is actually ignored in `.gitignore`, but the entire folder turns into the `master` branch so GitHub Pages can host the site.)
+
+Basically, `public/` contains the general files a Progressive Web App has.
+- `index.html`: Contains the icons and manifest for a PWA, as well as the required Bootstrap 4 CSS and JS CDN's. If you look at `src/index.js`, the entire App is rendered to `<div id="root"></div>` in `index.html`. You should not change `index.html` since the React App is JavaScript that is compiled to the root.
+- `404.html`: This file also should not be changed. It is only so the `404` page works properly with GitHub pages. You can also notice that `index.html` was changed so the URL works with the browser history.
+- `CNAME`: This is a file for GitHub pages so it knows to redirect sbleos.github.io to [sbleos.org](https://sbleos.org).
+- `favicon.ico`: The icon of the tab on a browser.
+- `icons/`: An icon set used so mobile devices can "install" the website locally (add the website to the phone home screen).
+- `manifest.json`: A descriptive JSON file for mobile devices to "install" the website.
+- `robots.txt`: Tells web crawlers which routes it should not crawl for faster indexing.
 
 ### Assets
 
