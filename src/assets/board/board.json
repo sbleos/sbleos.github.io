@@ -37,5 +37,44 @@
         "description": "My name is Adiv Kuray, and I am a current Executive Member of the South Brunswick Leo Club. It is currently my 3rd year in the club, and I have worked on a significant number of projects and attended multiple events including the Leo 5k, LDUN, Special Olympics, etc. Beyond the Leo Club, I take part in a number of in school and out of school activities. In school, I am an active member of the Dead President Society History Club, Model United Nations club, and I am a tutor at my High School's Homework Help Center. Out of school I am a Junior NCO for the Raritan Valley Composite Squadron for the Civil Air Patrol. My hobbies include painting and history. The South Brunswick Leo club has taught me much regarding both my community, and the many problems faced around the globe. With this club, I hope to give to my community, and be a part in the solutions to these problems."
       }
     ]
+  },
+  "2020-2021": {
+    "president" : {
+      "name": "Ronaq Sahni",
+      "relativeImageURL": "ronaq.jpg",
+      "description": "My name is Ronaq Sahni, and I am the current President of the South Brunswick Leo Club. I was one of the founding members of the SB Leo Club in 2015. Back then, the club just had a handful of members. But over the years, I have personally seen it grow to over 60 members strong. I have volunteered at many events, including Special Olympics, National Night Out, the Lions Eyeglass Recycling Center, and more. This club has made me who I am today, teaching me the importance of service and good leadership."
+    },
+    "vicePresident" : {
+      "name": "Madison Bush",
+      "relativeImageURL": "madison.jpg",
+      "description": "My name is Madison Bush and I am currently acting executive board member of the South Brunswick Leo Club. I have been a member of the club since soon after it’s inception. I have participated in lots of events spanning over 5 years including health fairs, food drives, and park cleanups. I am excited to see me and my friends can do over the next year!"
+    },
+    "secretary" : {
+      "name": "Nishka Mehta",
+      "relativeImageURL": "nishka.jpg",
+      "description": "My name is Nishka Mehta, and I am currently the secretary of the South Brunswick Leo Club. I have been a part of the club for three years and have volunteered at events such as Special Olympics, the Leo 5k, community park clean-ups, and many more. As a sophomore in high school, I am a percussionist in the South Brunswick Varsity Marching Band. Out of school, I enjoy playing the piano and basketball, as well as painting. Being a Leo has taught me how important it is to serve, and give back to our community. I am truly looking forward to what our club will accomplish this year as we grow together."
+    },
+    "treasurer" : {
+      "name": "Richard Jerry",
+      "relativeImageURL": "richard.jpeg",
+      "description": "My name is Richard Jerry and this is my second year as treasurer of the South Brunswick Leo Club. I was one of the charter members of the club back in 2015, and I am lucky to have been part of the Leo family for the past 5 years. I have volunteered at many events such as Special Olympics and National Night Out alongside my fellow Leos, and I am proud to have contributed to my community. Outside of the club, one of my favorites hobbies is to play the guitar. ln school, I run varsity cross country and track. By being part of the Leo Club, I have gained invaluable experiences that I hope to build upon in the future."
+    },
+    "executiveMembers": [
+      {
+        "name": "Yash Nishikant",
+        "relativeImageURL": "yash.jpg",
+        "description": "My name is Yash Nishikant, and I am an executive member of the South Brunswick Leo Club, and I have been a Leo member for three years. I have gained a lot of experience, and I have participated in various Leo projects. During the planning of more recent Leo 5k, I was accepted as a logistics director. I have attended more events such as food drives, the eye screening at Jain Temple, and I was also part of the COVID-19 task force. I love volunteering because it is a generous way to give back to your community. Over the years I have spent serving as a member of the South Brunswick Leo Club, I have noticed that this club is a great place for volunteers to gain many service and leadership opportunities. I am very thankful for this club, for it has given me numerous ways to help serve my community, while also teaching me important life and leadership skills."
+      },
+      {
+        "name": "Shaurya Agarwal",
+        "relativeImageURL": "shaurya.jpg",
+        "description": "My name is Shaurya Agarwal, and I am currently one of the three executive board members for the South Brunswick Leo Club. This year marks my third with the Leo Club, and I have been a part of several events during my time with the Leos. You may have seen me at events such as the Leo 5k, LDUN, leadership webinars, and National Night Out. Outside of this club, I run cross country and track and am a member of the Science Olympiad and Robotics clubs. I also play saxophone and piano in the school’s jazz bands, and tutor at the public library outside of school. Overall, being a part of the South Brunswick Leos has granted me so many amazing opportunities, and as a board member, I intend to help make this year a memorable one for all."
+      },
+      {
+        "name": "Isha Wagle",
+        "relativeImageURL": "isha.jpg",
+        "description": "My name is Isha Wagle and I am an executive board member of the South Brunswick Leo club. In 2020, I was the research director for the Leo 5K. I am passionate about this club and the platform it provides for volunteering and giving back to the community. Beyond this club, I am very interested in music.  I have been playing piano since the first grade and have completed 8 ABRSM exams. I am also an active teacher of several elementary school students; I design individualized lesson plans to guide them in their journey of learning piano. Additionally, outside of school, I created an initiative called SB Peer Pals which appoints high school students to lead elementary school students in fun, social and educational activities. I am eager to bring my ideas and experiences to the Leo club this year!"
+      }
+    ]
   }
 }

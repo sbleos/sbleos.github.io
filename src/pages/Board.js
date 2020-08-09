@@ -13,7 +13,7 @@ import { Link, withRouter } from 'react-router-dom'
 
 const board = require("../assets/board/board.json");
 const clubYears = Object.keys(board).sort();
-const clubYearsReversed = clubYears.reverse();
+const clubYearsReversed = [...clubYears].reverse();
 const LATEST_YEAR = clubYears[clubYears.length - 1];
 
 class Board extends React.Component{
