@@ -101,7 +101,7 @@ Be sure to share [sbleos.org](https://sbleos.org) to your friends so they can jo
 
 > :warning: You should only delete users if they are not actually joining the club. Only verify them after they have turned in their registration form and have been accepted to the club on MyLCI (you need their Member ID to verify them). There is no built in functionality for deleting users for security reasons. To delete a user, ask the current developer to delete them from the Firebase Console. Only do this for new users or when absolutely necessary!
 
-Members only have limited access to the dashboard. The main purpose of this website is so members can see their own hours and events they have attended. However, they will not be able to edit any data besides their own profile information. On the other hand, board members have complete access to the entire club's data, can edit hours volunteered, and can see club metrics.
+Members only have limited access to the dashboard. The main purpose of this website is so members can see their own hours and events they have attended. However, they will not be able to edit any data besides their own profile information. On the other hand, board members have complete access to the entire club's data, can edit hours volunteered, and can see club metrics. The active board members will also receive an email from the club email when a new Leo joins the club so someone can verify the new account.
 
 > :information_source: Once again, members can only see the events and meetings they have attended and hours earned. The rest of the instructions pertain only to the board.
 
@@ -206,9 +206,10 @@ This project Client-Side Routing and is a Single Page React App, meaning that ev
 
 ##### [React Helmet](https://github.com/nfl/react-helmet)
 
-Create React APP, the method used to create this project, uses CSR. The limitations of this is that the client retrieves an empty `index.html` page and then JavaScript from the host, and is required to compile everything on the client computer. This is slower because it makes multiple requests and takes time to build the web page. Time is a valuable resource that web crawlers do not have. Due to the structure of CSR, Create React APP does not function too well for SEO (this can be simply thought as "getting to the front page on search engines"). We can use React Helmet to add meta data to the document head, which greatly improves SEO.
+Create React APP, the method used to create this project, uses CSR. The limitations of this is that the client retrieves an empty `index.html` page and then JavaScript from the host, and is required to compile everything on the client computer. This is slower because it makes multiple requests and takes time to build the web page. Time is a valuable resource that web crawlers do not have. Due to the structure of CSR, Create React APP does not function too well for SEO (this can be simply thought as "getting to the front page on search engines"). We can use React Helmet to add meta data to the document head, which greatly improves SEO. *Note: the "keywords" meta tag does not affect ranking in modern search engines. It actually may negatively affect your SEO! Instead, focus on descriptive content and the "description" meta tag.*
 
 > :information_source: Fun fact: react-helmet was made by the NFL!)
+
 
 A way around the limitations of Create React APP is to use Server-Side Rendering, which does all the work on the server and sends the compiled HTML file (servers cost money), or to prerender the application with a package from npm or alternatives to Create React APP, such as Gatsby.js.
 

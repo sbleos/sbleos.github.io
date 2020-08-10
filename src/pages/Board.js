@@ -65,7 +65,6 @@ const BoardDescription = ( { year, board }) => {
       <Helmet>
         <title>{year} Board</title>
         <meta name="description" content="These are the leaders of South Brunswick Leo Club. They work together to enhance the meaning of service and project it on the rest of the club." />
-        <meta name="keywords" content="board, officers, Leos, directors, leaders" />
       </Helmet>
     )
   }

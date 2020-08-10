@@ -13,7 +13,6 @@ export default class About extends React.Component {
         <Helmet>
           <title>About</title>
           <meta name="description" content="The Leo Club stands for Leadership, Experience, and Opportunity. This club is the youth sector of the Lions International Club and is dedicated to encouraging younger people to help their community by performing various social service acts." />
-          <meta name="keywords" content="What are Leos, Why join, About, Leadership, volunteering, Experience, Opportunity" />
         </Helmet>
 
         <Breadcrumb directory={{path:"/about",name:"About"}} />
