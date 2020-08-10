@@ -19,6 +19,8 @@ The South Brunswick Leo Club website is hosted at [sbleos.org](https://sbleos.or
         - [FontAwesome](#fortawesome-fontawesome)
         - [Google Domains](#google-domains)
     - [Project Structure](#project-structure)
+        - [Functions](#functions)
+            - [userJoined](#userjoined)
         - [Public](#public)
         - [Assets](#assets)
             - [Board](#board)
@@ -178,6 +180,10 @@ git commit -m "INCLUDE MESSAGE HERE"
 git push
 ```
 
+> :warning: `git push origin master` will **not** work because the source code is located on the `dev` branch, not the `master` branch.
+
+> :information_source: If 2+ developers are working on the project at the same time, `git pull` helps to pull any commits from GitHub that someone else made. You may have to do this before you push your changes to GitHub.
+
 ## Dependencies
 
 Check out the links for more information about the dependencies used in this project! They are all interesting and explain their usage better than I can. It also helps to look at their documentation! The website domain is from Google Domains.
@@ -223,9 +229,9 @@ Redux store allows dispatching simple synchronous updates by dispatching an acti
 
 ### [Firebase](https://firebase.google.com/)
 
-Firebase is used for Authentication, Cloud Firestore, and Storage.
+Firebase is used for Authentication, Cloud Firestore, Storage, and Cloud Functions.
 
-Authentication is simple with Firebase as it provides secure sign-in functionality. It connects with Firestore, a serverless NoSQL database. In this project, Firestore holds the user and event data. Firestore's free tier allows 50k document reads, 20k writes, and 20k deletes. Firebase storage provides 5GB storage that this project uses to serve event images.
+Authentication is simple with Firebase as it provides secure sign-in functionality. It connects with Firestore, a serverless NoSQL database. In this project, Firestore holds the user and event data. Firestore's free tier allows 50k document reads, 20k writes, and 20k deletes per day. Firebase storage provides 5GB storage that this project uses to serve event images. Functions is serverless code that allows us to run backend code on trigger in Node.js and allows 125k invocations per month. The Firebase Admin SDK is used with Functions and allows the function to interact with the rest of Firebase.
 
 ### [react-redux-firebase](https://react-redux-firebase.com/)
 
@@ -270,11 +276,35 @@ For example,`example.sbleos.org` could redirect to `https://example.com/path/to/
 
 ## Project Structure
 
+### Functions
+
+Firebase Cloud functions using Node.js. This directory acts as its own project inside the overall project and is deployed to Firebase. All of the functions are exported in `index.js` and automatically runs in the backend in response to an event triggered by Firebase or HTTPS requests.
+
+> Currently, the Firebase project is on the Spark (free) plan. Firebase Cloud Functions are only available for free using the \[deprecated\] Node.js 8 until March 15th, 2021. The only way to use Node.js 10 (the current version) is to upgrade to the Blaze (pay-as-you-go) billing plan. You get all of the same stuff as the free tier, so you generally will not exceed it and thus will not be billed. You can also put a [limit in Google Cloud](https://cloud.google.com/billing/docs/how-to/notify#cap_disable_billing_to_stop_usage) so you do not exceed the plan if you do happen to max out something. *If you upgrade to Blaze, remember to change the Node version to "10" in `functions/package.json`*.
+
+##### Steps:
+
+Follow these steps if you want to change any functions.
+1. `npm install -g firebase-tools` Install Firebase CLI if you do not already have it
+2. `npm install` if `functions/node_modules/` does not exist (different from the `node_modules/` on the root level).
+2. `firebase login` Log into Firebase CLI if not logged in
+3. `firebase functions:config:set email.username="club email address" email.password="club email password"` Set the email authentication so `nodemailer` can send emails from the club email account.
+
+When ready to deploy the functions to Firebase, make sure you are in the `functions/` directory and run run `npm run deploy`. You do not need to deploy the entire website, just this code that is run on the Firebase Cloud Functions server. You should still commit and push to GitHub.
+
+> :information_source: `npm run deploy` from *project root* builds the React App and pushes it to the master branch so it can be hosted on GitHub Pages. `npm run deploy` from *`functions/`* only deploys the Node functions to Firebase.
+
+#### userJoined
+
+Sends an email notification from the club email account using `nodemailer` to all of the active board members when a new Leo creates an account. The email contains the new user's name and email address and reminds the board to verify the account.
+
+> :information_source: **Troubleshooting**: If you find that emails are not getting sent when a new user signs up, check the Functions logs on the Firebase Console. If you get `Error: Invalid login: 534-5.7.14`, you will need to [allow access](https://accounts.google.com/b/0/DisplayUnlockCaptcha) to the club Gmail account so "less secure apps" (ie. `nodemailer`) can log into Gmail. Both features are already enabled, but it is not uncommon to be required to give access again. `nodemailer` recognizes that Google is very secure and only allows humans to access Gmail, not bots, so we have to loosen security for it to work. *Note: this will not work if Two-Factor Authentication is enabled.*
+
 ### Public
  
-`public/` is the only other directory in the root of the project other than `src/`. You can think of it as `src` is compiled into `public`, which creates `build/`, the actual directory that is served as the website (the `build/` directory in the `dev` branch is actually ignored in `.gitignore`, but the entire folder turns into the `master` branch so GitHub Pages can host the site.)
+`public/` is the only other directory in the root of the project that interacts with the React App other than `src/`. You can think of it as `src` is compiled into `public`, which creates `build/`, the actual directory that is served as the website (the `build/` directory in the `dev` branch is actually ignored in `.gitignore`, but the entire folder turns into the `master` branch so GitHub Pages can host the site.)
 
-Basically, `public/` contains the general files a Progressive Web App has.
+Basically, `public/` contains the general files for a Progressive Web App.
 - `index.html`: Contains the icons and manifest for a PWA, as well as the required Bootstrap 4 CSS and JS CDN's. If you look at `src/index.js`, the entire App is rendered to `<div id="root"></div>` in `index.html`. You should not change `index.html` since the React App is JavaScript that is compiled to the root.
 - `404.html`: This file also should not be changed. It is only so the `404` page works properly with GitHub pages. You can also notice that `index.html` was changed so the URL works with the browser history.
 - `CNAME`: This is a file for GitHub pages so it knows to redirect sbleos.github.io to [sbleos.org](https://sbleos.org).

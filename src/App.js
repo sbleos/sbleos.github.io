@@ -23,7 +23,6 @@ function AuthIsLoaded({ children }) {
  * TODO:
  *  - Improve front-end
  *  - Find a working password validation regular expression
- *  - Send email to CURRENT board whenever a new member joins using Firebase Cloud Functions (filter by making sure they are active using the join and end year, as well as by all positions that are not member)
  *  - Add Firestore security rules!!
  *  - Add keywords to React Helmet
  *  - Get add a white background to the favicon and generate an icon set (better contrast on dark backgrounds and able to use as apple touch icon)
