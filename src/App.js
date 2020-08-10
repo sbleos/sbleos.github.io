@@ -23,7 +23,6 @@ function AuthIsLoaded({ children }) {
  * TODO:
  *  - Improve front-end
  *  - Find a working password validation regular expression
- *  - Add Firestore security rules!!
  *  - Add keywords to React Helmet
  *  - Get add a white background to the favicon and generate an icon set (better contrast on dark backgrounds and able to use as apple touch icon)
  *  - ADVANCED: Create a wrapper component for <Link> that requires the user to be logged in if true, or is a regular link if false.
