@@ -15,8 +15,8 @@ class Home extends React.Component {
     return (
       <React.Fragment>
         <Helmet>
-          <meta name="description" content="Website for the South Brunwick Leo Club" />
-          <meta name="keywords" content="" />
+          <meta name="description" content="The South Brunwick Leo Club is a youth organization that serves its community through various social service acts. Leos develop leadership qualities through their service." />
+          <meta name="keywords" content="South Brunswick Leo Club, Leo Club, SB Leos, sbleos, Leos, volunteer, volunteering, service, Leo 5k, 5k, Leo 5k Run, Run, Race, Lions, Lions Clubs International, LCI, LCIF, Lions Clubs, Princeton Lions, Princetion Lions Club." />
         </Helmet>
         <div className="jumbotron jumbotron-fluid " style={{background:`linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${require("../assets/home/home_2.jpg")})`,backgroundPosition:"center",backgroundSize:"cover"}}>
           <div className="container">

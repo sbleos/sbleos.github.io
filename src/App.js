@@ -23,10 +23,9 @@ function AuthIsLoaded({ children }) {
  * TODO:
  *  - Improve front-end
  *  - Find a working password validation regular expression
- *  - Add keywords to React Helmet
  *  - Get add a white background to the favicon and generate an icon set (better contrast on dark backgrounds and able to use as apple touch icon)
  *  - ADVANCED: Create a wrapper component for <Link> that requires the user to be logged in if true, or is a regular link if false.
- *
+ *  - Add 404 page (NoMatch.js)
  *  - Lazy Load/Blur up images
  *  - Currently, all styles are set inline. This is bad for performance because everytime a component re-renders, the CSS compiles again.
  *      Ways to fix it:
@@ -35,7 +34,6 @@ function AuthIsLoaded({ children }) {
  *       - Use styled-components (npm package)
  *      Either move all styles to variables declared outside of the component, to keep styles individual to each component,
  *      or move
- *  - robots.txt may not be working properly because it is a SPA
  *
  * Known Issues:
  *  - When viewing all the members in an incognito browser, the dues should initially be hidden, but they are sometimes not. This is not an issue in regular browsing for some reason.
@@ -45,10 +43,11 @@ function AuthIsLoaded({ children }) {
 function App() {
   return (
     <React.Fragment>
-       <Helmet titleTemplate="%s | SB Leo Club" defaultTitle="SB Leo Club">
+       <Helmet titleTemplate="%s | South Brunswick Leo Club" defaultTitle="South Brunswick Leo Club">
           <meta charset="UTF-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <meta name="author" content="Sarang Mohaniraj" />
+          <meta name="theme-color" content="#00338b" />
         </Helmet>
     	<Router>
         <AuthIsLoaded>

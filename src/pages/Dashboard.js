@@ -32,7 +32,7 @@ class Dashboard extends React.Component{
         <Helmet>
           <title>Dashboard</title>
           <meta name="description" content="This is the console where the board manages the backend of the club. The rest of the club can also log in to see their hours." />
-          <meta name="keywords" content="" />
+          <meta name="keywords" content="dashboard, console, hours, events, meetings, members, profile" />
         </Helmet>
 
         <div className="row m-0" style={{minHeight:"91vh"}}> {/* Render Dashboard if user is signed in */}

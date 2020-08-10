@@ -12,8 +12,8 @@ export default class Mission extends React.Component {
       <React.Fragment>
         <Helmet>
           <title>Our Mission</title>
-          <meta name="description" content="Leos strive for the goals set by Lions Clubs International." />
-          <meta name="keywords" content="" />
+          <meta name="description" content="Leos strive for the goals set by Lions Clubs International. Our mission is to empower volunteers to serve their communities, meet humanitarian needs, encourage peace and promote international understanding through Lions clubs." />
+          <meta name="keywords" content="mission, goals, events, global, cause, causes, diabetes, vision, environment, hunger, childhood, cancer, humanitarian, aid, disaster, relief, Leo 5k, 5K, Leo 5k Run" />
         </Helmet>
         <Breadcrumb directory={{path:"/mission",name:"Our Mission"}} />
         <div className="container">

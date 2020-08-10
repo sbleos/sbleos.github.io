@@ -13,8 +13,8 @@ export default class Projects extends React.Component{
       <React.Fragment>
         <Helmet>
           <title>Projects</title>
-          <meta name="description" content="These are some of the projects we do each year to serve our community" />
-          <meta name="keywords" content="" />
+          <meta name="description" content="Leos serve the community through many projects. These projects often focus on our global causes such as diabetes, vision, hunger, environment, and childhood cancer." />
+          <meta name="keywords" content="projects, 5k, leo 5k, leo 5k run, diabetes, vision, hunger, environment, childhood, cancer, community" />
         </Helmet>
         <Breadcrumb directory={{path:"/projects",name:"Projects"}} />
         <div className="container">
