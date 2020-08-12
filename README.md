@@ -105,7 +105,7 @@ Members only have limited access to the dashboard. The main purpose of this webs
 
 > :information_source: Once again, members can only see the events and meetings they have attended and hours earned. The rest of the instructions pertain only to the board.
 
-> :information_source: **Spreadsheet usage**: The Members, Events, and Meetings tab use spreadsheets. Each cell of the spreadsheet is editable, unless otherwise specified, by double clicking on it. Only those with admin privileges can edit the cells. Each column can be sorted in ascending or descending order by clicking on its header. Additionally, each column has a search bar above the header to search values in that column. The entire spreadsheet has a search bar as well in the toolbar to search in the entire dataset provided. Certain are hidden from the grid by default (only the important information is shown at first), and the user can see more or less columns by clicking the 'eye' icon and enabling or disabling the column. You can also filter the members by fiscal year using the dropdown menu.
+> :information_source: **Spreadsheet usage**: The Members, Events, and Meetings tab use spreadsheets. Each cell of the spreadsheet is editable, unless otherwise specified, by double clicking on it. Only those with admin privileges can edit the cells. Each column can be sorted in ascending or descending order by clicking on its header. Additionally, each column has a search bar above the header to search values in that column. The entire spreadsheet has a search bar as well in the toolbar to search in the entire dataset provided. Certain are hidden from the grid by default (only the important information is shown at first), and the user can see more or less columns by clicking the 'eye' icon and enabling or disabling the column. You can also filter the members by fiscal year using the dropdown menu. You are able to export the spreadsheet as an Excel file.
 
 The next step is verifying new members. On the Members tab of the dashboard, you will see all unverified users identified by a yellow "UNVERIFIED" text underneath their `ID`. Once the new member is accepted to MyLCI, the board should enter their Member ID to verify them, which gives them access to the rest of the dashboard.
 
@@ -485,18 +485,18 @@ Overview is the default dashboard page for admins and functions as a summary of 
 
 #### --- --- Profile.js
 Profile.js is one of the tabs in the dashboard. It gets `profile` passed down 
-as a prop from `Dashboard.js`, and passes it down to the two components, `UpdateProfile and UpdatePassword. When the user is not verified, Profile is the only accessible tab of the dashboard. Profile also uses the notification system to alert the user of successful (or unsucccessful) changes to their profile.
+as a prop from `Dashboard.js`, and passes it down to the two components, `UpdateProfile and UpdatePassword. When the user is not verified, Profile is the only accessible tab of the dashboard. Profile also uses the notification system to alert the user of successful (or unsuccessful) changes to their profile.
 
 #### --- --- Spreadsheet.js
 
-Spreadsheet.js is a reusable spreasheet component built from [DevExtreme React Grid](https://devexpress.github.io/devextreme-reactive/react/grid/). The backend components that interact with the React state is from `@devexpress/dx-react-grid` and the rendered components are from `@devexpress/dx-react-grid-bootstrap4`, meaning that they use Bootstrap classNames.
+Spreadsheet.js is a reusable spreadsheet component built from [DevExtreme React Grid](https://devexpress.github.io/devextreme-reactive/react/grid/). The back end components that interact with the React state is from `@devexpress/dx-react-grid` and the rendered components are from `@devexpress/dx-react-grid-bootstrap4`, meaning that they use Bootstrap classNames.
 
-Each cell of the spreadsheet is editable, unless otherwise specified, by double clicking on it. Only those with admin privileges can edit the cells. Each column can be sorted in ascending or descending order by clicking on its header. Additionally, each column has a search bar above the header to search values in that column. The entire grid has a search bar as well in the toolbar to search in the entire dataset provided. The developer can choose which columns are hidden from the grid by default, and the user can see more or less columns by clicking the 'eye' icon and enabling or disabling the column. Infite scrolling is enabled by `<VirtualTable />`.
+Each cell of the spreadsheet is editable, unless otherwise specified, by double clicking on it. Only those with admin privileges can edit the cells. Each column can be sorted in ascending or descending order by clicking on its header. Additionally, each column has a search bar above the header to search values in that column. The entire grid has a search bar as well in the toolbar to search in the entire dataset provided. The developer can choose which columns are hidden from the grid by default, and the user can see more or less columns by clicking the 'eye' icon and enabling or disabling the column. The client is able to export the spreadsheet as an Excel file with the dependencies `@devexpress/dx-react-grid-export` and `file-saver`. Infinite scrolling is enabled by `<VirtualTable />`.
 
-DevExtreme React Grid follows the data piping principle, meaning that the data is processed in the same order as defined in the grid. For example, the a plugin that manages state or processes data should come before the UI plugin that is linked to that component.
+DevExtreme React Grid follows the data piping principle, meaning that the data is processed in the same order as defined in the grid. For example, the plugin that manages state or processes data should come before the UI plugin that is linked to that component.
 
 Props:
-- `rows`: The row data that is rendered. It should be an array of the inidividual object data.
+- `rows`: The row data that is rendered. It should be an array of the individual object data.
 - `headers`: An array of objects of the columns. The format of each object should be `{ name: referenceOfProperty, title: 'Actual Property Name' }`
     - ex. `{ name: 'memberID', title: 'ID' }`
 - `commitChanges`: A function that is called when a cell is changed. The parameters of the function are destructured as `added`, `changed`, and `deleted`. `added` is not used in the project, and `deleted` is only used when necessary.
@@ -919,7 +919,7 @@ For example,`example.sbleos.org` could redirect to `https://example.com/path/to/
 
 ### firebase.js
 
-Imports Firebase, Firestore, Auth, and Storage. Initializes firebaseConfig taken from the firestore console. Initializes firebase app as well as Firestore, Auth, and Storage.
+Imports Firebase, Firestore, Auth, and Storage. Initializes firebaseConfig taken from the Firestore console. Initializes firebase app as well as Firestore, Auth, and Storage.
 
 > Do not worry that the apiKey is exposed on GitHub. It is just a reference to the firebase app that only this app can access.
 

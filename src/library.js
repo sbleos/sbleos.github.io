@@ -16,7 +16,8 @@ import {
   faArrowDown,
   faTrash,
   faTimes,
-  faEdit
+  faEdit,
+  faFileExport,
 } from '@fortawesome/free-solid-svg-icons'
 
 
@@ -39,6 +40,7 @@ library.add(
   faArrowDown,
   faTrash,
   faTimes,
-  faEdit
+  faEdit,
+  faFileExport
 );
 
